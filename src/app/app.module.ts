@@ -8,11 +8,15 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { ProvaComponent } from './prova/prova.component';
+
+import { AuthenticationPage } from './authentication/authentication.page';
 
 @NgModule({
-  declarations: [AppComponent, ProvaComponent],
-  entryComponents: [],
+  declarations: [
+  AppComponent
+  ],
+  entryComponents: [
+  ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
