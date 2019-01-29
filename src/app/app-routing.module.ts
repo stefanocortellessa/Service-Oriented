@@ -14,7 +14,9 @@ const routes: Routes = [
   {
     path: 'list',
     loadChildren: './list/list.module#ListPageModule'
-  }
+  },
+  { path: 'prova', loadChildren: './prova/prova.module#ProvaPageModule' },
+  { path: 'authentication', loadChildren: './authentication/authentication.module#AuthenticationPageModule' }
 ];
 
 @NgModule({
