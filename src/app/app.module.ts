@@ -11,6 +11,8 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AuthenticationPage } from './authentication/authentication.page';
 
+import { RestService } from './rest.service';
+
 @NgModule({
   declarations: [
   AppComponent
@@ -25,6 +27,7 @@ import { AuthenticationPage } from './authentication/authentication.page';
   providers: [
     StatusBar,
     SplashScreen,
+    RestService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
