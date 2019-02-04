@@ -173,7 +173,7 @@ public class JDBCAttractionManagerServiceImpl implements AttractionManagerServic
 	
 	public boolean insert(Connection con, String name, String city, String address, Long idCategory) {
         
-		String query = "INSERT INTO Attractions (name, city, address, id_category) VALUES (?,?,?,?)";
+		String query = "INSERT INTO attractions (name, city, address, id_category) VALUES (?,?,?,?)";
 
 		try {
 
@@ -198,7 +198,7 @@ public class JDBCAttractionManagerServiceImpl implements AttractionManagerServic
 	
 	public boolean delete(Connection con, Long id) {
 
-		String query = "DELETE FROM Attractions WHERE id = ?";
+		String query = "DELETE FROM attractions WHERE id = ?";
 
 		try {
 
