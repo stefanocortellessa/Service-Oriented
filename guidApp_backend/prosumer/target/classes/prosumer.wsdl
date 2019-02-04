@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+				  xmlns:tns="http://it.univaq.disim.sose/prosumer" 
+				  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+				  xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+				  name="prosumer" 
+				  targetNamespace="http://it.univaq.disim.sose/prosumer">
+	 <wsdl:types>
+	   <xsd:schema targetNamespace="http://it.univaq.disim.sose/prosumer">
+	    <xsd:element name="accountSignupRequest" type="tns:accountSignupRequest"/>
+		<xsd:element name="accountLoginRequest" type="tns:accountLoginRequest"/>
+		<xsd:element name="accountLogoutRequest" type="tns:accountLogoutRequest"/>
+		<xsd:element name="accountSessionRequest" type="tns:accountSessionRequest"/>
+		<xsd:element name="eventInsertRequest" type="tns:eventInsertRequest"/>
+		<xsd:element name="eventDeleteRequest" type="tns:eventDeleteRequest" />
+			
+		
+		<xsd:element name="accountSignupResponse" type="tns:accountSignupResponse"/>
+		<xsd:element name="accountLoginResponse" type="tns:accountLoginResponse"/>
+		<xsd:element name="accountLogoutResponse" type="tns:accountLogoutResponse"/>
+		<xsd:element name="accountSessionResponse" type="tns:accountSessionResponse"/>
+		<xsd:element name="eventInsertResponse" type="tns:eventInsertResponse"/>
+		<xsd:element name="eventDeleteResponse" type="tns:eventDeleteResponse" />
+		
+		<xsd:element name="accountSignupFault" type="tns:accountSignupFault"/>
+		<xsd:element name="accountLoginFault" type="tns:accountLoginFault"/>
+		<xsd:element name="accountLogoutFault" type="tns:accountLogoutFault"/>
+		<xsd:element name="accountSessionFault" type="tns:accountSessionFault"/>
+		<xsd:element name="eventInsertFault" type="tns:eventInsertFault"/>
+		<xsd:element name="eventDeleteFault" type="tns:eventDeleteFault" />
+		
+		<!-- Account Signup -->
+		<!-- Request -->
+		<xsd:complexType name="accountSignupRequest">
+			<xsd:sequence>
+				<xsd:element name="username" type="xsd:string" />
+				<xsd:element name="email" type="xsd:string" />
+				<xsd:element name="password" type="xsd:string" />
+				<xsd:element name="name" type="xsd:string" />
+				<xsd:element name="surname" type="xsd:string" />
+			</xsd:sequence>
+		</xsd:complexType>
+			
+		<!-- Response -->
+		<xsd:complexType name="accountSignupResponse">
+			<xsd:sequence>
+				<xsd:element name="token" type="xsd:string" />
+				<xsd:element name="id" type="xsd:long" />
+			</xsd:sequence>
+		</xsd:complexType>
+		
+		<!-- Account Signup Fault-->
+		<xsd:complexType name="accountSignupFault">
+			<xsd:sequence>
+	        	<xsd:element name="faultInsert" type="xsd:string" />
+	            <xsd:element name="message" type="xsd:string" />
+			</xsd:sequence>
+		</xsd:complexType>
+		
+		<!-- Account Login -->
+		<!-- Request -->
+		<xsd:complexType name="accountLoginRequest">
+			<xsd:sequence>
+				<xsd:element name="email" type="xsd:string" />
+				<xsd:element name="password" type="xsd:string" />
+			</xsd:sequence>
+		</xsd:complexType>
+		
+		<!-- Response -->
+		<xsd:complexType name="accountLoginResponse">
+			<xsd:sequence>
+				<xsd:element name="token" type="xsd:string" />
+				<xsd:element name="id" type="xsd:long" />
+			</xsd:sequence>
+		</xsd:complexType>
+		
+		<!-- Account Login Fault-->
+		<xsd:complexType name="accountLoginFault">
+			<xsd:sequence>
+	        	<xsd:element name="faultInsert" type="xsd:string" />
+	            <xsd:element name="message" type="xsd:string" />
+			</xsd:sequence>
+		</xsd:complexType>
+			
+		<!-- Account Logout -->
+		<!-- Request -->
+		<xsd:complexType name="accountLogoutRequest">
+			<xsd:sequence>
+				<xsd:element name="token" type="xsd:string" />
+			</xsd:sequence>
+		</xsd:complexType>
+		
+		<!-- Response -->
+		<xsd:complexType name="accountLogoutResponse">
+			<xsd:sequence>
+				<xsd:element name="response" type="xsd:string" />
+			</xsd:sequence>
+		</xsd:complexType>
+		
+		<!-- Fault -->
+		<xsd:complexType name="accountLogoutFault">
+			<xsd:sequence>
+	                      <xsd:element name="faultInsert" type="xsd:string" />
+	                      <xsd:element name="message" type="xsd:string" />
+			</xsd:sequence>
+		</xsd:complexType>
+			
+		<!-- CheckSession -->
+		<!-- Request -->
+		<xsd:complexType name="accountSessionRequest">
+			<xsd:sequence>
+				<xsd:element name="token" type="xsd:string" />
+			</xsd:sequence>
+		</xsd:complexType>
+		
+		<!-- Response -->
+		<xsd:complexType name="accountSessionResponse">
+			<xsd:sequence>
+				<xsd:element name="response" type="xsd:boolean" />
+			</xsd:sequence>
+		</xsd:complexType>
+		
+		<!-- Account Session Fault -->
+		<xsd:complexType name="accountSessionFault">
+			<xsd:sequence>
+	        	<xsd:element name="faultInsert" type="xsd:string" />
+	            <xsd:element name="message" type="xsd:string" />
+			</xsd:sequence>
+		</xsd:complexType>	
+		
+		<!-- Insert Event -->
+		<!-- Request -->
+		<xsd:complexType name="eventInsertRequest">
+			<xsd:sequence>
+				<xsd:element name="title" type="xsd:string" />
+				<xsd:element name="place" type="xsd:string" />
+				<xsd:element name="city" type="xsd:string" />
+				<xsd:element name="startDate" type="xsd:dateTime" />
+				<xsd:element name="endDate" type="xsd:dateTime" />
+			</xsd:sequence>
+		</xsd:complexType>
+		
+		<!-- Response -->
+		<xsd:complexType name="eventInsertResponse">
+			<xsd:sequence>
+				<xsd:element name="message" type="xsd:string" />
+			</xsd:sequence>
+		</xsd:complexType>
+				
+		<!-- Fault -->
+		<xsd:complexType name="eventInsertFault">
+			<xsd:sequence>
+                       <xsd:element name="faultInfo" type="xsd:string" />
+                       <xsd:element name="message" type="xsd:string" />
+			</xsd:sequence>
+		</xsd:complexType>
+		
+		<!-- Delete Event -->
+		<!-- Request -->
+		<xsd:complexType name="eventDeleteRequest">
+			<xsd:sequence>
+				<xsd:element name="title" type="xsd:string" />
+				<xsd:element name="city" type="xsd:string" />
+			</xsd:sequence>
+		</xsd:complexType>
+		
+		<!-- Response -->
+		<xsd:complexType name="eventDeleteResponse">
+			<xsd:sequence>
+				<xsd:element name="message" type="xsd:string" />
+			</xsd:sequence>
+		</xsd:complexType>
+				
+		<!-- Fault -->
+		<xsd:complexType name="eventDeleteFault">
+			<xsd:sequence>
+        		<xsd:element name="faultInfo" type="xsd:string" />
+                <xsd:element name="message" type="xsd:string" />
+			</xsd:sequence>
+		</xsd:complexType>
+	   </xsd:schema>
+	 </wsdl:types>
+  
+  	<!-- Messages -->
+  	<!-- Account Signup -->
+	<wsdl:message name="accountSignupRequest">
+        <wsdl:part name="parameters" element="tns:accountSignupRequest"/>
+    </wsdl:message>
+    <wsdl:message name="accountSignupResponse">
+        <wsdl:part name="parameters" element="tns:accountSignupResponse"/>
+    </wsdl:message>
+    <wsdl:message name="accountSignupFault">
+        <wsdl:part name="parameters" element="tns:accountLoginFault"/>
+    </wsdl:message>
+    
+    <!-- Account Login -->
+	<wsdl:message name="accountLoginRequest">
+        <wsdl:part name="parameters" element="tns:accountLoginRequest"/>
+    </wsdl:message>
+    <wsdl:message name="accountLoginResponse">
+        <wsdl:part name="parameters" element="tns:accountLoginResponse"/>
+    </wsdl:message>
+    <wsdl:message name="accountLoginFault">
+        <wsdl:part name="parameters" element="tns:accountLoginFault"/>
+    </wsdl:message>
+    
+    <!-- Account Logout -->
+	<wsdl:message name="accountLogoutRequest">
+        <wsdl:part name="parameters" element="tns:accountLogoutRequest"/>
+    </wsdl:message>
+    <wsdl:message name="accountLogoutResponse">
+        <wsdl:part name="parameters" element="tns:accountLogoutResponse"/>
+    </wsdl:message>
+    <wsdl:message name="accountLogoutFault">
+        <wsdl:part name="parameters" element="tns:accountLogoutFault"/>
+    </wsdl:message>
+    
+     <!-- Check Session -->
+	<wsdl:message name="accountSessionRequest">
+        <wsdl:part name="parameters" element="tns:accountSessionRequest"/>
+    </wsdl:message>
+    <wsdl:message name="accountSessionResponse">
+        <wsdl:part name="parameters" element="tns:accountSessionResponse"/>
+    </wsdl:message>
+    <wsdl:message name="accountSessionFault">
+        <wsdl:part name="parameters" element="tns:accountSessionFault"/>
+    </wsdl:message>
+  	
+  	<!-- Insert Event -->
+	<wsdl:message name="eventInsertRequest">
+		<wsdl:part name="parameters" element="tns:eventInsertRequest">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="eventInsertResponse">
+		<wsdl:part name="parameters" element="tns:eventInsertResponse">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="eventInsertFault">
+		<wsdl:part name="parameters" element="tns:eventInsertFault">
+		</wsdl:part>
+	</wsdl:message>
+	
+	<!-- Delete Event -->
+	<wsdl:message name="eventDeleteRequest">
+		<wsdl:part name="parameters" element="tns:eventDeleteRequest">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="eventDeleteResponse">
+		<wsdl:part name="parameters" element="tns:eventDeleteResponse">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="eventDeleteFault">
+		<wsdl:part name="parameters" element="tns:eventDeleteFault">
+		</wsdl:part>
+	</wsdl:message>
+  	
+    <wsdl:portType name="prosumerPT">
+		<wsdl:operation name="userSignup">
+	        <wsdl:input name="accountSignupRequest" message="tns:accountSignupRequest" />
+	        <wsdl:output name="accountSignupResponse" message="tns:accountSignupResponse"/>
+			<wsdl:fault name="accountSignupFault" message="tns:accountSignupFault"/>
+	    </wsdl:operation>		
+	    <wsdl:operation name="userLogin">
+	        <wsdl:input name="accountLoginRequest" message="tns:accountLoginRequest" />
+	        <wsdl:output name="accountLoginResponse" message="tns:accountLoginResponse"/>
+			<wsdl:fault name="accountLoginFault" message="tns:accountLoginFault"/>
+		</wsdl:operation>	
+	    <wsdl:operation name="userLogout">
+	    	<wsdl:input name="accountLogoutRequest" message="tns:accountLogoutRequest" />
+	        <wsdl:output name="accountLogoutResponse" message="tns:accountLogoutResponse"/>
+			<wsdl:fault name="accountLogoutFault" message="tns:accountLogoutFault"/>
+	    </wsdl:operation>	
+	    <wsdl:operation name="accountSession">
+	    	<wsdl:input name="accountSessionRequest" message="tns:accountSessionRequest" />
+	        <wsdl:output name="accountSessionResponse" message="tns:accountSessionResponse"/>
+			<wsdl:fault name="accountSessionFault" message="tns:accountSessionFault"/>
+	    </wsdl:operation>
+	    <wsdl:operation name="eventInsert">
+			<wsdl:input name="eventInsertRequest" message="tns:eventInsertRequest" />
+			<wsdl:output name="eventInsertResponse" message="tns:eventInsertResponse" />
+			<wsdl:fault name="eventInsertFault" message="tns:eventInsertFault" />
+		</wsdl:operation>
+		<wsdl:operation name="eventDelete">
+			<wsdl:input name="eventDeleteRequest" message="tns:eventDeleteRequest" />
+			<wsdl:output name="eventDeleteResponse" message="tns:eventDeleteResponse" />
+			<wsdl:fault name="eventDeleteFault" message="tns:eventDeleteFault" />
+		</wsdl:operation>
+  </wsdl:portType>
+  
+  	<!-- Binding -->
+	<wsdl:binding name="prosumerBinding" type="tns:prosumerPT">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="userSignup">
+			<soap:operation soapAction="" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="userLogin">
+			<soap:operation soapAction="" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="userLogout">
+			<soap:operation soapAction="" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="accountSession">
+			<soap:operation soapAction="" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="eventInsert">
+			<soap:operation soapAction="" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="eventDelete">
+			<soap:operation soapAction="" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		
+	</wsdl:binding>
+  <wsdl:service name="prosumerService">
+    <wsdl:port name="prosumerPort" binding="tns:prosumerBinding">
+      <soap:address location="http://localhost:8080/prosumer/services/prosumer"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

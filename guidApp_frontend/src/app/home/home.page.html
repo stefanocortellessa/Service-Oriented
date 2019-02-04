@@ -1,0 +1,64 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>
+            Clasroom List
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-list>
+        <ion-item *ngFor="let cr of classrooms" routerLink="/detail/{{cr.id}}">
+            <ion-icon name="desktop" slot="start"></ion-icon>
+            {{cr.class_name}}
+            <div class="item-note" slot="end">
+                {{cr.createdAt | date}}
+            </div>
+        </ion-item>
+    </ion-list>
+    <!--
+      <div *ngIf="selectedItem" padding>
+        You navigated here from <b>{{selectedItem.title }}</b>
+      </div>
+    -->
+</ion-content>
+
+<!--
+<ion-content>
+    <ion-card class="welcome-card">
+        <ion-img src="/assets/shapes.svg"></ion-img>
+        <ion-card-header>
+            <ion-card-subtitle>Subtitle</ion-card-subtitle>
+            <ion-card-title>Title</ion-card-title>
+        </ion-card-header>
+      <ion-card-content>
+        <p>content</p>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card class="welcome-card">
+        <ion-img src="/assets/shapes.svg"></ion-img>
+        <ion-card-header>
+            <ion-card-subtitle>Subtitle</ion-card-subtitle>
+            <ion-card-title>Title</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+            <p>content</p>
+        </ion-card-content>
+    </ion-card>
+
+    <ion-card class="welcome-card">
+        <ion-img src="/assets/shapes.svg"></ion-img>
+        <ion-card-header>
+            <ion-card-subtitle>Subtitle</ion-card-subtitle>
+            <ion-card-title>Title</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+            <p>content</p>
+        </ion-card-content>
+    </ion-card>
+</ion-content>
+-->

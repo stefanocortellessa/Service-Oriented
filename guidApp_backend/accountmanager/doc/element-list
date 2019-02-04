@@ -1,0 +1,14 @@
+it.univaq.disim.sose.accountmanager
+it.univaq.disim.sose.accountmanager.business
+it.univaq.disim.sose.insertevent
+it.univaq.disim.sose.insertevent.business
+it.univaq.disim.sose.insertevent.business.impl.jdbc
+it.univaq.disim.sose.insertevent.business.model
+it.univaq.disim.sose.insertevent.webservices
+it.univaq.disim.sose.prosumer
+it.univaq.disim.sose.prosumer.business
+it.univaq.disim.sose.prosumer.business.impl.ws
+it.univaq.disim.sose.prosumer.webservices
+it.univaq.disim.sose.routingrequests
+it.univaq.disim.sose.routingrequests.controller
+it.univaq.disim.sose.routingrequests.model
