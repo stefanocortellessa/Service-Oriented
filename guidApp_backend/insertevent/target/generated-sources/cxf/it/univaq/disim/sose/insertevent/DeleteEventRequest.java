@@ -3,7 +3,6 @@ package it.univaq.disim.sose.insertevent;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -17,8 +16,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="title" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="city" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}long"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -29,62 +27,26 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "deleteEventRequest", propOrder = {
-    "title",
-    "city"
+    "id"
 })
 public class DeleteEventRequest {
 
-    @XmlElement(required = true)
-    protected String title;
-    @XmlElement(required = true)
-    protected String city;
+    protected long id;
 
     /**
-     * Recupera il valore della proprietà title.
+     * Recupera il valore della proprietà id.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
      */
-    public String getTitle() {
-        return title;
+    public long getId() {
+        return id;
     }
 
     /**
-     * Imposta il valore della proprietà title.
+     * Imposta il valore della proprietà id.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
      */
-    public void setTitle(String value) {
-        this.title = value;
-    }
-
-    /**
-     * Recupera il valore della proprietà city.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getCity() {
-        return city;
-    }
-
-    /**
-     * Imposta il valore della proprietà city.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setCity(String value) {
-        this.city = value;
+    public void setId(long value) {
+        this.id = value;
     }
 
 }

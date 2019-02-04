@@ -1,14 +1,14 @@
 package it.univaq.disim.sose.insertevent.business.impl.jdbc;
 
 import java.sql.Connection;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Timestamp;
-import java.util.Date;
 
 import javax.sql.DataSource;
-import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +23,9 @@ import it.univaq.disim.sose.insertevent.InsertEventFault_Exception;
 import it.univaq.disim.sose.insertevent.InsertEventRequest;
 import it.univaq.disim.sose.insertevent.InsertEventResponse;
 import it.univaq.disim.sose.insertevent.business.InsertEventService;
+import it.univaq.disim.sose.insertevent.business.model.Category;
 import it.univaq.disim.sose.insertevent.business.model.Event;
+import it.univaq.disim.sose.insertevent.business.Utility;
 
 @Service
 public class JDBCEventManagerServiceImpl implements InsertEventService {
@@ -38,23 +40,29 @@ public class JDBCEventManagerServiceImpl implements InsertEventService {
 		String result = "Event not inserted";
 		
 		Event event = new Event();
+		Utility utility = new Utility();
+		Category category = new Category();
 		
 		event.setTitle(parameters.getTitle());
 		event.setPlace(parameters.getPlace());
 		event.setCity(parameters.getCity());
-		event.setStartDate(toDate(parameters.getStartDate()));
-		event.setEndDate(toDate(parameters.getEndDate()));
-		
+		event.setStartDate(utility.convertDate(parameters.getStartDate()));
+		event.setEndDate(utility.convertDate(parameters.getEndDate()));
+		/*----SI DEVE CONTROLLARE CHE ID E NAME CORRISPONDONO PRIMA DI INSERIRE----*/
+		category.setId(parameters.getCategoryId());
+		category.setName(parameters.getCategoryName());
+		event.setCategory(category);
+		/*-------------------------------------------------------------------------*/
 		InsertEventResponse responseEvent = new InsertEventResponse();
-		
 		try {
 			
 			connection = dataSource.getConnection();
 			connection.setAutoCommit(false);
 			
-			if(insert(connection, event.getTitle(), event.getPlace(), event.getCity(), event.getStartDate(), event.getEndDate())) {
+			if(insert(connection, event.getTitle(), event.getPlace(), event.getCity(), event.getStartDate(), event.getEndDate(), event.getAddress(), event.getCategory().getId())) {
 				
 				result = "Event inserted";
+				
 			}
 		}
 		catch (SQLException e) {
@@ -131,8 +139,8 @@ public class JDBCEventManagerServiceImpl implements InsertEventService {
 		
 		Event event = new Event();
 		
-		event.setTitle(parameters.getTitle());
-		event.setCity(parameters.getCity());
+		// PRENDERE ANCHE ID UTENTE CHE VUOLE CANCELLARE E VEDERE SE È LUI IL CREATORE!
+		event.setId(parameters.getId());
 		
 		DeleteEventResponse responseEvent = new DeleteEventResponse();
 		
@@ -141,7 +149,7 @@ public class JDBCEventManagerServiceImpl implements InsertEventService {
 			connection = dataSource.getConnection();
 			connection.setAutoCommit(false);
 			
-			if(delete(connection, event.getTitle(), event.getCity())) {
+			if(delete(connection, event.getId())) {
 				
 				result = "Event Deleted!";
 			}
@@ -166,9 +174,9 @@ public class JDBCEventManagerServiceImpl implements InsertEventService {
 		return responseEvent;
 	}
 	
-	public boolean insert(Connection con, String title, String place, String city, Timestamp startDate, Timestamp endDate) {
-
-		String query = "INSERT INTO events (title, place, city, startDate, endDate) VALUES (?,?,?,?,?)";
+	public boolean insert(Connection con, String title, String place, String city, Timestamp startDate, Timestamp endDate, String address, Long idCategory) {
+        
+		String query = "INSERT INTO events (title, place, city, startDate, endDate, address, id_category) VALUES (?,?,?,?,?,?,?)";
 
 		try {
 
@@ -179,7 +187,10 @@ public class JDBCEventManagerServiceImpl implements InsertEventService {
 			sql.setString(3, city);
 			sql.setTimestamp(4, startDate);
 			sql.setTimestamp(5, endDate);
-						
+			sql.setString(6, address);
+			sql.setLong(7, idCategory);
+				
+			
 			if (sql.executeUpdate() == 1) {
 				return true;
 			} else {
@@ -191,16 +202,15 @@ public class JDBCEventManagerServiceImpl implements InsertEventService {
 		}
 	}
 	
-	public boolean delete(Connection con, String title, String city) {
+	public boolean delete(Connection con, Long id) {
 
-		String query = "DELETE FROM events WHERE title = ? AND city = ?";
+		String query = "DELETE FROM events WHERE id = ?";
 
 		try {
 
 			PreparedStatement sql = con.prepareStatement(query);
 			
-			sql.setString(1, title);
-			sql.setString(2, city);
+			sql.setLong(1, id);
 						
 			if (sql.executeUpdate() == 1) {
 				return true;
@@ -212,15 +222,4 @@ public class JDBCEventManagerServiceImpl implements InsertEventService {
 		}
 	}
 	
-	public static Date toDate(XMLGregorianCalendar calendar){
-        
-		if(calendar == null) {
-			return null;
-        }
-		
-        Date date = (Date) calendar.toGregorianCalendar().getTime();
-        date.setTime(date.getTime() - 3600 * 1000);
-        
-        return date;
-    }
 }

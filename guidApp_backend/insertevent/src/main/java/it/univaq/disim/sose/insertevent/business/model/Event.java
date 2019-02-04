@@ -11,7 +11,21 @@ public class Event implements java.io.Serializable {
 	private String city;
 	private Timestamp startDate;
 	private Timestamp endDate;
-
+	private String address;
+	private Category category;
+	
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public Category getCategory() {
+		return category;
+	}
+	public void setCategory(Category category) {
+		this.category = category;
+	}
 	public Long getId() {
 		return id;
 	}

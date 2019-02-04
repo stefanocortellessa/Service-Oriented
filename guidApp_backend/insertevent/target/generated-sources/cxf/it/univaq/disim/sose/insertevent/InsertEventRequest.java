@@ -24,6 +24,9 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *         &lt;element name="city" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="startDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/&gt;
  *         &lt;element name="endDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/&gt;
+ *         &lt;element name="categoryName" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="categoryId" type="{http://www.w3.org/2001/XMLSchema}long"/&gt;
+ *         &lt;element name="address" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -38,7 +41,10 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "place",
     "city",
     "startDate",
-    "endDate"
+    "endDate",
+    "categoryName",
+    "categoryId",
+    "address"
 })
 public class InsertEventRequest {
 
@@ -54,6 +60,11 @@ public class InsertEventRequest {
     @XmlElement(required = true)
     @XmlSchemaType(name = "dateTime")
     protected XMLGregorianCalendar endDate;
+    @XmlElement(required = true)
+    protected String categoryName;
+    protected long categoryId;
+    @XmlElement(required = true)
+    protected String address;
 
     /**
      * Recupera il valore della proprietà title.
@@ -173,6 +184,70 @@ public class InsertEventRequest {
      */
     public void setEndDate(XMLGregorianCalendar value) {
         this.endDate = value;
+    }
+
+    /**
+     * Recupera il valore della proprietà categoryName.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    /**
+     * Imposta il valore della proprietà categoryName.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setCategoryName(String value) {
+        this.categoryName = value;
+    }
+
+    /**
+     * Recupera il valore della proprietà categoryId.
+     * 
+     */
+    public long getCategoryId() {
+        return categoryId;
+    }
+
+    /**
+     * Imposta il valore della proprietà categoryId.
+     * 
+     */
+    public void setCategoryId(long value) {
+        this.categoryId = value;
+    }
+
+    /**
+     * Recupera il valore della proprietà address.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getAddress() {
+        return address;
+    }
+
+    /**
+     * Imposta il valore della proprietà address.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setAddress(String value) {
+        this.address = value;
     }
 
 }
