@@ -1,0 +1,135 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf200
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 -- phpMyAdmin SQL Dump\
+-- version 4.8.3\
+-- https://www.phpmyadmin.net/\
+--\
+-- Host: localhost:8889\
+-- Generation Time: Feb 04, 2019 at 10:12 AM\
+-- Server version: 5.7.23\
+-- PHP Version: 7.2.10\
+\
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";\
+SET time_zone = "+00:00";\
+\
+--\
+-- Database: `guidApp`\
+--\
+\
+-- --------------------------------------------------------\
+\
+--\
+-- Table structure for table `events`\
+--\
+\
+CREATE TABLE `events` (\
+  `id` int(20) UNSIGNED NOT NULL,\
+  `title` varchar(256) DEFAULT NULL,\
+  `place` varchar(256) DEFAULT NULL,\
+  `city` varchar(256) DEFAULT NULL,\
+  `startDate` datetime DEFAULT NULL,\
+  `endDate` datetime DEFAULT NULL\
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;\
+\
+--\
+-- Dumping data for table `events`\
+--\
+\
+INSERT INTO `events` (`id`, `title`, `place`, `city`, `startDate`, `endDate`) VALUES\
+(7, 'titleee', 'placeee', 'cityyy', '2001-10-26 20:32:52', '2001-10-26 20:32:52');\
+\
+-- --------------------------------------------------------\
+\
+--\
+-- Table structure for table `sessions`\
+--\
+\
+CREATE TABLE `sessions` (\
+  `id` int(20) UNSIGNED NOT NULL,\
+  `token` varchar(256) DEFAULT NULL,\
+  `user` int(11) NOT NULL\
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;\
+\
+--\
+-- Dumping data for table `sessions`\
+--\
+\
+INSERT INTO `sessions` (`id`, `token`, `user`) VALUES\
+(5, '2799454999896274886', 5),\
+(6, '6154333304184393978', 4),\
+(9, '642594339832426489', 4);\
+\
+-- --------------------------------------------------------\
+\
+--\
+-- Table structure for table `users`\
+--\
+\
+CREATE TABLE `users` (\
+  `user_id` int(11) NOT NULL,\
+  `name` varchar(20) DEFAULT NULL,\
+  `surname` varchar(20) DEFAULT NULL,\
+  `email` varchar(30) NOT NULL,\
+  `password` varchar(100) NOT NULL,\
+  `username` varchar(50) DEFAULT NULL\
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;\
+\
+--\
+-- Dumping data for table `users`\
+--\
+\
+INSERT INTO `users` (`user_id`, `name`, `surname`, `email`, `password`, `username`) VALUES\
+(4, 'stefano', 'cortellessa', 'stefanocort94@gmail.com', 'ciao', 'stecort'),\
+(5, 'Davide', 'Iacobelli', 'davideiacobelli@gmail.com', 'scopodapazzi', 'iacobs'),\
+(6, 'luca', 'grillo', 'lucagrillo@gmail.com', 'ciao', 'cricri'),\
+(7, 'luca', 'grillo', 'lucagrillo@gmail.com', 'ciao', 'cricri');\
+\
+--\
+-- Indexes for dumped tables\
+--\
+\
+--\
+-- Indexes for table `events`\
+--\
+ALTER TABLE `events`\
+  ADD PRIMARY KEY (`id`);\
+\
+--\
+-- Indexes for table `sessions`\
+--\
+ALTER TABLE `sessions`\
+  ADD PRIMARY KEY (`id`);\
+\
+--\
+-- Indexes for table `users`\
+--\
+ALTER TABLE `users`\
+  ADD PRIMARY KEY (`user_id`);\
+\
+--\
+-- AUTO_INCREMENT for dumped tables\
+--\
+\
+--\
+-- AUTO_INCREMENT for table `events`\
+--\
+ALTER TABLE `events`\
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;\
+\
+--\
+-- AUTO_INCREMENT for table `sessions`\
+--\
+ALTER TABLE `sessions`\
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;\
+\
+--\
+-- AUTO_INCREMENT for table `users`\
+--\
+ALTER TABLE `users`\
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;\
+}
