@@ -13,7 +13,14 @@ public class Event implements java.io.Serializable {
 	private Timestamp endDate;
 	private String address;
 	private Category category;
+	private User creator;
 	
+	public User getCreator() {
+		return creator;
+	}
+	public void setCreator(User creator) {
+		this.creator = creator;
+	}
 	public String getAddress() {
 		return address;
 	}

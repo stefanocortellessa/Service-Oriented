@@ -27,6 +27,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *         &lt;element name="categoryName" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="categoryId" type="{http://www.w3.org/2001/XMLSchema}long"/&gt;
  *         &lt;element name="address" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="creatorId" type="{http://www.w3.org/2001/XMLSchema}long"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -44,7 +45,8 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "endDate",
     "categoryName",
     "categoryId",
-    "address"
+    "address",
+    "creatorId"
 })
 public class InsertEventRequest {
 
@@ -65,6 +67,7 @@ public class InsertEventRequest {
     protected long categoryId;
     @XmlElement(required = true)
     protected String address;
+    protected long creatorId;
 
     /**
      * Recupera il valore della proprietà title.
@@ -248,6 +251,22 @@ public class InsertEventRequest {
      */
     public void setAddress(String value) {
         this.address = value;
+    }
+
+    /**
+     * Recupera il valore della proprietà creatorId.
+     * 
+     */
+    public long getCreatorId() {
+        return creatorId;
+    }
+
+    /**
+     * Imposta il valore della proprietà creatorId.
+     * 
+     */
+    public void setCreatorId(long value) {
+        this.creatorId = value;
     }
 
 }

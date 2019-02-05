@@ -25,6 +25,7 @@ import it.univaq.disim.sose.insertevent.InsertEventResponse;
 import it.univaq.disim.sose.insertevent.business.InsertEventService;
 import it.univaq.disim.sose.insertevent.business.model.Category;
 import it.univaq.disim.sose.insertevent.business.model.Event;
+import it.univaq.disim.sose.insertevent.business.model.User;
 import it.univaq.disim.sose.insertevent.business.Utility;
 
 @Service
@@ -42,6 +43,7 @@ public class JDBCEventManagerServiceImpl implements InsertEventService {
 		Event event = new Event();
 		Utility utility = new Utility();
 		Category category = new Category();
+		User creator = new User();
 		
 		event.setTitle(parameters.getTitle());
 		event.setPlace(parameters.getPlace());
@@ -51,7 +53,10 @@ public class JDBCEventManagerServiceImpl implements InsertEventService {
 		/*----SI DEVE CONTROLLARE CHE ID E NAME CORRISPONDONO PRIMA DI INSERIRE----*/
 		category.setId(parameters.getCategoryId());
 		category.setName(parameters.getCategoryName());
+		creator.setId(parameters.getCreatorId());
+		event.setAddress(parameters.getAddress());
 		event.setCategory(category);
+		event.setCreator(creator);
 		/*-------------------------------------------------------------------------*/
 		InsertEventResponse responseEvent = new InsertEventResponse();
 		try {
@@ -59,10 +64,12 @@ public class JDBCEventManagerServiceImpl implements InsertEventService {
 			connection = dataSource.getConnection();
 			connection.setAutoCommit(false);
 			
-			if(insert(connection, event.getTitle(), event.getPlace(), event.getCity(), event.getStartDate(), event.getEndDate(), event.getAddress(), event.getCategory().getId())) {
+			if(insert(connection, event.getTitle(), event.getPlace(), event.getCity(), event.getStartDate(), event.getEndDate(), event.getAddress(), event.getCategory().getId(), event.getCreator().getId())) {
 				
 				result = "Event inserted";
 				
+			}else {
+				result = "Event not inserted";
 			}
 		}
 		catch (SQLException e) {
@@ -138,10 +145,11 @@ public class JDBCEventManagerServiceImpl implements InsertEventService {
 		String result = "Event not Deleted";
 		
 		Event event = new Event();
-		
+		User user = new User();
 		// PRENDERE ANCHE ID UTENTE CHE VUOLE CANCELLARE E VEDERE SE È LUI IL CREATORE!
 		event.setId(parameters.getId());
-		
+		user.setId(parameters.getUserId());
+		event.setCreator(user);
 		DeleteEventResponse responseEvent = new DeleteEventResponse();
 		
 		try {
@@ -149,9 +157,14 @@ public class JDBCEventManagerServiceImpl implements InsertEventService {
 			connection = dataSource.getConnection();
 			connection.setAutoCommit(false);
 			
-			if(delete(connection, event.getId())) {
-				
-				result = "Event Deleted!";
+			if(check_creator(connection, event.getId(), event.getCreator().getId())) {
+				if(delete(connection, event.getId())) {
+					result = "Event Deleted!";
+				}else {
+					result = "Event not Deleted!";
+				}
+			}else {
+				result = "Event not Deleted : user is not its creator";
 			}
 		}
 		catch (SQLException e) {
@@ -174,9 +187,9 @@ public class JDBCEventManagerServiceImpl implements InsertEventService {
 		return responseEvent;
 	}
 	
-	public boolean insert(Connection con, String title, String place, String city, Timestamp startDate, Timestamp endDate, String address, Long idCategory) {
+	public boolean insert(Connection con, String title, String place, String city, Timestamp startDate, Timestamp endDate, String address, Long idCategory, Long idCreator) {
         
-		String query = "INSERT INTO events (title, place, city, startDate, endDate, address, id_category) VALUES (?,?,?,?,?,?,?)";
+		String query = "INSERT INTO events (title, place, city, startDate, endDate, address, id_category, id_creator) VALUES (?,?,?,?,?,?,?,?)";
 
 		try {
 
@@ -189,7 +202,7 @@ public class JDBCEventManagerServiceImpl implements InsertEventService {
 			sql.setTimestamp(5, endDate);
 			sql.setString(6, address);
 			sql.setLong(7, idCategory);
-				
+			sql.setLong(8, idCreator);
 			
 			if (sql.executeUpdate() == 1) {
 				return true;
@@ -217,6 +230,28 @@ public class JDBCEventManagerServiceImpl implements InsertEventService {
 			} else {
 				return false;
 			}
+		} catch (SQLException e) {
+			return false;
+		}
+	}
+	
+	public boolean check_creator(Connection con, Long id, Long userId) {
+		String query = "SELECT id_creator FROM events WHERE id = ?";
+
+		try {
+			PreparedStatement sql = con.prepareStatement(query);
+
+			sql.setLong(1, id);
+
+			ResultSet rs = sql.executeQuery();
+			while(rs.next()) {
+				if (rs.getLong("id_creator") == userId) {
+					System.out.println("event creator identified");
+					return true;
+				} else {
+					return false;
+				}
+			} return false;
 		} catch (SQLException e) {
 			return false;
 		}

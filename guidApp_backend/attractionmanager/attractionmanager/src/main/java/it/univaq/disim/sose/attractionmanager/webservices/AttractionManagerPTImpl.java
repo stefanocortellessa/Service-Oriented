@@ -29,10 +29,10 @@ public class AttractionManagerPTImpl implements AttractionManagerPT {
 	@Override
 	public InsertAttractionResponse insertAttraction(InsertAttractionRequest parameters) throws InsertAttractionFault_Exception {
 		
-		LOGGER.info("called Insert Attraction in Insert Service");
+		LOGGER.info("called Insert Attraction in AttractionManger Service");
 		InsertAttractionResponse response = new InsertAttractionResponse();
 		response = service.insertAttraction(parameters);
-		
+		LOGGER.info(response.getMessage());
 		return response;
 	}
 
@@ -42,7 +42,7 @@ public class AttractionManagerPTImpl implements AttractionManagerPT {
 		LOGGER.info("called Delete Attraction in Insert Service");
 		DeleteAttractionResponse response = new DeleteAttractionResponse();
 		response = service.deleteAttraction(parameters);
-		
+		LOGGER.info(response.getMessage());
 		return response;
 	}
 
@@ -52,7 +52,6 @@ public class AttractionManagerPTImpl implements AttractionManagerPT {
 		LOGGER.info("called Check Session in Insert Service");
 		CheckSessionResponse response = new CheckSessionResponse();
 		response = service.checkSession(parameters);
-		
 		return response;
 	}
 

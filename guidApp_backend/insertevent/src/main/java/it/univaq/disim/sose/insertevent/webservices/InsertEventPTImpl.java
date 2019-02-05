@@ -31,7 +31,7 @@ public class InsertEventPTImpl implements InsertEventPT {
 		LOGGER.info("called Insert Event in Insert Service");
 		InsertEventResponse response = new InsertEventResponse();
 		response = service.insertEvent(parameters);
-		
+		LOGGER.info(response.getMessage());
 		return response;
 	}
 
@@ -41,7 +41,7 @@ public class InsertEventPTImpl implements InsertEventPT {
 		LOGGER.info("called Delete Event in Insert Service");
 		DeleteEventResponse response = new DeleteEventResponse();
 		response = service.deleteEvent(parameters);
-		
+		LOGGER.info(response.getMessage());
 		return response;
 	}
 
@@ -51,7 +51,6 @@ public class InsertEventPTImpl implements InsertEventPT {
 		LOGGER.info("called Check Session in Insert Service");
 		CheckSessionResponse response = new CheckSessionResponse();
 		response = service.checkSession(parameters);
-		
 		return response;
 	}
 

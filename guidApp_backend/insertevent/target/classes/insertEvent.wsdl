@@ -36,6 +36,7 @@
 					<xsd:element name="categoryName" type="xsd:string" />
 					<xsd:element name="categoryId" type="xsd:long" />
 					<xsd:element name="address" type="xsd:string" />
+					<xsd:element name="creatorId" type="xsd:long" />
 				</xsd:sequence>
 			</xsd:complexType>
 			
@@ -59,6 +60,8 @@
 			<xsd:complexType name="deleteEventRequest">
 				<xsd:sequence>
 					<xsd:element name="id" type="xsd:long" />
+					<xsd:element name="userId" type="xsd:long" />
+					
 				</xsd:sequence>
 			</xsd:complexType>
 			
