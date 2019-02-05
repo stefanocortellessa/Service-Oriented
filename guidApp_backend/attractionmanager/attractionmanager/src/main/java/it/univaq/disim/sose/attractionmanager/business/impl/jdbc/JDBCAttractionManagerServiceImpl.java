@@ -62,9 +62,7 @@ public class JDBCAttractionManagerServiceImpl implements AttractionManagerServic
 			connection.setAutoCommit(false);
 
 			if(insert(connection, attraction.getName(), attraction.getCity(), attraction.getAddress(), attraction.getCategory().getId(), attraction.getCreator().getId())) {
-
 				result = "Attraction inserted";
-
 			}else {
 				result = "Attraction not inserted";
 			}
