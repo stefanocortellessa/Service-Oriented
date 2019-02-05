@@ -12,6 +12,9 @@ import it.univaq.disim.sose.attractionmanager.CheckSessionResponse;
 import it.univaq.disim.sose.attractionmanager.DeleteAttractionFault_Exception;
 import it.univaq.disim.sose.attractionmanager.DeleteAttractionRequest;
 import it.univaq.disim.sose.attractionmanager.DeleteAttractionResponse;
+import it.univaq.disim.sose.attractionmanager.UpdateAttractionFault_Exception;
+import it.univaq.disim.sose.attractionmanager.UpdateAttractionRequest;
+import it.univaq.disim.sose.attractionmanager.UpdateAttractionResponse;
 import it.univaq.disim.sose.attractionmanager.InsertAttractionFault_Exception;
 import it.univaq.disim.sose.attractionmanager.AttractionManagerPT;
 import it.univaq.disim.sose.attractionmanager.InsertAttractionRequest;
@@ -29,7 +32,7 @@ public class AttractionManagerPTImpl implements AttractionManagerPT {
 	@Override
 	public InsertAttractionResponse insertAttraction(InsertAttractionRequest parameters) throws InsertAttractionFault_Exception {
 		
-		LOGGER.info("called Insert Attraction in AttractionManger Service");
+		LOGGER.info("called Insert Attraction in Attraction Manager Service");
 		InsertAttractionResponse response = new InsertAttractionResponse();
 		response = service.insertAttraction(parameters);
 		LOGGER.info(response.getMessage());
@@ -39,13 +42,23 @@ public class AttractionManagerPTImpl implements AttractionManagerPT {
 	@Override
 	public DeleteAttractionResponse deleteAttraction(DeleteAttractionRequest parameters) throws DeleteAttractionFault_Exception {
 		
-		LOGGER.info("called Delete Attraction in Insert Service");
+		LOGGER.info("called Delete Attraction in Attraction Manager Service");
 		DeleteAttractionResponse response = new DeleteAttractionResponse();
 		response = service.deleteAttraction(parameters);
 		LOGGER.info(response.getMessage());
 		return response;
 	}
-
+	
+	@Override
+	public UpdateAttractionResponse updateAttraction(UpdateAttractionRequest parameters) throws UpdateAttractionFault_Exception {
+		
+		LOGGER.info("called Update Attraction in Attraction Manager Service");
+		UpdateAttractionResponse response = new UpdateAttractionResponse();
+		response = service.updateAttraction(parameters);
+		LOGGER.info(response.getMessage());
+		return response;
+	}
+	
 	@Override
 	public CheckSessionResponse checkSession(CheckSessionRequest parameters) throws CheckSessionFault_Exception {
 		

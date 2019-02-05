@@ -10,6 +10,7 @@
 	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
 	xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata">
 	
+	
 	<types>
 		<xsd:schema targetNamespace="http://it.univaq.disim.sose/eventManager">
 			<xsd:element name="insertEventRequest" type="tns:insertEventRequest" />
@@ -19,6 +20,10 @@
 			<xsd:element name="deleteEventRequest" type="tns:deleteEventRequest" />
 			<xsd:element name="deleteEventResponse" type="tns:deleteEventResponse" />
 			<xsd:element name="deleteEventFault" type="tns:deleteEventFault" />
+			
+			<xsd:element name="updateEventRequest" type="tns:updateEventRequest" />
+			<xsd:element name="updateEventResponse" type="tns:updateEventResponse" />
+			<xsd:element name="updateEventFault" type="tns:updateEventFault" />
 			
 			<xsd:element name="checkSessionRequest" type="tns:checkSessionRequest" />
 			<xsd:element name="checkSessionResponse" type="tns:checkSessionResponse" />
@@ -80,6 +85,40 @@
 				</xsd:sequence>
 			</xsd:complexType>
 			
+			<!-- Update Event -->
+			<!-- Request -->
+			<xsd:complexType name="updateEventRequest">
+				<xsd:sequence>
+					<xsd:element name="id" type="xsd:long" />
+					<xsd:element name="title" type="xsd:string" />
+					<xsd:element name="place" type="xsd:string" />
+					<xsd:element name="city" type="xsd:string" />
+					<xsd:element name="startDate" type="xsd:dateTime" />
+					<xsd:element name="endDate" type="xsd:dateTime" />
+					<xsd:element name="categoryName" type="xsd:string" />
+					<xsd:element name="categoryId" type="xsd:long" />
+					<xsd:element name="address" type="xsd:string" />
+					<xsd:element name="creatorId" type="xsd:long" />
+				</xsd:sequence>
+			</xsd:complexType>
+			
+			<!-- Response -->
+			<xsd:complexType name="updateEventResponse">
+				<xsd:sequence>
+					<xsd:element name="message" type="xsd:string" />					
+				</xsd:sequence>
+			</xsd:complexType>
+					
+			<!-- Fault -->
+			<xsd:complexType name="updateEventFault">
+				<xsd:sequence>
+                        <xsd:element name="faultInfo" type="xsd:string" />
+                        <xsd:element name="message" type="xsd:string" />
+				</xsd:sequence>
+			</xsd:complexType>
+			
+			
+			
 			<!-- Check Session -->
 			<!-- Request -->
 			<xsd:complexType name="checkSessionRequest">
@@ -135,6 +174,22 @@
 		</part>
 	</message>
 	
+	
+	<!-- Messages -->
+	<!-- Update Event -->
+	<message name="updateEventRequest">
+		<part name="parameters" element="tns:updateEventRequest">
+		</part>
+	</message>
+	<message name="updateEventResponse">
+		<part name="parameters" element="tns:updateEventResponse">
+		</part>
+	</message>
+	<message name="updateEventFault">
+		<part name="parameters" element="tns:updateEventFault">
+		</part>
+	</message>
+	
 	<!-- Check Session -->
 	<message name="checkSessionRequest">
 		<part name="parameters" element="tns:checkSessionRequest">
@@ -161,6 +216,11 @@
 			<output name="deleteEventResponse" message="tns:deleteEventResponse" />
 			<fault name="deleteEventFault" message="tns:deleteEventFault" />
 		</operation>
+		<operation name="updateEvent">
+			<input name="updateEventRequest" message="tns:updateEventRequest" />
+			<output name="updateEventResponse" message="tns:updateEventResponse" />
+			<fault name="updateEventFault" message="tns:updateEventFault" />
+		</operation>
 		<operation name="checkSession">
 			<input name="checkSessionRequest" message="tns:checkSessionRequest" />
 			<output name="checkSessionResponse" message="tns:checkSessionResponse" />
@@ -182,6 +242,16 @@
 			</output>
 		</operation>
 		<operation name="deleteEvent">
+			<soap:operation soapAction="" />
+			<input>
+				<soap:body use="literal" />
+			</input>
+			<output>
+				<soap:body use="literal" />
+			</output>
+		</operation>
+		
+		<operation name="updateEvent">
 			<soap:operation soapAction="" />
 			<input>
 				<soap:body use="literal" />

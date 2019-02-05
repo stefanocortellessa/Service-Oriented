@@ -9,6 +9,9 @@ import it.univaq.disim.sose.attractionmanager.DeleteAttractionResponse;
 import it.univaq.disim.sose.attractionmanager.InsertAttractionFault_Exception;
 import it.univaq.disim.sose.attractionmanager.InsertAttractionRequest;
 import it.univaq.disim.sose.attractionmanager.InsertAttractionResponse;
+import it.univaq.disim.sose.attractionmanager.UpdateAttractionFault_Exception;
+import it.univaq.disim.sose.attractionmanager.UpdateAttractionRequest;
+import it.univaq.disim.sose.attractionmanager.UpdateAttractionResponse;
 
 public interface AttractionManagerService {
 	
@@ -16,5 +19,7 @@ public interface AttractionManagerService {
 
 	DeleteAttractionResponse deleteAttraction(DeleteAttractionRequest parameters) throws DeleteAttractionFault_Exception;
 	
+	UpdateAttractionResponse updateAttraction(UpdateAttractionRequest parameters) throws UpdateAttractionFault_Exception;
+
 	CheckSessionResponse checkSession(CheckSessionRequest parameters) throws CheckSessionFault_Exception;
 }

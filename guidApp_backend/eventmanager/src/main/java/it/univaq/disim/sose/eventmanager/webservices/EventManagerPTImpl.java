@@ -12,6 +12,9 @@ import it.univaq.disim.sose.eventmanager.CheckSessionResponse;
 import it.univaq.disim.sose.eventmanager.DeleteEventFault_Exception;
 import it.univaq.disim.sose.eventmanager.DeleteEventRequest;
 import it.univaq.disim.sose.eventmanager.DeleteEventResponse;
+import it.univaq.disim.sose.eventmanager.UpdateEventFault_Exception;
+import it.univaq.disim.sose.eventmanager.UpdateEventRequest;
+import it.univaq.disim.sose.eventmanager.UpdateEventResponse;
 import it.univaq.disim.sose.eventmanager.InsertEventFault_Exception;
 import it.univaq.disim.sose.eventmanager.EventManagerPT;
 import it.univaq.disim.sose.eventmanager.InsertEventRequest;
@@ -28,7 +31,7 @@ public class EventManagerPTImpl implements EventManagerPT {
 	@Override
 	public InsertEventResponse insertEvent(InsertEventRequest parameters) throws InsertEventFault_Exception {
 		
-		LOGGER.info("called Insert Event in Insert Service");
+		LOGGER.info("called Insert Event in Event Manager Service");
 		InsertEventResponse response = new InsertEventResponse();
 		response = service.insertEvent(parameters);
 		LOGGER.info(response.getMessage());
@@ -38,9 +41,19 @@ public class EventManagerPTImpl implements EventManagerPT {
 	@Override
 	public DeleteEventResponse deleteEvent(DeleteEventRequest parameters) throws DeleteEventFault_Exception {
 		
-		LOGGER.info("called Delete Event in Insert Service");
+		LOGGER.info("called Delete Event in Event Manager Service");
 		DeleteEventResponse response = new DeleteEventResponse();
 		response = service.deleteEvent(parameters);
+		LOGGER.info(response.getMessage());
+		return response;
+	}
+	
+	@Override
+	public UpdateEventResponse updateEvent(UpdateEventRequest parameters) throws UpdateEventFault_Exception {
+		
+		LOGGER.info("called Update Event in Event Manager Service");
+		UpdateEventResponse response = new UpdateEventResponse();
+		response = service.updateEvent(parameters);
 		LOGGER.info(response.getMessage());
 		return response;
 	}

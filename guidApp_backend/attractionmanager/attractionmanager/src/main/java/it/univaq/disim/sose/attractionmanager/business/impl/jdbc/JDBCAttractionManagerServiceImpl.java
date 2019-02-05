@@ -20,6 +20,9 @@ import it.univaq.disim.sose.attractionmanager.DeleteAttractionResponse;
 import it.univaq.disim.sose.attractionmanager.InsertAttractionFault_Exception;
 import it.univaq.disim.sose.attractionmanager.InsertAttractionRequest;
 import it.univaq.disim.sose.attractionmanager.InsertAttractionResponse;
+import it.univaq.disim.sose.attractionmanager.UpdateAttractionFault_Exception;
+import it.univaq.disim.sose.attractionmanager.UpdateAttractionRequest;
+import it.univaq.disim.sose.attractionmanager.UpdateAttractionResponse;
 import it.univaq.disim.sose.attractionmanager.business.AttractionManagerService;
 import it.univaq.disim.sose.attractionmanager.business.model.Category;
 import it.univaq.disim.sose.attractionmanager.business.model.User;
@@ -183,6 +186,68 @@ public class JDBCAttractionManagerServiceImpl implements AttractionManagerServic
 		return responseAttraction;
 	}
 
+	@Override
+	public UpdateAttractionResponse updateAttraction(UpdateAttractionRequest parameters) throws UpdateAttractionFault_Exception {
+
+		Connection connection = null;
+		String result = "Attraction not updated";
+
+		Attraction attraction = new Attraction();
+		Utility utility = new Utility();
+		Category category = new Category();
+		User creator = new User();
+		
+		attraction.setId(parameters.getId());
+		attraction.setName(parameters.getName());
+		attraction.setCity(parameters.getCity());
+		attraction.setAddress(parameters.getAddress());
+
+		/*----SI DEVE CONTROLLARE CHE ID E NAME CORRISPONDONO PRIMA DI INSERIRE----*/
+		category.setId(parameters.getCategoryId());
+		category.setName(parameters.getCategoryName());
+		creator.setId(parameters.getCreatorId());
+		attraction.setCategory(category);
+		attraction.setCreator(creator);
+
+		/*-------------------------------------------------------------------------*/
+		UpdateAttractionResponse responseAttraction = new UpdateAttractionResponse();
+		try {
+
+			connection = dataSource.getConnection();
+			connection.setAutoCommit(false);
+			
+			if(check_creator(connection, attraction.getId(), attraction.getCreator().getId())) {	
+				if(update(connection, attraction.getId(), attraction.getName(), attraction.getCity(), attraction.getAddress(), attraction.getCategory().getId(), attraction.getCreator().getId())) {
+					result = "Attraction updated";
+				}else {
+					result = "Attraction not updated";
+				}
+			}else {
+				result = "Attraction not udpated: user is not its creator";
+			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+			throw new UpdateAttractionFault_Exception("Something was wrong with Update an Attraction..");
+		}
+		finally {
+			if (connection != null) {
+				try {
+					connection.setAutoCommit(true);
+					connection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		responseAttraction.setMessage(result);
+
+		return responseAttraction;
+	}
+
+	
+	
 	public boolean insert(Connection con, String name, String city, String address, Long idCategory, Long idCreator) {
 
 		String query = "INSERT INTO attractions (name, city, address, id_category, id_creator) VALUES (?,?,?,?,?)";
@@ -209,6 +274,33 @@ public class JDBCAttractionManagerServiceImpl implements AttractionManagerServic
 		}
 	}
 
+	public boolean update(Connection con, Long id, String name, String city, String address, Long idCategory, Long idCreator) {
+
+		String query = "UPDATE attractions SET name=?, city=?, address=?, id_category=?, id_creator=? WHERE id=?";
+
+		try {
+
+			PreparedStatement sql = con.prepareStatement(query);
+
+			sql.setString(1, name);
+			sql.setString(2, city);
+			sql.setString(3, address);
+			sql.setLong(4, idCategory);
+			sql.setLong(5, idCreator);
+			sql.setLong(6, id);
+
+
+			if (sql.executeUpdate() == 1) {
+				return true;
+			} else {
+				return false;
+			}
+
+		} catch (SQLException e) {
+			return false;
+		}
+	}
+	
 	public boolean delete(Connection con, Long id) {
 
 		String query = "DELETE FROM attractions WHERE id = ?";
@@ -250,5 +342,6 @@ public class JDBCAttractionManagerServiceImpl implements AttractionManagerServic
 			return false;
 		}
 	}
+
 
 }
