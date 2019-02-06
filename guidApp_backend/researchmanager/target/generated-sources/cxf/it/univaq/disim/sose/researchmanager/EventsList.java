@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="eList" type="{http://www.w3.org/2001/XMLSchema}long" maxOccurs="unbounded"/&gt;
+ *         &lt;element name="eventElement" type="{http://it.univaq.disim.sose/researchManager}eventElement" maxOccurs="unbounded"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -30,40 +30,40 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "eventsList", propOrder = {
-    "eList"
+    "eventElement"
 })
 public class EventsList {
 
-    @XmlElement(type = Long.class)
-    protected List<Long> eList;
+    @XmlElement(required = true)
+    protected List<EventElement> eventElement;
 
     /**
-     * Gets the value of the eList property.
+     * Gets the value of the eventElement property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the eList property.
+     * This is why there is not a <CODE>set</CODE> method for the eventElement property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getEList().add(newItem);
+     *    getEventElement().add(newItem);
      * </pre>
      * 
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link Long }
+     * {@link EventElement }
      * 
      * 
      */
-    public List<Long> getEList() {
-        if (eList == null) {
-            eList = new ArrayList<Long>();
+    public List<EventElement> getEventElement() {
+        if (eventElement == null) {
+            eventElement = new ArrayList<EventElement>();
         }
-        return this.eList;
+        return this.eventElement;
     }
 
 }

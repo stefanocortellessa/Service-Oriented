@@ -42,8 +42,8 @@ public class ObjectFactory {
     private final static QName _ResearchAttractionDetailRequest_QNAME = new QName("http://it.univaq.disim.sose/researchManager", "researchAttractionDetailRequest");
     private final static QName _ResearchAttractionDetailResponse_QNAME = new QName("http://it.univaq.disim.sose/researchManager", "researchAttractionDetailResponse");
     private final static QName _ResearchAttractionDetailFault_QNAME = new QName("http://it.univaq.disim.sose/researchManager", "researchAttractionDetailFault");
-    private final static QName _EventsList_QNAME = new QName("http://it.univaq.disim.sose/researchManager", "eventsList");
     private final static QName _AttractionsList_QNAME = new QName("http://it.univaq.disim.sose/researchManager", "attractionsList");
+    private final static QName _EventsList_QNAME = new QName("http://it.univaq.disim.sose/researchManager", "eventsList");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: it.univaq.disim.sose.researchmanager
@@ -149,6 +149,30 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ResearchEventDetailRequest }
+     * 
+     */
+    public ResearchEventDetailRequest createResearchEventDetailRequest() {
+        return new ResearchEventDetailRequest();
+    }
+
+    /**
+     * Create an instance of {@link ResearchEventDetailResponse }
+     * 
+     */
+    public ResearchEventDetailResponse createResearchEventDetailResponse() {
+        return new ResearchEventDetailResponse();
+    }
+
+    /**
+     * Create an instance of {@link ResearchEventDetailFault }
+     * 
+     */
+    public ResearchEventDetailFault createResearchEventDetailFault() {
+        return new ResearchEventDetailFault();
+    }
+
+    /**
      * Create an instance of {@link ResearchAttractionDetailRequest }
      * 
      */
@@ -173,14 +197,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link EventsList }
-     * 
-     */
-    public EventsList createEventsList() {
-        return new EventsList();
-    }
-
-    /**
      * Create an instance of {@link AttractionsList }
      * 
      */
@@ -189,27 +205,27 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ResearchEventDetailRequest }
+     * Create an instance of {@link EventsList }
      * 
      */
-    public ResearchEventDetailRequest createResearchEventDetailRequest() {
-        return new ResearchEventDetailRequest();
+    public EventsList createEventsList() {
+        return new EventsList();
     }
 
     /**
-     * Create an instance of {@link ResearchEventDetailResponse }
+     * Create an instance of {@link AttractionElement }
      * 
      */
-    public ResearchEventDetailResponse createResearchEventDetailResponse() {
-        return new ResearchEventDetailResponse();
+    public AttractionElement createAttractionElement() {
+        return new AttractionElement();
     }
 
     /**
-     * Create an instance of {@link ResearchEventDetailFault }
+     * Create an instance of {@link EventElement }
      * 
      */
-    public ResearchEventDetailFault createResearchEventDetailFault() {
-        return new ResearchEventDetailFault();
+    public EventElement createEventElement() {
+        return new EventElement();
     }
 
     /**
@@ -321,30 +337,30 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ResearchEventRequest }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link ResearchEventDetailRequest }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "http://it.univaq.disim.sose/researchManager", name = "researchEventDetailRequest")
-    public JAXBElement<ResearchEventRequest> createResearchEventDetailRequest(ResearchEventRequest value) {
-        return new JAXBElement<ResearchEventRequest>(_ResearchEventDetailRequest_QNAME, ResearchEventRequest.class, null, value);
+    public JAXBElement<ResearchEventDetailRequest> createResearchEventDetailRequest(ResearchEventDetailRequest value) {
+        return new JAXBElement<ResearchEventDetailRequest>(_ResearchEventDetailRequest_QNAME, ResearchEventDetailRequest.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ResearchEventResponse }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link ResearchEventDetailResponse }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "http://it.univaq.disim.sose/researchManager", name = "researchEventDetailResponse")
-    public JAXBElement<ResearchEventResponse> createResearchEventDetailResponse(ResearchEventResponse value) {
-        return new JAXBElement<ResearchEventResponse>(_ResearchEventDetailResponse_QNAME, ResearchEventResponse.class, null, value);
+    public JAXBElement<ResearchEventDetailResponse> createResearchEventDetailResponse(ResearchEventDetailResponse value) {
+        return new JAXBElement<ResearchEventDetailResponse>(_ResearchEventDetailResponse_QNAME, ResearchEventDetailResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ResearchEventFault }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link ResearchEventDetailFault }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "http://it.univaq.disim.sose/researchManager", name = "researchEventDetailFault")
-    public JAXBElement<ResearchEventFault> createResearchEventDetailFault(ResearchEventFault value) {
-        return new JAXBElement<ResearchEventFault>(_ResearchEventDetailFault_QNAME, ResearchEventFault.class, null, value);
+    public JAXBElement<ResearchEventDetailFault> createResearchEventDetailFault(ResearchEventDetailFault value) {
+        return new JAXBElement<ResearchEventDetailFault>(_ResearchEventDetailFault_QNAME, ResearchEventDetailFault.class, null, value);
     }
 
     /**
@@ -375,21 +391,21 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link EventsList }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://it.univaq.disim.sose/researchManager", name = "eventsList")
-    public JAXBElement<EventsList> createEventsList(EventsList value) {
-        return new JAXBElement<EventsList>(_EventsList_QNAME, EventsList.class, null, value);
-    }
-
-    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link AttractionsList }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "http://it.univaq.disim.sose/researchManager", name = "attractionsList")
     public JAXBElement<AttractionsList> createAttractionsList(AttractionsList value) {
         return new JAXBElement<AttractionsList>(_AttractionsList_QNAME, AttractionsList.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link EventsList }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://it.univaq.disim.sose/researchManager", name = "eventsList")
+    public JAXBElement<EventsList> createEventsList(EventsList value) {
+        return new JAXBElement<EventsList>(_EventsList_QNAME, EventsList.class, null, value);
     }
 
 }

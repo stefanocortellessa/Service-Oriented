@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="aList" type="{http://www.w3.org/2001/XMLSchema}long" maxOccurs="unbounded"/&gt;
+ *         &lt;element name="attractionElement" type="{http://it.univaq.disim.sose/researchManager}attractionElement" maxOccurs="unbounded"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -30,40 +30,40 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "attractionsList", propOrder = {
-    "aList"
+    "attractionElement"
 })
 public class AttractionsList {
 
-    @XmlElement(type = Long.class)
-    protected List<Long> aList;
+    @XmlElement(required = true)
+    protected List<AttractionElement> attractionElement;
 
     /**
-     * Gets the value of the aList property.
+     * Gets the value of the attractionElement property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the aList property.
+     * This is why there is not a <CODE>set</CODE> method for the attractionElement property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getAList().add(newItem);
+     *    getAttractionElement().add(newItem);
      * </pre>
      * 
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link Long }
+     * {@link AttractionElement }
      * 
      * 
      */
-    public List<Long> getAList() {
-        if (aList == null) {
-            aList = new ArrayList<Long>();
+    public List<AttractionElement> getAttractionElement() {
+        if (attractionElement == null) {
+            attractionElement = new ArrayList<AttractionElement>();
         }
-        return this.aList;
+        return this.attractionElement;
     }
 
 }
