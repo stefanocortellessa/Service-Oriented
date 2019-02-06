@@ -3,7 +3,6 @@ package it.univaq.disim.sose.prosumer;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -17,8 +16,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="title" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="city" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}long"/&gt;
+ *         &lt;element name="userId" type="{http://www.w3.org/2001/XMLSchema}long"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -29,62 +28,44 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "eventDeleteRequest", propOrder = {
-    "title",
-    "city"
+    "id",
+    "userId"
 })
 public class EventDeleteRequest {
 
-    @XmlElement(required = true)
-    protected String title;
-    @XmlElement(required = true)
-    protected String city;
+    protected long id;
+    protected long userId;
 
     /**
-     * Recupera il valore della proprietà title.
+     * Recupera il valore della proprietà id.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
      */
-    public String getTitle() {
-        return title;
+    public long getId() {
+        return id;
     }
 
     /**
-     * Imposta il valore della proprietà title.
+     * Imposta il valore della proprietà id.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
      */
-    public void setTitle(String value) {
-        this.title = value;
+    public void setId(long value) {
+        this.id = value;
     }
 
     /**
-     * Recupera il valore della proprietà city.
+     * Recupera il valore della proprietà userId.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
      */
-    public String getCity() {
-        return city;
+    public long getUserId() {
+        return userId;
     }
 
     /**
-     * Imposta il valore della proprietà city.
+     * Imposta il valore della proprietà userId.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
      */
-    public void setCity(String value) {
-        this.city = value;
+    public void setUserId(long value) {
+        this.userId = value;
     }
 
 }

@@ -20,10 +20,12 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
  *         &lt;element name="title" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="place" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="city" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="locality" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="startDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/&gt;
  *         &lt;element name="endDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/&gt;
+ *         &lt;element name="categoryName" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="categoryId" type="{http://www.w3.org/2001/XMLSchema}long"/&gt;
+ *         &lt;element name="creatorId" type="{http://www.w3.org/2001/XMLSchema}long"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -35,25 +37,29 @@ import javax.xml.datatype.XMLGregorianCalendar;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "eventInsertRequest", propOrder = {
     "title",
-    "place",
-    "city",
+    "locality",
     "startDate",
-    "endDate"
+    "endDate",
+    "categoryName",
+    "categoryId",
+    "creatorId"
 })
 public class EventInsertRequest {
 
     @XmlElement(required = true)
     protected String title;
     @XmlElement(required = true)
-    protected String place;
-    @XmlElement(required = true)
-    protected String city;
+    protected String locality;
     @XmlElement(required = true)
     @XmlSchemaType(name = "dateTime")
     protected XMLGregorianCalendar startDate;
     @XmlElement(required = true)
     @XmlSchemaType(name = "dateTime")
     protected XMLGregorianCalendar endDate;
+    @XmlElement(required = true)
+    protected String categoryName;
+    protected long categoryId;
+    protected long creatorId;
 
     /**
      * Recupera il valore della proprietà title.
@@ -80,51 +86,27 @@ public class EventInsertRequest {
     }
 
     /**
-     * Recupera il valore della proprietà place.
+     * Recupera il valore della proprietà locality.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getPlace() {
-        return place;
+    public String getLocality() {
+        return locality;
     }
 
     /**
-     * Imposta il valore della proprietà place.
+     * Imposta il valore della proprietà locality.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setPlace(String value) {
-        this.place = value;
-    }
-
-    /**
-     * Recupera il valore della proprietà city.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getCity() {
-        return city;
-    }
-
-    /**
-     * Imposta il valore della proprietà city.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setCity(String value) {
-        this.city = value;
+    public void setLocality(String value) {
+        this.locality = value;
     }
 
     /**
@@ -173,6 +155,62 @@ public class EventInsertRequest {
      */
     public void setEndDate(XMLGregorianCalendar value) {
         this.endDate = value;
+    }
+
+    /**
+     * Recupera il valore della proprietà categoryName.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    /**
+     * Imposta il valore della proprietà categoryName.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setCategoryName(String value) {
+        this.categoryName = value;
+    }
+
+    /**
+     * Recupera il valore della proprietà categoryId.
+     * 
+     */
+    public long getCategoryId() {
+        return categoryId;
+    }
+
+    /**
+     * Imposta il valore della proprietà categoryId.
+     * 
+     */
+    public void setCategoryId(long value) {
+        this.categoryId = value;
+    }
+
+    /**
+     * Recupera il valore della proprietà creatorId.
+     * 
+     */
+    public long getCreatorId() {
+        return creatorId;
+    }
+
+    /**
+     * Imposta il valore della proprietà creatorId.
+     * 
+     */
+    public void setCreatorId(long value) {
+        this.creatorId = value;
     }
 
 }

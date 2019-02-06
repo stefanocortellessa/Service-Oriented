@@ -1,3 +1,4 @@
+
 package it.univaq.disim.sose.prosumer.business.impl.ws;
 
 import org.springframework.stereotype.Service;
@@ -16,14 +17,14 @@ import it.univaq.disim.sose.accountmanager.UserLogoutResponse;
 import it.univaq.disim.sose.accountmanager.UserSignupFault_Exception;
 import it.univaq.disim.sose.accountmanager.UserSignupRequest;
 import it.univaq.disim.sose.accountmanager.UserSignupResponse;
-import it.univaq.disim.sose.insertevent.DeleteEventFault_Exception;
-import it.univaq.disim.sose.insertevent.DeleteEventRequest;
-import it.univaq.disim.sose.insertevent.DeleteEventResponse;
-import it.univaq.disim.sose.insertevent.InsertEventFault_Exception;
-import it.univaq.disim.sose.insertevent.InsertEventPT;
-import it.univaq.disim.sose.insertevent.InsertEventRequest;
-import it.univaq.disim.sose.insertevent.InsertEventResponse;
-import it.univaq.disim.sose.insertevent.InsertEventService;
+import it.univaq.disim.sose.eventmanager.DeleteEventFault_Exception;
+import it.univaq.disim.sose.eventmanager.DeleteEventRequest;
+import it.univaq.disim.sose.eventmanager.DeleteEventResponse;
+import it.univaq.disim.sose.eventmanager.InsertEventFault_Exception;
+import it.univaq.disim.sose.eventmanager.EventManagerPT;
+import it.univaq.disim.sose.eventmanager.InsertEventRequest;
+import it.univaq.disim.sose.eventmanager.InsertEventResponse;
+import it.univaq.disim.sose.eventmanager.EventManagerService;
 import it.univaq.disim.sose.prosumer.AccountLoginFault_Exception;
 import it.univaq.disim.sose.prosumer.AccountLoginRequest;
 import it.univaq.disim.sose.prosumer.AccountLoginResponse;
@@ -146,18 +147,20 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 	public EventInsertResponse eventInsert(EventInsertRequest request) throws EventInsertFault_Exception {
 		EventInsertResponse response = new EventInsertResponse();
 		
-		InsertEventService insertEventService = new InsertEventService();
-		InsertEventPT insertEvent = insertEventService.getInsertEventPort();
+		EventManagerService insertEventService = new EventManagerService();
+		EventManagerPT insertEvent = insertEventService.getEventManagerPort();
 		InsertEventRequest insertEventRequest = new InsertEventRequest();
 		
 
 		insertEventRequest.setTitle(request.getTitle());
-		insertEventRequest.setCity(request.getCity());
-		insertEventRequest.setPlace(request.getPlace());
+		insertEventRequest.setLocality(request.getLocality());
 		insertEventRequest.setStartDate(request.getStartDate());
 		insertEventRequest.setEndDate(request.getEndDate());
+		insertEventRequest.setCategoryName(request.getCategoryName());
+		insertEventRequest.setCategoryId(request.getCategoryId());
+		insertEventRequest.setCreatorId(request.getCreatorId());
 		
-		try {
+		try { 
 			InsertEventResponse insertEventResponse = insertEvent.insertEvent(insertEventRequest);
 			response.setMessage(insertEventResponse.getMessage());
 			
@@ -179,12 +182,12 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 		
 		EventDeleteResponse response = new EventDeleteResponse();
 		
-		InsertEventService insertEventService = new InsertEventService();
-		InsertEventPT deleteEvent = insertEventService.getInsertEventPort();
+		EventManagerService insertEventService = new EventManagerService();
+		EventManagerPT deleteEvent = insertEventService.getEventManagerPort();
 		DeleteEventRequest deleteEventRequest = new DeleteEventRequest();
 		
-		deleteEventRequest.setCity(request.getCity());
-		deleteEventRequest.setTitle(request.getTitle());
+		deleteEventRequest.setId(request.getId());    
+		deleteEventRequest.setUserId(request.getUserId());
 		
 		try {
 			DeleteEventResponse deleteEventResponse = deleteEvent.deleteEvent(deleteEventRequest);

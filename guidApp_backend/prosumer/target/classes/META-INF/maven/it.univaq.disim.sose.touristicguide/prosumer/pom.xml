@@ -122,12 +122,12 @@
 									</extraargs>
 								</wsdlOption>
 								<wsdlOption>
-									<wsdl>src/main/resources/clients/insertEvent.wsdl</wsdl>
+									<wsdl>src/main/resources/clients/eventManager.wsdl</wsdl>
 									<faultSerialVersionUID>1</faultSerialVersionUID>
 									<extraargs>
 										<extraarg>-verbose</extraarg>
 										<extraarg>-p </extraarg>
-										<extraarg>it.univaq.disim.sose.insertevent</extraarg>
+										<extraarg>it.univaq.disim.sose.eventmanager</extraarg>
 									</extraargs>
 								</wsdlOption>
 							</wsdlOptions>
@@ -137,7 +137,7 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin>
+			</plugin> 
 		</plugins>
 		<finalName>prosumer</finalName>
 	</build>

@@ -10,7 +10,8 @@
 	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
 	xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata">
 	
-	<types>
+
+	<types> 
 		<xsd:schema targetNamespace="http://it.univaq.disim.sose/accountManager">
 			<xsd:element name="userSignupRequest" type="tns:userSignupRequest" />
 			<xsd:element name="userSignupResponse" type="tns:userSignupResponse" />

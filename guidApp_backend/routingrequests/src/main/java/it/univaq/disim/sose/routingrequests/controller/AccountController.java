@@ -62,7 +62,7 @@ public class AccountController {
 		request.setEmail(user.getEmail());
 		request.setPassword(user.getPassword());
 		response = prosumer.userLogin(request);
-	
+		
 		return response;
 	}
 	
@@ -79,33 +79,4 @@ public class AccountController {
 	
 		return response;
 	}
-	
-	
-	@DeleteMapping("/deleteEvent")
-	public EventDeleteResponse deleteEvent(@RequestBody Event event) throws EventDeleteFault_Exception {
-		
-		ProsumerService prosumerService = new ProsumerService();
-		ProsumerPT prosumer = prosumerService.getProsumerPort();
-		EventDeleteResponse response = new EventDeleteResponse();
-		EventDeleteRequest request = new EventDeleteRequest();
-		
-		request.setTitle(event.getTitle());
-		request.setCity(event.getCity());
-		response = prosumer.eventDelete(request);
-	
-		return response;
-	}
-	
-	public static Date toDate(XMLGregorianCalendar calendar){
-        
-		if(calendar == null) {
-			return null;
-        }
-		
-        Date date = (Date) calendar.toGregorianCalendar().getTime();
-        date.setTime(date.getTime() - 3600 * 1000);
-        
-        return date;
-    }
-
 }

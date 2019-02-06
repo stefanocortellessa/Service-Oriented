@@ -13,7 +13,6 @@
 		<xsd:element name="accountSessionRequest" type="tns:accountSessionRequest"/>
 		<xsd:element name="eventInsertRequest" type="tns:eventInsertRequest"/>
 		<xsd:element name="eventDeleteRequest" type="tns:eventDeleteRequest" />
-			
 		
 		<xsd:element name="accountSignupResponse" type="tns:accountSignupResponse"/>
 		<xsd:element name="accountLoginResponse" type="tns:accountLoginResponse"/>
@@ -28,7 +27,7 @@
 		<xsd:element name="accountSessionFault" type="tns:accountSessionFault"/>
 		<xsd:element name="eventInsertFault" type="tns:eventInsertFault"/>
 		<xsd:element name="eventDeleteFault" type="tns:eventDeleteFault" />
-		
+		 
 		<!-- Account Signup -->
 		<!-- Request -->
 		<xsd:complexType name="accountSignupRequest">
@@ -133,10 +132,12 @@
 		<xsd:complexType name="eventInsertRequest">
 			<xsd:sequence>
 				<xsd:element name="title" type="xsd:string" />
-				<xsd:element name="place" type="xsd:string" />
-				<xsd:element name="city" type="xsd:string" />
+				<xsd:element name="locality" type="xsd:string" />
 				<xsd:element name="startDate" type="xsd:dateTime" />
 				<xsd:element name="endDate" type="xsd:dateTime" />
+				<xsd:element name="categoryName" type="xsd:string" />
+				<xsd:element name="categoryId" type="xsd:long" />
+				<xsd:element name="creatorId" type="xsd:long" />
 			</xsd:sequence>
 		</xsd:complexType>
 		
@@ -159,8 +160,8 @@
 		<!-- Request -->
 		<xsd:complexType name="eventDeleteRequest">
 			<xsd:sequence>
-				<xsd:element name="title" type="xsd:string" />
-				<xsd:element name="city" type="xsd:string" />
+				<xsd:element name="id" type="xsd:long" />
+				<xsd:element name="userId" type="xsd:long" />
 			</xsd:sequence>
 		</xsd:complexType>
 		
@@ -285,7 +286,7 @@
 			<wsdl:output name="eventDeleteResponse" message="tns:eventDeleteResponse" />
 			<wsdl:fault name="eventDeleteFault" message="tns:eventDeleteFault" />
 		</wsdl:operation>
-  </wsdl:portType>
+  </wsdl:portType> 
   
   	<!-- Binding -->
 	<wsdl:binding name="prosumerBinding" type="tns:prosumerPT">
@@ -298,7 +299,7 @@
 			</wsdl:input>
 			<wsdl:output>
 				<soap:body use="literal" />
-			</wsdl:output>
+			</wsdl:output> 
 		</wsdl:operation>
 		<wsdl:operation name="userLogin">
 			<soap:operation soapAction="" />
