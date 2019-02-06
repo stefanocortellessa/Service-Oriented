@@ -7,11 +7,9 @@ public class Event implements java.io.Serializable {
 
 	private Long id;
 	private String title;
-	private String place;
-	private String city;
+	private String locality;
 	private Timestamp startDate;
 	private Timestamp endDate;
-	private String address;
 	private Category category;
 	private User creator;
 	
@@ -20,12 +18,6 @@ public class Event implements java.io.Serializable {
 	}
 	public void setCreator(User creator) {
 		this.creator = creator;
-	}
-	public String getAddress() {
-		return address;
-	}
-	public void setAddress(String address) {
-		this.address = address;
 	}
 	public Category getCategory() {
 		return category;
@@ -45,20 +37,14 @@ public class Event implements java.io.Serializable {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public String getPlace() {
-		return place;
-	}
-	public void setPlace(String place) {
-		this.place = place;
-	}
-	public String getCity() {
-		return city;
-	}
-	public void setCity(String city) {
-		this.city = city;
-	}
 	public Timestamp getStartDate() {
 		return startDate;	
+	}
+	public String getLocality() {
+		return locality;
+	}
+	public void setLocality(String locality) {
+		this.locality = locality;
 	}
 	public void setStartDate(Date startDate) {
 		this.startDate = new Timestamp(startDate.getTime());

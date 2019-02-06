@@ -7,8 +7,7 @@ public class Attraction implements java.io.Serializable {
 
 	private Long id;
 	private String name;
-	private String city;
-	private String address;
+	private String locality;
 	private Category category;
 	private User creator;
 	
@@ -17,12 +16,6 @@ public class Attraction implements java.io.Serializable {
 	}
 	public void setCreator(User creator) {
 		this.creator = creator;
-	}
-	public String getAddress() {
-		return address;
-	}
-	public void setAddress(String address) {
-		this.address = address;
 	}
 	public Category getCategory() {
 		return category;
@@ -36,14 +29,14 @@ public class Attraction implements java.io.Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getCity() {
-		return city;
-	}
-	public void setCity(String city) {
-		this.city = city;
-	}
 	public String getName() {
 		return name;
+	}
+	public String getLocality() {
+		return locality;
+	}
+	public void setLocality(String locality) {
+		this.locality = locality;
 	}
 	public void setName(String name) {
 		this.name = name;

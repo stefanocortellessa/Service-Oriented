@@ -47,8 +47,7 @@ public class JDBCAttractionManagerServiceImpl implements AttractionManagerServic
 		User creator = new User();
 
 		attraction.setName(parameters.getName());
-		attraction.setCity(parameters.getCity());
-		attraction.setAddress(parameters.getAddress());
+		attraction.setLocality(parameters.getLocality());
 
 		/*----SI DEVE CONTROLLARE CHE ID E NAME CORRISPONDONO PRIMA DI INSERIRE----*/
 		category.setId(parameters.getCategoryId());
@@ -64,7 +63,7 @@ public class JDBCAttractionManagerServiceImpl implements AttractionManagerServic
 			connection = dataSource.getConnection();
 			connection.setAutoCommit(false);
 
-			if(insert(connection, attraction.getName(), attraction.getCity(), attraction.getAddress(), attraction.getCategory().getId(), attraction.getCreator().getId())) {
+			if(insert(connection, attraction.getName(), attraction.getLocality(), attraction.getCategory().getId(), attraction.getCreator().getId())) {
 				result = "Attraction inserted";
 			}else {
 				result = "Attraction not inserted";
@@ -199,8 +198,7 @@ public class JDBCAttractionManagerServiceImpl implements AttractionManagerServic
 		
 		attraction.setId(parameters.getId());
 		attraction.setName(parameters.getName());
-		attraction.setCity(parameters.getCity());
-		attraction.setAddress(parameters.getAddress());
+		attraction.setLocality(parameters.getLocality());
 
 		/*----SI DEVE CONTROLLARE CHE ID E NAME CORRISPONDONO PRIMA DI INSERIRE----*/
 		category.setId(parameters.getCategoryId());
@@ -217,7 +215,7 @@ public class JDBCAttractionManagerServiceImpl implements AttractionManagerServic
 			connection.setAutoCommit(false);
 			
 			if(check_creator(connection, attraction.getId(), attraction.getCreator().getId())) {	
-				if(update(connection, attraction.getId(), attraction.getName(), attraction.getCity(), attraction.getAddress(), attraction.getCategory().getId(), attraction.getCreator().getId())) {
+				if(update(connection, attraction.getId(), attraction.getName(), attraction.getLocality(), attraction.getCategory().getId(), attraction.getCreator().getId())) {
 					result = "Attraction updated";
 				}else {
 					result = "Attraction not updated";
@@ -248,19 +246,18 @@ public class JDBCAttractionManagerServiceImpl implements AttractionManagerServic
 
 	
 	
-	public boolean insert(Connection con, String name, String city, String address, Long idCategory, Long idCreator) {
+	public boolean insert(Connection con, String name, String locality, Long idCategory, Long idCreator) {
 
-		String query = "INSERT INTO attractions (name, city, address, id_category, id_creator) VALUES (?,?,?,?,?)";
+		String query = "INSERT INTO attractions (name, locality, id_category, id_creator) VALUES (?,?,?,?)";
 
 		try {
 
 			PreparedStatement sql = con.prepareStatement(query);
 
 			sql.setString(1, name);
-			sql.setString(2, city);
-			sql.setString(3, address);
-			sql.setLong(4, idCategory);
-			sql.setLong(5, idCreator);
+			sql.setString(2, locality);
+			sql.setLong(3, idCategory);
+			sql.setLong(4, idCreator);
 
 
 			if (sql.executeUpdate() == 1) {
@@ -274,20 +271,19 @@ public class JDBCAttractionManagerServiceImpl implements AttractionManagerServic
 		}
 	}
 
-	public boolean update(Connection con, Long id, String name, String city, String address, Long idCategory, Long idCreator) {
+	public boolean update(Connection con, Long id, String name, String locality, Long idCategory, Long idCreator) {
 
-		String query = "UPDATE attractions SET name=?, city=?, address=?, id_category=?, id_creator=? WHERE id=?";
+		String query = "UPDATE attractions SET name=?, locality=?, id_category=?, id_creator=? WHERE id=?";
 
 		try {
 
 			PreparedStatement sql = con.prepareStatement(query);
 
 			sql.setString(1, name);
-			sql.setString(2, city);
-			sql.setString(3, address);
-			sql.setLong(4, idCategory);
-			sql.setLong(5, idCreator);
-			sql.setLong(6, id);
+			sql.setString(2, locality);
+			sql.setLong(3, idCategory);
+			sql.setLong(4, idCreator);
+			sql.setLong(5, id);
 
 
 			if (sql.executeUpdate() == 1) {

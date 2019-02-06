@@ -49,15 +49,13 @@ public class JDBCEventManagerServiceImpl implements EventManagerService {
 		User creator = new User();
 
 		event.setTitle(parameters.getTitle());
-		event.setPlace(parameters.getPlace());
-		event.setCity(parameters.getCity());
+		event.setLocality(parameters.getLocality());
 		event.setStartDate(utility.convertDate(parameters.getStartDate()));
 		event.setEndDate(utility.convertDate(parameters.getEndDate()));
 		/*----SI DEVE CONTROLLARE CHE ID E NAME CORRISPONDONO PRIMA DI INSERIRE----*/
 		category.setId(parameters.getCategoryId());
 		category.setName(parameters.getCategoryName());
 		creator.setId(parameters.getCreatorId());
-		event.setAddress(parameters.getAddress());
 		event.setCategory(category);
 		event.setCreator(creator);
 		/*-------------------------------------------------------------------------*/
@@ -67,7 +65,7 @@ public class JDBCEventManagerServiceImpl implements EventManagerService {
 			connection = dataSource.getConnection();
 			connection.setAutoCommit(false);
 
-			if(insert(connection, event.getTitle(), event.getPlace(), event.getCity(), event.getStartDate(), event.getEndDate(), event.getAddress(), event.getCategory().getId(), event.getCreator().getId())) {
+			if(insert(connection, event.getTitle(), event.getLocality(), event.getStartDate(), event.getEndDate(), event.getCategory().getId(), event.getCreator().getId())) {
 
 				result = "Event inserted";
 
@@ -203,15 +201,13 @@ public class JDBCEventManagerServiceImpl implements EventManagerService {
 
 		event.setId(parameters.getId());
 		event.setTitle(parameters.getTitle());
-		event.setPlace(parameters.getPlace());
-		event.setCity(parameters.getCity());
+		event.setLocality(parameters.getLocality());
 		event.setStartDate(utility.convertDate(parameters.getStartDate()));
 		event.setEndDate(utility.convertDate(parameters.getEndDate()));
 		/*----SI DEVE CONTROLLARE CHE ID E NAME CORRISPONDONO PRIMA DI INSERIRE----*/
 		category.setId(parameters.getCategoryId());
 		category.setName(parameters.getCategoryName());
 		creator.setId(parameters.getCreatorId());
-		event.setAddress(parameters.getAddress());
 		event.setCategory(category);
 		event.setCreator(creator);
 		/*-------------------------------------------------------------------------*/
@@ -222,7 +218,7 @@ public class JDBCEventManagerServiceImpl implements EventManagerService {
 			connection.setAutoCommit(false);
 
 			if(check_creator(connection, event.getId(), event.getCreator().getId())) {
-				if(update(connection, event.getId(), event.getTitle(), event.getPlace(), event.getCity(), event.getStartDate(), event.getEndDate(), event.getAddress(), event.getCategory().getId(), event.getCreator().getId())) {
+				if(update(connection, event.getId(), event.getTitle(), event.getLocality(), event.getStartDate(), event.getEndDate(), event.getCategory().getId(), event.getCreator().getId())) {
 
 					result = "Event updated";
 
@@ -254,22 +250,20 @@ public class JDBCEventManagerServiceImpl implements EventManagerService {
 	}
 
 
-	public boolean insert(Connection con, String title, String place, String city, Timestamp startDate, Timestamp endDate, String address, Long idCategory, Long idCreator) {
+	public boolean insert(Connection con, String title, String locality, Timestamp startDate, Timestamp endDate, Long idCategory, Long idCreator) {
 
-		String query = "INSERT INTO events (title, place, city, startDate, endDate, address, id_category, id_creator) VALUES (?,?,?,?,?,?,?,?)";
+		String query = "INSERT INTO events (title, locality, startDate, endDate, id_category, id_creator) VALUES (?,?,?,?,?,?)";
 
 		try {
 
 			PreparedStatement sql = con.prepareStatement(query);
 
 			sql.setString(1, title);
-			sql.setString(2, place);
-			sql.setString(3, city);
-			sql.setTimestamp(4, startDate);
-			sql.setTimestamp(5, endDate);
-			sql.setString(6, address);
-			sql.setLong(7, idCategory);
-			sql.setLong(8, idCreator);
+			sql.setString(2, locality);
+			sql.setTimestamp(3, startDate);
+			sql.setTimestamp(4, endDate);
+			sql.setLong(5, idCategory);
+			sql.setLong(6, idCreator);
 
 			if (sql.executeUpdate() == 1) {
 				return true;
@@ -302,23 +296,21 @@ public class JDBCEventManagerServiceImpl implements EventManagerService {
 		}
 	}
 
-	public boolean update(Connection con, Long id, String title, String place, String city, Timestamp startDate, Timestamp endDate, String address, Long idCategory, Long idCreator) {
+	public boolean update(Connection con, Long id, String title, String locality, Timestamp startDate, Timestamp endDate, Long idCategory, Long idCreator) {
 
-		String query = "UPDATE events SET title=?, place=?, city=?, startDate=?, endDate=?, address=?, id_category=?, id_creator=? WHERE id=?";
+		String query = "UPDATE events SET title=?, locality=?, startDate=?, endDate=?, id_category=?, id_creator=? WHERE id=?";
 
 		try {
 
 			PreparedStatement sql = con.prepareStatement(query);
 			
 			sql.setString(1, title);
-			sql.setString(2, place);
-			sql.setString(3, city);
-			sql.setTimestamp(4, startDate);
-			sql.setTimestamp(5, endDate);
-			sql.setString(6, address);
-			sql.setLong(7, idCategory);
-			sql.setLong(8, idCreator);
-			sql.setLong(9, id);
+			sql.setString(2, locality);
+			sql.setTimestamp(3, startDate);
+			sql.setTimestamp(4, endDate);
+			sql.setLong(5, idCategory);
+			sql.setLong(6, idCreator);
+			sql.setLong(7, id);
 			
 			if (sql.executeUpdate() == 1) {
 				return true;
