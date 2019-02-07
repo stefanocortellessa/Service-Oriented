@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 
 import javax.sql.DataSource;
 
@@ -34,6 +35,7 @@ import it.univaq.disim.sose.researchmanager.ResearchEventFault_Exception;
 import it.univaq.disim.sose.researchmanager.ResearchEventRequest;
 import it.univaq.disim.sose.researchmanager.ResearchEventResponse;
 import it.univaq.disim.sose.researchmanager.business.ResearchManagerService;
+import it.univaq.disim.sose.researchmanager.business.Utility;
 import it.univaq.disim.sose.researchmanager.business.model.User;
 
 @Service
@@ -74,14 +76,9 @@ public class JDBCResearchManagerServiceImpl implements ResearchManagerService {
 				}
 			}
 		}
-		if(! responseAttractionByCreator.getAttractionsList().getAttractionElement().isEmpty()){
-			responseAttractionByCreator.setAttractionsList(return_list);
-			responseAttractionByCreator.setMessage("Returned Attraction List for this user");	
-		}else {
-			responseAttractionByCreator.setAttractionsList(return_list);
-			responseAttractionByCreator.setMessage("Empty Attraction List for this user!");
-		}
-
+		
+		responseAttractionByCreator.setAttractionsList(return_list);
+		responseAttractionByCreator.setMessage("Returned Attraction List for this user");	
 		return responseAttractionByCreator;
 	}
 
@@ -159,14 +156,9 @@ public class JDBCResearchManagerServiceImpl implements ResearchManagerService {
 				}
 			}
 		}
-		if(! responseAttractionDetail.getAttractionElement().equals(null)){
-			responseAttractionDetail.setAttractionElement(attraction_detail);
-			responseAttractionDetail.setMessage("Returned Attraction Detail for this Attraction");	
-		}else {
-			responseAttractionDetail.setAttractionElement(attraction_detail);
-			responseAttractionDetail.setMessage("Attraction Detail not found for this Attraction!");
-		}
 
+		responseAttractionDetail.setAttractionElement(attraction_detail);
+		responseAttractionDetail.setMessage("Returned Attraction Detail for this Attraction");	
 		return responseAttractionDetail;
 	}
 
@@ -239,41 +231,35 @@ public class JDBCResearchManagerServiceImpl implements ResearchManagerService {
 				}
 			}
 		}
-		if(! responseEventDetail.getEventElement().equals(null)){
-			responseEventDetail.setEventElement(event_detail);
-			responseEventDetail.setMessage("Returned Event Detail for this Attraction");	
-		}else {
-			responseEventDetail.setEventElement(event_detail);
-			responseEventDetail.setMessage("Event Detail not found for this Attraction!");
-		}
 
+		responseEventDetail.setEventElement(event_detail);
+		responseEventDetail.setMessage("Returned Event Detail for this Attraction");
 		return responseEventDetail;
 	}
 
-	public EventElement selectEventDetail(Connection con, Long idCreator) {
+	public EventElement selectEventDetail(Connection con, Long id) {
 
 		EventElement event_detail = new EventElement();
-		String query = "SELECT * FROM event WHERE id=?";
+		String query = "SELECT * FROM events WHERE id=?";
+		Utility utility = new Utility();
 
 		try {
 
 			PreparedStatement sql = con.prepareStatement(query);
 
-			sql.setLong(1, idCreator);
+			sql.setLong(1, id);
 
 			ResultSet rs = sql.executeQuery();
 			while(rs.next()) {
 				event_detail.setId(rs.getLong("id"));
-				event_detail.setTitle(rs.getString("name"));
+				event_detail.setTitle(rs.getString("title"));
 				event_detail.setLocality(rs.getString("locality"));
 				event_detail.setCategoryId(rs.getLong("id_category"));
 				event_detail.setCreatorId(rs.getLong("id_creator"));
-				/******************************************************************************
-				 *  AGGIUNGERE STARTDATE & ENDDATE: *******************************************
-				 *   da qui arrivano in modo simile alla Rest; vedere dalla rest come fare la 
-				 *   conversione in XMLGregorianCalendar e farla anche qui prima di aggiungere 
-				 *   l'evento alla lista degli eventi
-				 *****************************************************************************/
+				Date startDate = new Date(rs.getTimestamp("startDate").getTime());
+				event_detail.setStartDate(utility.convertToXML(startDate));
+				Date endDate = new Date(rs.getTimestamp("endDate").getTime());
+				event_detail.setEndDate(utility.convertToXML(endDate));
 			}
 			return event_detail;
 
@@ -314,25 +300,19 @@ public class JDBCResearchManagerServiceImpl implements ResearchManagerService {
 				}
 			}
 		}
-		if(! responseEventByCreator.getEventsList().getEventElement().isEmpty()){
-			responseEventByCreator.setEventsList(return_list);
-			responseEventByCreator.setMessage("Returned Event List for this user");	
-		}else {
-			responseEventByCreator.setEventsList(return_list);
-			responseEventByCreator.setMessage("Empty Events List for this user!");
-		}
 
+		responseEventByCreator.setEventsList(return_list);
+		responseEventByCreator.setMessage("Returned Event List for this user");	
 		return responseEventByCreator;
 	}
-
-
 
 	public EventsList selectEventByCreator(Connection con, Long idCreator) {
 
 		EventsList return_list = new EventsList();
 		EventElement event = new EventElement();
 		String query = "SELECT * FROM events WHERE id_creator=?";
-
+		Utility utility = new Utility();
+		
 		try {
 
 			PreparedStatement sql = con.prepareStatement(query);
@@ -343,16 +323,15 @@ public class JDBCResearchManagerServiceImpl implements ResearchManagerService {
 			ResultSet rs = sql.executeQuery();
 			while(rs.next()) {
 				event.setId(rs.getLong("id"));
-				event.setTitle(rs.getString("name"));
+				event.setTitle(rs.getString("title"));
 				event.setLocality(rs.getString("locality"));
 				event.setCategoryId(rs.getLong("id_category"));
 				event.setCreatorId(rs.getLong("id_creator"));
-				/******************************************************************************
-				 *  AGGIUNGERE STARTDATE & ENDDATE: *******************************************
-				 *   da qui arrivano in modo simile alla Rest; vedere dalla rest come fare la 
-				 *   conversione in XMLGregorianCalendar e farla anche qui prima di aggiungere 
-				 *   l'evento alla lista degli eventi
-				 *****************************************************************************/
+				Date startDate = new Date(rs.getTimestamp("startDate").getTime());
+				event.setStartDate(utility.convertToXML(startDate));
+				Date endDate = new Date(rs.getTimestamp("endDate").getTime());
+				event.setEndDate(utility.convertToXML(endDate));
+
 				return_list.getEventElement().add(event);
 			}
 			return return_list;
@@ -361,7 +340,7 @@ public class JDBCResearchManagerServiceImpl implements ResearchManagerService {
 			return return_list;
 		}
 	}
-
+	
 
 
 }

@@ -24,7 +24,7 @@ import it.univaq.disim.sose.researchmanager.ResearchEventFault_Exception;
 import it.univaq.disim.sose.researchmanager.ResearchEventRequest;
 import it.univaq.disim.sose.researchmanager.ResearchEventResponse;
 import it.univaq.disim.sose.researchmanager.ResearchManagerPT;
-import it.univaq.disim.sose.researchmanager.ResearchManagerService;
+import it.univaq.disim.sose.researchmanager.business.ResearchManagerService;
 
 
 @Component(value = "ResearchManagerPTImpl")
@@ -74,7 +74,7 @@ public class ResearchManagerPTImpl implements ResearchManagerPT {
 		ResearchEventResponse response = new ResearchEventResponse();
 		response = service.researchEvent(parameters);
 		LOGGER.info(response.getMessage());
-		return response;;
+		return response;
 	}
 
 
