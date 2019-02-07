@@ -30,18 +30,30 @@ public class ObjectFactory {
     private final static QName _AccountSessionRequest_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "accountSessionRequest");
     private final static QName _EventInsertRequest_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "eventInsertRequest");
     private final static QName _EventDeleteRequest_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "eventDeleteRequest");
+    private final static QName _EventUpdateRequest_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "eventUpdateRequest");
+    private final static QName _AttractionInsertRequest_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "attractionInsertRequest");
+    private final static QName _AttractionDeleteRequest_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "attractionDeleteRequest");
+    private final static QName _AttractionUpdateRequest_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "attractionUpdateRequest");
     private final static QName _AccountSignupResponse_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "accountSignupResponse");
     private final static QName _AccountLoginResponse_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "accountLoginResponse");
     private final static QName _AccountLogoutResponse_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "accountLogoutResponse");
     private final static QName _AccountSessionResponse_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "accountSessionResponse");
     private final static QName _EventInsertResponse_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "eventInsertResponse");
     private final static QName _EventDeleteResponse_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "eventDeleteResponse");
+    private final static QName _EventUpdateResponse_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "eventUpdateResponse");
+    private final static QName _AttractionInsertResponse_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "attractionInsertResponse");
+    private final static QName _AttractionDeleteResponse_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "attractionDeleteResponse");
+    private final static QName _AttractionUpdateResponse_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "attractionUpdateResponse");
     private final static QName _AccountSignupFault_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "accountSignupFault");
     private final static QName _AccountLoginFault_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "accountLoginFault");
     private final static QName _AccountLogoutFault_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "accountLogoutFault");
     private final static QName _AccountSessionFault_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "accountSessionFault");
     private final static QName _EventInsertFault_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "eventInsertFault");
     private final static QName _EventDeleteFault_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "eventDeleteFault");
+    private final static QName _EventUpdateFault_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "eventUpdateFault");
+    private final static QName _AttractionInsertFault_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "attractionInsertFault");
+    private final static QName _AttractionDeleteFault_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "attractionDeleteFault");
+    private final static QName _AttractionUpdateFault_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "attractionUpdateFault");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: it.univaq.disim.sose.prosumer
@@ -99,6 +111,38 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link EventUpdateRequest }
+     * 
+     */
+    public EventUpdateRequest createEventUpdateRequest() {
+        return new EventUpdateRequest();
+    }
+
+    /**
+     * Create an instance of {@link AttractionInsertRequest }
+     * 
+     */
+    public AttractionInsertRequest createAttractionInsertRequest() {
+        return new AttractionInsertRequest();
+    }
+
+    /**
+     * Create an instance of {@link AttractionDeleteRequest }
+     * 
+     */
+    public AttractionDeleteRequest createAttractionDeleteRequest() {
+        return new AttractionDeleteRequest();
+    }
+
+    /**
+     * Create an instance of {@link AttractionUpdateRequest }
+     * 
+     */
+    public AttractionUpdateRequest createAttractionUpdateRequest() {
+        return new AttractionUpdateRequest();
+    }
+
+    /**
      * Create an instance of {@link AccountSignupResponse }
      * 
      */
@@ -147,6 +191,38 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link EventUpdateResponse }
+     * 
+     */
+    public EventUpdateResponse createEventUpdateResponse() {
+        return new EventUpdateResponse();
+    }
+
+    /**
+     * Create an instance of {@link AttractionInsertResponse }
+     * 
+     */
+    public AttractionInsertResponse createAttractionInsertResponse() {
+        return new AttractionInsertResponse();
+    }
+
+    /**
+     * Create an instance of {@link AttractionDeleteResponse }
+     * 
+     */
+    public AttractionDeleteResponse createAttractionDeleteResponse() {
+        return new AttractionDeleteResponse();
+    }
+
+    /**
+     * Create an instance of {@link AttractionUpdateResponse }
+     * 
+     */
+    public AttractionUpdateResponse createAttractionUpdateResponse() {
+        return new AttractionUpdateResponse();
+    }
+
+    /**
      * Create an instance of {@link AccountSignupFault }
      * 
      */
@@ -192,6 +268,38 @@ public class ObjectFactory {
      */
     public EventDeleteFault createEventDeleteFault() {
         return new EventDeleteFault();
+    }
+
+    /**
+     * Create an instance of {@link EventUpdateFault }
+     * 
+     */
+    public EventUpdateFault createEventUpdateFault() {
+        return new EventUpdateFault();
+    }
+
+    /**
+     * Create an instance of {@link AttractionInsertFault }
+     * 
+     */
+    public AttractionInsertFault createAttractionInsertFault() {
+        return new AttractionInsertFault();
+    }
+
+    /**
+     * Create an instance of {@link AttractionDeleteFault }
+     * 
+     */
+    public AttractionDeleteFault createAttractionDeleteFault() {
+        return new AttractionDeleteFault();
+    }
+
+    /**
+     * Create an instance of {@link AttractionUpdateFault }
+     * 
+     */
+    public AttractionUpdateFault createAttractionUpdateFault() {
+        return new AttractionUpdateFault();
     }
 
     /**
@@ -249,6 +357,42 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link EventUpdateRequest }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://it.univaq.disim.sose/prosumer", name = "eventUpdateRequest")
+    public JAXBElement<EventUpdateRequest> createEventUpdateRequest(EventUpdateRequest value) {
+        return new JAXBElement<EventUpdateRequest>(_EventUpdateRequest_QNAME, EventUpdateRequest.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link AttractionInsertRequest }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://it.univaq.disim.sose/prosumer", name = "attractionInsertRequest")
+    public JAXBElement<AttractionInsertRequest> createAttractionInsertRequest(AttractionInsertRequest value) {
+        return new JAXBElement<AttractionInsertRequest>(_AttractionInsertRequest_QNAME, AttractionInsertRequest.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link AttractionDeleteRequest }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://it.univaq.disim.sose/prosumer", name = "attractionDeleteRequest")
+    public JAXBElement<AttractionDeleteRequest> createAttractionDeleteRequest(AttractionDeleteRequest value) {
+        return new JAXBElement<AttractionDeleteRequest>(_AttractionDeleteRequest_QNAME, AttractionDeleteRequest.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link AttractionUpdateRequest }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://it.univaq.disim.sose/prosumer", name = "attractionUpdateRequest")
+    public JAXBElement<AttractionUpdateRequest> createAttractionUpdateRequest(AttractionUpdateRequest value) {
+        return new JAXBElement<AttractionUpdateRequest>(_AttractionUpdateRequest_QNAME, AttractionUpdateRequest.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link AccountSignupResponse }{@code >}}
      * 
      */
@@ -303,6 +447,42 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link EventUpdateResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://it.univaq.disim.sose/prosumer", name = "eventUpdateResponse")
+    public JAXBElement<EventUpdateResponse> createEventUpdateResponse(EventUpdateResponse value) {
+        return new JAXBElement<EventUpdateResponse>(_EventUpdateResponse_QNAME, EventUpdateResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link AttractionInsertResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://it.univaq.disim.sose/prosumer", name = "attractionInsertResponse")
+    public JAXBElement<AttractionInsertResponse> createAttractionInsertResponse(AttractionInsertResponse value) {
+        return new JAXBElement<AttractionInsertResponse>(_AttractionInsertResponse_QNAME, AttractionInsertResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link AttractionDeleteResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://it.univaq.disim.sose/prosumer", name = "attractionDeleteResponse")
+    public JAXBElement<AttractionDeleteResponse> createAttractionDeleteResponse(AttractionDeleteResponse value) {
+        return new JAXBElement<AttractionDeleteResponse>(_AttractionDeleteResponse_QNAME, AttractionDeleteResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link AttractionUpdateResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://it.univaq.disim.sose/prosumer", name = "attractionUpdateResponse")
+    public JAXBElement<AttractionUpdateResponse> createAttractionUpdateResponse(AttractionUpdateResponse value) {
+        return new JAXBElement<AttractionUpdateResponse>(_AttractionUpdateResponse_QNAME, AttractionUpdateResponse.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link AccountSignupFault }{@code >}}
      * 
      */
@@ -354,6 +534,42 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://it.univaq.disim.sose/prosumer", name = "eventDeleteFault")
     public JAXBElement<EventDeleteFault> createEventDeleteFault(EventDeleteFault value) {
         return new JAXBElement<EventDeleteFault>(_EventDeleteFault_QNAME, EventDeleteFault.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link EventUpdateFault }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://it.univaq.disim.sose/prosumer", name = "eventUpdateFault")
+    public JAXBElement<EventUpdateFault> createEventUpdateFault(EventUpdateFault value) {
+        return new JAXBElement<EventUpdateFault>(_EventUpdateFault_QNAME, EventUpdateFault.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link AttractionInsertFault }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://it.univaq.disim.sose/prosumer", name = "attractionInsertFault")
+    public JAXBElement<AttractionInsertFault> createAttractionInsertFault(AttractionInsertFault value) {
+        return new JAXBElement<AttractionInsertFault>(_AttractionInsertFault_QNAME, AttractionInsertFault.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link AttractionDeleteFault }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://it.univaq.disim.sose/prosumer", name = "attractionDeleteFault")
+    public JAXBElement<AttractionDeleteFault> createAttractionDeleteFault(AttractionDeleteFault value) {
+        return new JAXBElement<AttractionDeleteFault>(_AttractionDeleteFault_QNAME, AttractionDeleteFault.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link AttractionUpdateFault }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://it.univaq.disim.sose/prosumer", name = "attractionUpdateFault")
+    public JAXBElement<AttractionUpdateFault> createAttractionUpdateFault(AttractionUpdateFault value) {
+        return new JAXBElement<AttractionUpdateFault>(_AttractionUpdateFault_QNAME, AttractionUpdateFault.class, null, value);
     }
 
 }

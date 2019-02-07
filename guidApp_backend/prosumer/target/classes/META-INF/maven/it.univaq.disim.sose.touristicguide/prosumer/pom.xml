@@ -8,12 +8,15 @@
 	<version>1.0.0-SNAPSHOT</version>
 	<name>Prosumer</name>
 	<url>http://maven.apache.org</url>
+	<!-- Properties -->
 	<properties>
 		<cxf.version>3.2.7</cxf.version>
 		<cxf.xjc-utils.version>3.2.3</cxf.xjc-utils.version>
 		<spring.version>4.3.20.RELEASE</spring.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
+	
+	<!-- Dependencies -->
 	<dependencies>
 		<dependency>
 		    <groupId>javax.xml.ws</groupId>
@@ -79,6 +82,8 @@
 			<version>1.7.25</version>
 		</dependency>
 	</dependencies>
+	
+	<!-- Build -->
 	<build>
 		<defaultGoal>install</defaultGoal>
 		<plugins>
@@ -103,6 +108,7 @@
 						<configuration>
 							<wsdlOptions>
 								<!-- WSDL of all services -->
+								<!-- Prosumer -->
 								<wsdlOption>
 									<wsdl>src/main/resources/prosumer.wsdl</wsdl>
 									<faultSerialVersionUID>1</faultSerialVersionUID>
@@ -112,6 +118,7 @@
 										<extraarg>it.univaq.disim.sose.prosumer</extraarg>
 									</extraargs>
 								</wsdlOption>
+								<!-- Account Manager -->
 								<wsdlOption>
 									<wsdl>src/main/resources/clients/accountManager.wsdl</wsdl>
 									<faultSerialVersionUID>1</faultSerialVersionUID>
@@ -121,6 +128,7 @@
 										<extraarg>it.univaq.disim.sose.accountmanager</extraarg>
 									</extraargs>
 								</wsdlOption>
+								<!-- Event Manager -->
 								<wsdlOption>
 									<wsdl>src/main/resources/clients/eventManager.wsdl</wsdl>
 									<faultSerialVersionUID>1</faultSerialVersionUID>
@@ -128,6 +136,16 @@
 										<extraarg>-verbose</extraarg>
 										<extraarg>-p </extraarg>
 										<extraarg>it.univaq.disim.sose.eventmanager</extraarg>
+									</extraargs>
+								</wsdlOption>
+								<!-- Attraction Manager -->
+								<wsdlOption>
+									<wsdl>src/main/resources/clients/attractionManager.wsdl</wsdl>
+									<faultSerialVersionUID>1</faultSerialVersionUID>
+									<extraargs>
+										<extraarg>-verbose</extraarg>
+										<extraarg>-p </extraarg>
+										<extraarg>it.univaq.disim.sose.attractionmanager</extraarg>
 									</extraargs>
 								</wsdlOption>
 							</wsdlOptions>

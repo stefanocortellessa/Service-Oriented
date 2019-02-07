@@ -5,187 +5,314 @@
 				  xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
 				  name="prosumer" 
 				  targetNamespace="http://it.univaq.disim.sose/prosumer">
+	 
 	 <wsdl:types>
-	   <xsd:schema targetNamespace="http://it.univaq.disim.sose/prosumer">
-	    <xsd:element name="accountSignupRequest" type="tns:accountSignupRequest"/>
-		<xsd:element name="accountLoginRequest" type="tns:accountLoginRequest"/>
-		<xsd:element name="accountLogoutRequest" type="tns:accountLogoutRequest"/>
-		<xsd:element name="accountSessionRequest" type="tns:accountSessionRequest"/>
-		<xsd:element name="eventInsertRequest" type="tns:eventInsertRequest"/>
-		<xsd:element name="eventDeleteRequest" type="tns:eventDeleteRequest" />
-		
-		<xsd:element name="accountSignupResponse" type="tns:accountSignupResponse"/>
-		<xsd:element name="accountLoginResponse" type="tns:accountLoginResponse"/>
-		<xsd:element name="accountLogoutResponse" type="tns:accountLogoutResponse"/>
-		<xsd:element name="accountSessionResponse" type="tns:accountSessionResponse"/>
-		<xsd:element name="eventInsertResponse" type="tns:eventInsertResponse"/>
-		<xsd:element name="eventDeleteResponse" type="tns:eventDeleteResponse" />
-		
-		<xsd:element name="accountSignupFault" type="tns:accountSignupFault"/>
-		<xsd:element name="accountLoginFault" type="tns:accountLoginFault"/>
-		<xsd:element name="accountLogoutFault" type="tns:accountLogoutFault"/>
-		<xsd:element name="accountSessionFault" type="tns:accountSessionFault"/>
-		<xsd:element name="eventInsertFault" type="tns:eventInsertFault"/>
-		<xsd:element name="eventDeleteFault" type="tns:eventDeleteFault" />
-		 
-		<!-- Account Signup -->
-		<!-- Request -->
-		<xsd:complexType name="accountSignupRequest">
-			<xsd:sequence>
-				<xsd:element name="username" type="xsd:string" />
-				<xsd:element name="email" type="xsd:string" />
-				<xsd:element name="password" type="xsd:string" />
-				<xsd:element name="name" type="xsd:string" />
-				<xsd:element name="surname" type="xsd:string" />
-			</xsd:sequence>
-		</xsd:complexType>
+	 	<xsd:schema targetNamespace="http://it.univaq.disim.sose/prosumer">
+		    <xsd:element name="accountSignupRequest" type="tns:accountSignupRequest"/>
+			<xsd:element name="accountLoginRequest" type="tns:accountLoginRequest"/>
+			<xsd:element name="accountLogoutRequest" type="tns:accountLogoutRequest"/>
+			<xsd:element name="accountSessionRequest" type="tns:accountSessionRequest"/>		
+			<xsd:element name="eventInsertRequest" type="tns:eventInsertRequest"/>
+			<xsd:element name="eventDeleteRequest" type="tns:eventDeleteRequest" />
+			<xsd:element name="eventUpdateRequest" type="tns:eventUpdateRequest" />		
 			
-		<!-- Response -->
-		<xsd:complexType name="accountSignupResponse">
-			<xsd:sequence>
-				<xsd:element name="token" type="xsd:string" />
-				<xsd:element name="id" type="xsd:long" />
-			</xsd:sequence>
-		</xsd:complexType>
-		
-		<!-- Account Signup Fault-->
-		<xsd:complexType name="accountSignupFault">
-			<xsd:sequence>
-	        	<xsd:element name="faultInsert" type="xsd:string" />
-	            <xsd:element name="message" type="xsd:string" />
-			</xsd:sequence>
-		</xsd:complexType>
-		
-		<!-- Account Login -->
-		<!-- Request -->
-		<xsd:complexType name="accountLoginRequest">
-			<xsd:sequence>
-				<xsd:element name="email" type="xsd:string" />
-				<xsd:element name="password" type="xsd:string" />
-			</xsd:sequence>
-		</xsd:complexType>
-		
-		<!-- Response -->
-		<xsd:complexType name="accountLoginResponse">
-			<xsd:sequence>
-				<xsd:element name="token" type="xsd:string" />
-				<xsd:element name="id" type="xsd:long" />
-			</xsd:sequence>
-		</xsd:complexType>
-		
-		<!-- Account Login Fault-->
-		<xsd:complexType name="accountLoginFault">
-			<xsd:sequence>
-	        	<xsd:element name="faultInsert" type="xsd:string" />
-	            <xsd:element name="message" type="xsd:string" />
-			</xsd:sequence>
-		</xsd:complexType>
-			
-		<!-- Account Logout -->
-		<!-- Request -->
-		<xsd:complexType name="accountLogoutRequest">
-			<xsd:sequence>
-				<xsd:element name="token" type="xsd:string" />
-			</xsd:sequence>
-		</xsd:complexType>
-		
-		<!-- Response -->
-		<xsd:complexType name="accountLogoutResponse">
-			<xsd:sequence>
-				<xsd:element name="response" type="xsd:string" />
-			</xsd:sequence>
-		</xsd:complexType>
-		
-		<!-- Fault -->
-		<xsd:complexType name="accountLogoutFault">
-			<xsd:sequence>
-	                      <xsd:element name="faultInsert" type="xsd:string" />
-	                      <xsd:element name="message" type="xsd:string" />
-			</xsd:sequence>
-		</xsd:complexType>
-			
-		<!-- CheckSession -->
-		<!-- Request -->
-		<xsd:complexType name="accountSessionRequest">
-			<xsd:sequence>
-				<xsd:element name="token" type="xsd:string" />
-			</xsd:sequence>
-		</xsd:complexType>
-		
-		<!-- Response -->
-		<xsd:complexType name="accountSessionResponse">
-			<xsd:sequence>
-				<xsd:element name="response" type="xsd:boolean" />
-			</xsd:sequence>
-		</xsd:complexType>
-		
-		<!-- Account Session Fault -->
-		<xsd:complexType name="accountSessionFault">
-			<xsd:sequence>
-	        	<xsd:element name="faultInsert" type="xsd:string" />
-	            <xsd:element name="message" type="xsd:string" />
-			</xsd:sequence>
-		</xsd:complexType>	
-		
-		<!-- Insert Event -->
-		<!-- Request -->
-		<xsd:complexType name="eventInsertRequest">
-			<xsd:sequence>
-				<xsd:element name="title" type="xsd:string" />
-				<xsd:element name="locality" type="xsd:string" />
-				<xsd:element name="startDate" type="xsd:dateTime" />
-				<xsd:element name="endDate" type="xsd:dateTime" />
-				<xsd:element name="categoryName" type="xsd:string" />
-				<xsd:element name="categoryId" type="xsd:long" />
-				<xsd:element name="creatorId" type="xsd:long" />
-			</xsd:sequence>
-		</xsd:complexType>
-		
-		<!-- Response -->
-		<xsd:complexType name="eventInsertResponse">
-			<xsd:sequence>
-				<xsd:element name="message" type="xsd:string" />
-			</xsd:sequence>
-		</xsd:complexType>
+			<xsd:element name="attractionInsertRequest" type="tns:attractionInsertRequest" />
+			<xsd:element name="attractionDeleteRequest" type="tns:attractionDeleteRequest" />
+			<xsd:element name="attractionUpdateRequest" type="tns:attractionUpdateRequest" />
 				
-		<!-- Fault -->
-		<xsd:complexType name="eventInsertFault">
-			<xsd:sequence>
-                       <xsd:element name="faultInfo" type="xsd:string" />
-                       <xsd:element name="message" type="xsd:string" />
-			</xsd:sequence>
-		</xsd:complexType>
-		
-		<!-- Delete Event -->
-		<!-- Request -->
-		<xsd:complexType name="eventDeleteRequest">
-			<xsd:sequence>
-				<xsd:element name="id" type="xsd:long" />
-				<xsd:element name="userId" type="xsd:long" />
-			</xsd:sequence>
-		</xsd:complexType>
-		
-		<!-- Response -->
-		<xsd:complexType name="eventDeleteResponse">
-			<xsd:sequence>
-				<xsd:element name="message" type="xsd:string" />
-			</xsd:sequence>
-		</xsd:complexType>
+			
+			<xsd:element name="accountSignupResponse" type="tns:accountSignupResponse"/>
+			<xsd:element name="accountLoginResponse" type="tns:accountLoginResponse"/>
+			<xsd:element name="accountLogoutResponse" type="tns:accountLogoutResponse"/>
+			<xsd:element name="accountSessionResponse" type="tns:accountSessionResponse"/>		
+			<xsd:element name="eventInsertResponse" type="tns:eventInsertResponse"/>
+			<xsd:element name="eventDeleteResponse" type="tns:eventDeleteResponse" />
+			<xsd:element name="eventUpdateResponse" type="tns:eventUpdateResponse" />		
+			
+			<xsd:element name="attractionInsertResponse" type="tns:attractionInsertResponse" />
+			<xsd:element name="attractionDeleteResponse" type="tns:attractionDeleteResponse" />
+			<xsd:element name="attractionUpdateResponse" type="tns:attractionUpdateResponse" />
 				
-		<!-- Fault -->
-		<xsd:complexType name="eventDeleteFault">
-			<xsd:sequence>
-        		<xsd:element name="faultInfo" type="xsd:string" />
-                <xsd:element name="message" type="xsd:string" />
-			</xsd:sequence>
-		</xsd:complexType>
-	   </xsd:schema>
+			<xsd:element name="accountSignupFault" type="tns:accountSignupFault"/>
+			<xsd:element name="accountLoginFault" type="tns:accountLoginFault"/>
+			<xsd:element name="accountLogoutFault" type="tns:accountLogoutFault"/>
+			<xsd:element name="accountSessionFault" type="tns:accountSessionFault"/>		
+			<xsd:element name="eventInsertFault" type="tns:eventInsertFault"/>
+			<xsd:element name="eventDeleteFault" type="tns:eventDeleteFault" />
+			<xsd:element name="eventUpdateFault" type="tns:eventUpdateFault" />
+			
+			<xsd:element name="attractionInsertFault" type="tns:attractionInsertFault" />
+			<xsd:element name="attractionDeleteFault" type="tns:attractionDeleteFault" />
+			<xsd:element name="attractionUpdateFault" type="tns:attractionUpdateFault" />
+			
+			<!-- Account Signup -->
+			<!-- Request -->
+			<xsd:complexType name="accountSignupRequest">
+				<xsd:sequence>
+					<xsd:element name="username" type="xsd:string" />
+					<xsd:element name="email" type="xsd:string" />
+					<xsd:element name="password" type="xsd:string" />
+					<xsd:element name="name" type="xsd:string" />
+					<xsd:element name="surname" type="xsd:string" />
+				</xsd:sequence>
+			</xsd:complexType>
+				
+			<!-- Response -->
+			<xsd:complexType name="accountSignupResponse">
+				<xsd:sequence>
+					<xsd:element name="token" type="xsd:string" />
+					<xsd:element name="id" type="xsd:long" />
+				</xsd:sequence>
+			</xsd:complexType>
+			
+			<!-- Fault-->
+			<xsd:complexType name="accountSignupFault">
+				<xsd:sequence>
+		        	<xsd:element name="faultInsert" type="xsd:string" />
+		            <xsd:element name="message" type="xsd:string" />
+				</xsd:sequence>
+			</xsd:complexType>
+			
+			<!-- Account Login -->
+			<!-- Request -->
+			<xsd:complexType name="accountLoginRequest">
+				<xsd:sequence>
+					<xsd:element name="email" type="xsd:string" />
+					<xsd:element name="password" type="xsd:string" />
+				</xsd:sequence>
+			</xsd:complexType>
+			
+			<!-- Response -->
+			<xsd:complexType name="accountLoginResponse">
+				<xsd:sequence>
+					<xsd:element name="token" type="xsd:string" />
+					<xsd:element name="id" type="xsd:long" />
+				</xsd:sequence>
+			</xsd:complexType>
+			
+			<!-- Fault-->
+			<xsd:complexType name="accountLoginFault">
+				<xsd:sequence>
+		        	<xsd:element name="faultInsert" type="xsd:string" />
+		            <xsd:element name="message" type="xsd:string" />
+				</xsd:sequence>
+			</xsd:complexType>
+				
+			<!-- Account Logout -->
+			<!-- Request -->
+			<xsd:complexType name="accountLogoutRequest">
+				<xsd:sequence>
+					<xsd:element name="token" type="xsd:string" />
+				</xsd:sequence>
+			</xsd:complexType>
+			
+			<!-- Response -->
+			<xsd:complexType name="accountLogoutResponse">
+				<xsd:sequence>
+					<xsd:element name="response" type="xsd:string" />
+				</xsd:sequence>
+			</xsd:complexType>
+			
+			<!-- Fault -->
+			<xsd:complexType name="accountLogoutFault">
+				<xsd:sequence>
+		        	<xsd:element name="faultInsert" type="xsd:string" />
+		            <xsd:element name="message" type="xsd:string" />
+				</xsd:sequence>
+			</xsd:complexType>
+				
+			<!-- CheckSession -->
+			<!-- Request -->
+			<xsd:complexType name="accountSessionRequest">
+				<xsd:sequence>
+					<xsd:element name="token" type="xsd:string" />
+				</xsd:sequence>
+			</xsd:complexType>
+			
+			<!-- Response -->
+			<xsd:complexType name="accountSessionResponse">
+				<xsd:sequence>
+					<xsd:element name="response" type="xsd:boolean" />
+				</xsd:sequence>
+			</xsd:complexType>
+			
+			<!-- Fault -->
+			<xsd:complexType name="accountSessionFault">
+				<xsd:sequence>
+		        	<xsd:element name="faultInsert" type="xsd:string" />
+		            <xsd:element name="message" type="xsd:string" />
+				</xsd:sequence>
+			</xsd:complexType>	
+			
+			<!-- Insert Event -->
+			<!-- Request -->
+			<xsd:complexType name="eventInsertRequest">
+				<xsd:sequence>
+					<xsd:element name="title" type="xsd:string" />
+					<xsd:element name="locality" type="xsd:string" />
+					<xsd:element name="startDate" type="xsd:dateTime" />
+					<xsd:element name="endDate" type="xsd:dateTime" />
+					<xsd:element name="categoryName" type="xsd:string" />
+					<xsd:element name="categoryId" type="xsd:long" />
+					<xsd:element name="creatorId" type="xsd:long" />
+				</xsd:sequence>
+			</xsd:complexType>
+			
+			<!-- Response -->
+			<xsd:complexType name="eventInsertResponse">
+				<xsd:sequence>
+					<xsd:element name="message" type="xsd:string" />
+				</xsd:sequence>
+			</xsd:complexType>
+					
+			<!-- Fault -->
+			<xsd:complexType name="eventInsertFault">
+				<xsd:sequence>
+	            	<xsd:element name="faultInfo" type="xsd:string" />
+	                <xsd:element name="message" type="xsd:string" />
+				</xsd:sequence>
+			</xsd:complexType>
+			
+			<!-- Delete Event -->
+			<!-- Request -->
+			<xsd:complexType name="eventDeleteRequest">
+				<xsd:sequence>
+					<xsd:element name="id" type="xsd:long" />
+					<xsd:element name="userId" type="xsd:long" />
+				</xsd:sequence>
+			</xsd:complexType>
+			
+			<!-- Response -->
+			<xsd:complexType name="eventDeleteResponse">
+				<xsd:sequence>
+					<xsd:element name="message" type="xsd:string" />
+				</xsd:sequence>
+			</xsd:complexType>
+					
+			<!-- Fault -->
+			<xsd:complexType name="eventDeleteFault">
+				<xsd:sequence>
+	        		<xsd:element name="faultInfo" type="xsd:string" />
+	                <xsd:element name="message" type="xsd:string" />
+				</xsd:sequence>
+			</xsd:complexType>
+			
+			<!-- Update Event -->
+			<!-- Request -->
+			<xsd:complexType name="eventUpdateRequest">
+				<xsd:sequence>
+					<xsd:element name="id" type="xsd:long" />
+					<xsd:element name="title" type="xsd:string" />
+					<xsd:element name="locality" type="xsd:string" />
+					<xsd:element name="startDate" type="xsd:dateTime" />
+					<xsd:element name="endDate" type="xsd:dateTime" />
+					<xsd:element name="categoryName" type="xsd:string" />
+					<xsd:element name="categoryId" type="xsd:long" />
+					<xsd:element name="creatorId" type="xsd:long" />
+				</xsd:sequence>
+			</xsd:complexType>
+			
+			<!-- Response -->
+			<xsd:complexType name="eventUpdateResponse">
+				<xsd:sequence>
+					<xsd:element name="message" type="xsd:string" />					
+				</xsd:sequence>
+			</xsd:complexType>
+					
+			<!-- Fault -->
+			<xsd:complexType name="eventUpdateFault">
+				<xsd:sequence>
+	            	<xsd:element name="faultInfo" type="xsd:string" />
+	                <xsd:element name="message" type="xsd:string" />
+				</xsd:sequence>
+			</xsd:complexType>
+		   
+			<!-- Insert Attraction -->
+			<!-- Request -->
+			<xsd:complexType name="attractionInsertRequest">
+				<xsd:sequence>
+					<xsd:element name="name" type="xsd:string" />
+					<xsd:element name="locality" type="xsd:string" />
+					<xsd:element name="categoryName" type="xsd:string" />
+					<xsd:element name="categoryId" type="xsd:long" />
+					<xsd:element name="creatorId" type="xsd:long" />
+				</xsd:sequence>
+			</xsd:complexType>
+			
+			<!-- Response -->
+			<xsd:complexType name="attractionInsertResponse">
+				<xsd:sequence>
+					<xsd:element name="message" type="xsd:string" />					
+				</xsd:sequence>
+			</xsd:complexType>
+					
+			<!-- Fault -->
+			<xsd:complexType name="attractionInsertFault">
+				<xsd:sequence>
+		        	<xsd:element name="faultInfo" type="xsd:string" />
+		           	<xsd:element name="message" type="xsd:string" />
+				</xsd:sequence>
+			</xsd:complexType>
+		
+			<!-- Delete Attraction -->
+			<!-- Request -->
+			<xsd:complexType name="attractionDeleteRequest">
+				<xsd:sequence>
+					<xsd:element name="id" type="xsd:long" />
+					<xsd:element name="userId" type="xsd:long" />
+				</xsd:sequence>
+			</xsd:complexType>
+			
+			<!-- Response -->
+			<xsd:complexType name="attractionDeleteResponse">
+				<xsd:sequence>
+					<xsd:element name="message" type="xsd:string" />
+				</xsd:sequence>
+			</xsd:complexType>
+					
+			<!-- Fault -->
+			<xsd:complexType name="attractionDeleteFault">
+				<xsd:sequence>
+		        	<xsd:element name="faultInfo" type="xsd:string" />
+		            <xsd:element name="message" type="xsd:string" />
+				</xsd:sequence>
+			</xsd:complexType>
+		
+			<!-- Update Attraction -->
+			<!-- Request -->
+			<xsd:complexType name="attractionUpdateRequest">
+				<xsd:sequence>
+					<xsd:element name="id" type="xsd:long" />
+					<xsd:element name="name" type="xsd:string" />
+					<xsd:element name="locality" type="xsd:string" />
+					<xsd:element name="categoryName" type="xsd:string" />
+					<xsd:element name="categoryId" type="xsd:long" />
+					<xsd:element name="creatorId" type="xsd:long" />
+				</xsd:sequence>
+			</xsd:complexType>
+			 
+			<!-- Response -->
+			<xsd:complexType name="attractionUpdateResponse">
+				<xsd:sequence>
+					<xsd:element name="message" type="xsd:string" />					
+				</xsd:sequence>
+			</xsd:complexType>
+					
+			<!-- Fault -->
+			<xsd:complexType name="attractionUpdateFault">
+				<xsd:sequence>
+		        	<xsd:element name="faultInfo" type="xsd:string" />
+		            <xsd:element name="message" type="xsd:string" />
+				</xsd:sequence>
+			</xsd:complexType>
+			
+		</xsd:schema>
 	 </wsdl:types>
   
-  	<!-- Messages -->
+  	<!-- MESSAGES -->
   	<!-- Account Signup -->
 	<wsdl:message name="accountSignupRequest">
-        <wsdl:part name="parameters" element="tns:accountSignupRequest"/>
+    	<wsdl:part name="parameters" element="tns:accountSignupRequest"/>
     </wsdl:message>
     <wsdl:message name="accountSignupResponse">
         <wsdl:part name="parameters" element="tns:accountSignupResponse"/>
@@ -254,7 +381,64 @@
 		<wsdl:part name="parameters" element="tns:eventDeleteFault">
 		</wsdl:part>
 	</wsdl:message>
+	
+	<!-- Update Event -->
+	<wsdl:message name="eventUpdateRequest">
+		<wsdl:part name="parameters" element="tns:eventUpdateRequest">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="eventUpdateResponse">
+		<wsdl:part name="parameters" element="tns:eventUpdateResponse">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="eventUpdateFault">
+		<wsdl:part name="parameters" element="tns:eventUpdateFault">
+		</wsdl:part>
+	</wsdl:message>
+	
+	<!-- Insert Attraction -->
+	<wsdl:message name="attractionInsertRequest">
+		<wsdl:part name="parameters" element="tns:attractionInsertRequest">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="attractionInsertResponse">
+		<wsdl:part name="parameters" element="tns:attractionInsertResponse">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="attractionInsertFault">
+		<wsdl:part name="parameters" element="tns:attractionInsertFault">
+		</wsdl:part>
+	</wsdl:message>
+	
+	<!-- Delete Attraction -->
+	<wsdl:message name="attractionDeleteRequest">
+		<wsdl:part name="parameters" element="tns:attractionDeleteRequest">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="attractionDeleteResponse">
+		<wsdl:part name="parameters" element="tns:attractionDeleteResponse">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="attractionDeleteFault">
+		<wsdl:part name="parameters" element="tns:attractionDeleteFault">
+		</wsdl:part>
+	</wsdl:message>
+	
+	<!-- Update Attraction -->
+	<wsdl:message name="attractionUpdateRequest">
+		<wsdl:part name="parameters" element="tns:attractionUpdateRequest">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="attractionUpdateResponse">
+		<wsdl:part name="parameters" element="tns:attractionUpdateResponse">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="attractionUpdateFault">
+		<wsdl:part name="parameters" element="tns:attractionUpdateFault">
+		</wsdl:part>
+	</wsdl:message>
   	
+  	<!-- Prosumer Port -->
     <wsdl:portType name="prosumerPT">
 		<wsdl:operation name="userSignup">
 	        <wsdl:input name="accountSignupRequest" message="tns:accountSignupRequest" />
@@ -286,12 +470,35 @@
 			<wsdl:output name="eventDeleteResponse" message="tns:eventDeleteResponse" />
 			<wsdl:fault name="eventDeleteFault" message="tns:eventDeleteFault" />
 		</wsdl:operation>
-  </wsdl:portType> 
+		<wsdl:operation name="eventUpdate">
+			<wsdl:input name="eventUpdateRequest" message="tns:eventUpdateRequest" />
+			<wsdl:output name="eventUpdateResponse" message="tns:eventUpdateResponse" />
+			<wsdl:fault name="eventUpdateFault" message="tns:eventUpdateFault" />
+		</wsdl:operation>
+		
+		<wsdl:operation name="attractionInsert">
+			<wsdl:input name="attractionInsertRequest" message="tns:attractionInsertRequest" />
+			<wsdl:output name="attractionInsertResponse" message="tns:attractionInsertResponse" />
+			<wsdl:fault name="attractionInsertFault" message="tns:attractionInsertFault" />
+		</wsdl:operation>
+		<wsdl:operation name="attractionDelete">
+			<wsdl:input name="attractionDeleteRequest" message="tns:attractionDeleteRequest" />
+			<wsdl:output name="attractionDeleteResponse" message="tns:attractionDeleteResponse" />
+			<wsdl:fault name="attractionDeleteFault" message="tns:attractionDeleteFault" />
+		</wsdl:operation>
+		<wsdl:operation name="attractionUpdate">
+			<wsdl:input name="attractionUpdateRequest" message="tns:attractionUpdateRequest" />
+			<wsdl:output name="attractionUpdateResponse" message="tns:attractionUpdateResponse" />
+			<wsdl:fault name="attractionUpdateFault" message="tns:attractionUpdateFault" />
+		</wsdl:operation>
+  	</wsdl:portType> 
   
-  	<!-- Binding -->
+  	<!-- Prosumer Binding -->
 	<wsdl:binding name="prosumerBinding" type="tns:prosumerPT">
 		<soap:binding style="document"
 			transport="http://schemas.xmlsoap.org/soap/http" />
+		
+		<!-- Account Signup -->
 		<wsdl:operation name="userSignup">
 			<soap:operation soapAction="" />
 			<wsdl:input>
@@ -301,6 +508,7 @@
 				<soap:body use="literal" />
 			</wsdl:output> 
 		</wsdl:operation>
+		<!-- Account Login -->
 		<wsdl:operation name="userLogin">
 			<soap:operation soapAction="" />
 			<wsdl:input>
@@ -310,6 +518,7 @@
 				<soap:body use="literal" />
 			</wsdl:output>
 		</wsdl:operation>
+		<!-- Account Logout -->
 		<wsdl:operation name="userLogout">
 			<soap:operation soapAction="" />
 			<wsdl:input>
@@ -319,6 +528,7 @@
 				<soap:body use="literal" />
 			</wsdl:output>
 		</wsdl:operation>
+		<!-- Account Check Session -->
 		<wsdl:operation name="accountSession">
 			<soap:operation soapAction="" />
 			<wsdl:input>
@@ -328,6 +538,7 @@
 				<soap:body use="literal" />
 			</wsdl:output>
 		</wsdl:operation>
+		<!-- Event Insert -->
 		<wsdl:operation name="eventInsert">
 			<soap:operation soapAction="" />
 			<wsdl:input>
@@ -337,6 +548,7 @@
 				<soap:body use="literal" />
 			</wsdl:output>
 		</wsdl:operation>
+		<!-- Event Delete -->
 		<wsdl:operation name="eventDelete">
 			<soap:operation soapAction="" />
 			<wsdl:input>
@@ -346,11 +558,52 @@
 				<soap:body use="literal" />
 			</wsdl:output>
 		</wsdl:operation>
-		
+		<!-- Event Update -->
+		<wsdl:operation name="eventUpdate">
+			<soap:operation soapAction="" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input> 
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<!-- Attraction Insert -->
+		<wsdl:operation name="attractionInsert">
+			<soap:operation soapAction="" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input> 
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<!-- Attraction Delete -->
+		<wsdl:operation name="attractionDelete">
+			<soap:operation soapAction="" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input> 
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<!-- Attraction Update -->
+		<wsdl:operation name="attractionUpdate">
+			<soap:operation soapAction="" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input> 
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
 	</wsdl:binding>
-  <wsdl:service name="prosumerService">
-    <wsdl:port name="prosumerPort" binding="tns:prosumerBinding">
-      <soap:address location="http://localhost:8080/prosumer/services/prosumer"/>
-    </wsdl:port>
-  </wsdl:service>
+	
+	<!-- Prosumer Service -->
+  	<wsdl:service name="prosumerService">
+	    <wsdl:port name="prosumerPort" binding="tns:prosumerBinding">
+	      <soap:address location="http://localhost:8080/prosumer/services/prosumer"/>
+	    </wsdl:port>
+  	</wsdl:service>
 </wsdl:definitions>
