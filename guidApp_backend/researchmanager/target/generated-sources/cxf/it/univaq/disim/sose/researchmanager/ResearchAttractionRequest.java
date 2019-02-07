@@ -3,7 +3,6 @@ package it.univaq.disim.sose.researchmanager;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -17,8 +16,9 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="locality" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="categoryId" type="{http://www.w3.org/2001/XMLSchema}long"/&gt;
+ *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="locality" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="categoryId" type="{http://www.w3.org/2001/XMLSchema}long" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -29,14 +29,39 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "researchAttractionRequest", propOrder = {
+    "name",
     "locality",
     "categoryId"
 })
 public class ResearchAttractionRequest {
 
-    @XmlElement(required = true)
+    protected String name;
     protected String locality;
-    protected long categoryId;
+    protected Long categoryId;
+
+    /**
+     * Recupera il valore della proprietà name.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Imposta il valore della proprietà name.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setName(String value) {
+        this.name = value;
+    }
 
     /**
      * Recupera il valore della proprietà locality.
@@ -65,16 +90,24 @@ public class ResearchAttractionRequest {
     /**
      * Recupera il valore della proprietà categoryId.
      * 
+     * @return
+     *     possible object is
+     *     {@link Long }
+     *     
      */
-    public long getCategoryId() {
+    public Long getCategoryId() {
         return categoryId;
     }
 
     /**
      * Imposta il valore della proprietà categoryId.
      * 
+     * @param value
+     *     allowed object is
+     *     {@link Long }
+     *     
      */
-    public void setCategoryId(long value) {
+    public void setCategoryId(Long value) {
         this.categoryId = value;
     }
 

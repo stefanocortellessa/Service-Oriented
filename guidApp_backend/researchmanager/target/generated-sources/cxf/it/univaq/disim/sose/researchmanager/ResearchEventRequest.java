@@ -3,7 +3,6 @@ package it.univaq.disim.sose.researchmanager;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -19,9 +18,10 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="locality" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="date" type="{http://www.w3.org/2001/XMLSchema}dateTime"/&gt;
- *         &lt;element name="categoryId" type="{http://www.w3.org/2001/XMLSchema}long"/&gt;
+ *         &lt;element name="title" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="locality" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="date" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/&gt;
+ *         &lt;element name="categoryId" type="{http://www.w3.org/2001/XMLSchema}long" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -32,18 +32,42 @@ import javax.xml.datatype.XMLGregorianCalendar;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "researchEventRequest", propOrder = {
+    "title",
     "locality",
     "date",
     "categoryId"
 })
 public class ResearchEventRequest {
 
-    @XmlElement(required = true)
+    protected String title;
     protected String locality;
-    @XmlElement(required = true)
     @XmlSchemaType(name = "dateTime")
     protected XMLGregorianCalendar date;
-    protected long categoryId;
+    protected Long categoryId;
+
+    /**
+     * Recupera il valore della proprietà title.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getTitle() {
+        return title;
+    }
+
+    /**
+     * Imposta il valore della proprietà title.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setTitle(String value) {
+        this.title = value;
+    }
 
     /**
      * Recupera il valore della proprietà locality.
@@ -96,16 +120,24 @@ public class ResearchEventRequest {
     /**
      * Recupera il valore della proprietà categoryId.
      * 
+     * @return
+     *     possible object is
+     *     {@link Long }
+     *     
      */
-    public long getCategoryId() {
+    public Long getCategoryId() {
         return categoryId;
     }
 
     /**
      * Imposta il valore della proprietà categoryId.
      * 
+     * @param value
+     *     allowed object is
+     *     {@link Long }
+     *     
      */
-    public void setCategoryId(long value) {
+    public void setCategoryId(Long value) {
         this.categoryId = value;
     }
 

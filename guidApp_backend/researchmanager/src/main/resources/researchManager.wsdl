@@ -10,7 +10,6 @@
 	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
 	xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata">
 	
-	
 	<types>
 		<xsd:schema targetNamespace="http://it.univaq.disim.sose/researchManager">
 			<xsd:element name="researchEventRequest" type="tns:researchEventRequest" />
@@ -83,9 +82,10 @@
 			<!-- Request -->
 			<xsd:complexType name="researchEventRequest">
 				<xsd:sequence>
-					<xsd:element name="locality" type="xsd:string" />
-					<xsd:element name="date" type="xsd:dateTime" />
-					<xsd:element name="categoryId" type="xsd:long" />
+					<xsd:element name="title" type="xsd:string" minOccurs="0" maxOccurs="1"  />
+					<xsd:element name="locality" type="xsd:string" minOccurs="0" maxOccurs="1" />
+					<xsd:element name="date" type="xsd:dateTime" minOccurs="0" maxOccurs="1" />
+					<xsd:element name="categoryId" type="xsd:long" minOccurs="0" maxOccurs="1" />
 				</xsd:sequence>
 			</xsd:complexType>
 			
@@ -110,8 +110,9 @@
 			<!-- Request -->
 			<xsd:complexType name="researchAttractionRequest">
 				<xsd:sequence>
-					<xsd:element name="locality" type="xsd:string" />
-					<xsd:element name="categoryId" type="xsd:long" />
+					<xsd:element name="name" type="xsd:string" minOccurs="0" maxOccurs="1" />
+					<xsd:element name="locality" type="xsd:string" minOccurs="0" maxOccurs="1" />
+					<xsd:element name="categoryId" type="xsd:long" minOccurs="0" maxOccurs="1" />
 				</xsd:sequence>
 			</xsd:complexType>
 			
