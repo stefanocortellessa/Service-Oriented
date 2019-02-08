@@ -499,8 +499,9 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 			ResearchAttractionDetailResponse researchResponse = research.researchAttractionDetail(researchRequest);
 			
 			response.setMessage(researchResponse.getMessage());
-			response.setAttractionElement(buildAttractionElement(researchResponse.getAttractionElement()));
-
+			if(researchResponse.getAttractionElement() != null) {
+				response.setAttractionElement(buildAttractionElement(researchResponse.getAttractionElement()));
+			}
 		} catch (ResearchAttractionDetailFault_Exception e) {
 			e.printStackTrace();
 			try {
@@ -529,7 +530,10 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 			ResearchEventDetailResponse researchResponse = research.researchEventDetail(researchRequest);
 			
 			response.setMessage(researchResponse.getMessage());
-			
+			if(researchResponse.getEventElement() != null) {
+				response.setEventElement(buildEventElement(researchResponse.getEventElement()));
+
+			}
 		} catch (ResearchEventDetailFault_Exception e) {
 			e.printStackTrace();
 			try {

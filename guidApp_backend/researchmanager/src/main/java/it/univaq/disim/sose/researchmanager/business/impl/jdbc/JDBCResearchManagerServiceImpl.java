@@ -252,9 +252,14 @@ public class JDBCResearchManagerServiceImpl implements ResearchManagerService {
 				}
 			}
 		}
+		if(attraction_detail.getId() != 0) {
+			responseAttractionDetail.setAttractionElement(attraction_detail);
+		
+			responseAttractionDetail.setMessage("Returned Attraction Detail for this Attraction");	
+		}else {
+			responseAttractionDetail.setMessage("Attraction Detail Not Found for this Attraction");	
 
-		responseAttractionDetail.setAttractionElement(attraction_detail);
-		responseAttractionDetail.setMessage("Returned Attraction Detail for this Attraction");	
+		}
 		return responseAttractionDetail;
 	}
 
@@ -441,8 +446,14 @@ public class JDBCResearchManagerServiceImpl implements ResearchManagerService {
 			}
 		}
 
-		responseEventDetail.setEventElement(event_detail);
-		responseEventDetail.setMessage("Returned Event Detail for this Attraction");
+		if(event_detail.getId() != 0) {
+			responseEventDetail.setEventElement(event_detail);
+		
+			responseEventDetail.setMessage("Returned Event Detail for this Attraction");	
+		}else {
+			responseEventDetail.setMessage("Event Detail Not Found for this Attraction");	
+
+		}
 		return responseEventDetail;
 	}
 
