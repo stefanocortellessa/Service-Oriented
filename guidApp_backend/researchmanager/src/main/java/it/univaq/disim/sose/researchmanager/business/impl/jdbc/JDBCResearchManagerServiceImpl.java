@@ -89,7 +89,6 @@ public class JDBCResearchManagerServiceImpl implements ResearchManagerService {
 	public AttractionsList selectAttractionByCreator(Connection con, Long idCreator) {
 
 		AttractionsList return_list = new AttractionsList();
-		AttractionElement attraction = new AttractionElement();
 		String query = "SELECT * FROM attractions WHERE id_creator=?";
 
 		try {
@@ -101,6 +100,7 @@ public class JDBCResearchManagerServiceImpl implements ResearchManagerService {
 
 			ResultSet rs = sql.executeQuery();
 			while(rs.next()) {
+				AttractionElement attraction = new AttractionElement();
 				attraction.setId(rs.getLong("id"));
 				attraction.setName(rs.getString("name"));
 				attraction.setLocality(rs.getString("locality"));
@@ -168,7 +168,6 @@ public class JDBCResearchManagerServiceImpl implements ResearchManagerService {
 	public AttractionsList selectAttractionByFilter(Connection con, String name, String locality, Long categoryId) {
 
 		AttractionsList return_list = new AttractionsList();
-		AttractionElement attraction = new AttractionElement();
 		
 		String query = "SELECT * FROM attractions WHERE ";
 
@@ -207,6 +206,7 @@ public class JDBCResearchManagerServiceImpl implements ResearchManagerService {
 			}
 			ResultSet rs = sql.executeQuery();
 			while(rs.next()) {
+				AttractionElement attraction = new AttractionElement();
 				attraction.setId(rs.getLong("id"));
 				attraction.setName(rs.getString("name"));
 				attraction.setLocality(rs.getString("locality"));
@@ -341,7 +341,6 @@ public class JDBCResearchManagerServiceImpl implements ResearchManagerService {
 	public EventsList selectEventByFilter(Connection con, String name, String locality, Long categoryId, Timestamp date) {
 
 		EventsList return_list = new EventsList();
-		EventElement event = new EventElement();
 		String query = "SELECT * FROM events WHERE ";
 		Utility utility = new Utility();
 		//date BETWEEN date(events.startDate) AND date(events.endDate) AND name LIKE ? AND locality LIKE ? AND id_category=?";
@@ -389,6 +388,7 @@ public class JDBCResearchManagerServiceImpl implements ResearchManagerService {
 			}
 			ResultSet rs = sql.executeQuery();
 			while(rs.next()) {
+				EventElement event = new EventElement();
 				event.setId(rs.getLong("id"));
 				event.setTitle(rs.getString("title"));
 				event.setLocality(rs.getString("locality"));
@@ -509,20 +509,24 @@ public class JDBCResearchManagerServiceImpl implements ResearchManagerService {
 				}
 			}
 		}
-
+		
+		System.out.println("RETURN_LST : " + return_list);
 		responseEventByCreator.setEventsList(return_list);
+		
+		System.out.println("RETURN_LST_FATTA : " + responseEventByCreator.getEventsList().toString());
 		responseEventByCreator.setMessage("Returned Event List for this user");	
+		
 		return responseEventByCreator;
 	}
 
 	public EventsList selectEventByCreator(Connection con, Long idCreator) {
 
 		EventsList return_list = new EventsList();
-		EventElement event = new EventElement();
+		//EventElement event = new EventElement();
 		String query = "SELECT * FROM events WHERE id_creator=?";
 		Utility utility = new Utility();
 
-		try {
+		try { 
 
 			PreparedStatement sql = con.prepareStatement(query);
 
@@ -531,6 +535,7 @@ public class JDBCResearchManagerServiceImpl implements ResearchManagerService {
 
 			ResultSet rs = sql.executeQuery();
 			while(rs.next()) {
+				EventElement event = new EventElement();
 				event.setId(rs.getLong("id"));
 				event.setTitle(rs.getString("title"));
 				event.setLocality(rs.getString("locality"));
@@ -540,8 +545,12 @@ public class JDBCResearchManagerServiceImpl implements ResearchManagerService {
 				event.setStartDate(utility.convertToXML(startDate));
 				Date endDate = new Date(rs.getTimestamp("endDate").getTime());
 				event.setEndDate(utility.convertToXML(endDate));
-
+					
+				System.out.println("EVENT : " + event);
+				
+				//return_list.getEventElement().add(event);
 				return_list.getEventElement().add(event);
+				
 			}
 			return return_list;
 

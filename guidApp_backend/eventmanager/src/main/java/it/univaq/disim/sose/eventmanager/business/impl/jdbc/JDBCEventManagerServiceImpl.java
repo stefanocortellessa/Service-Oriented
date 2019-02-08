@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Timestamp;
 
 import javax.sql.DataSource;
@@ -203,20 +204,26 @@ public class JDBCEventManagerServiceImpl implements EventManagerService {
 		event.setLocality(parameters.getLocality());
 		event.setStartDate(utility.convertDate(parameters.getStartDate()));
 		event.setEndDate(utility.convertDate(parameters.getEndDate()));
+		
 		/*----SI DEVE CONTROLLARE CHE ID E NAME CORRISPONDONO PRIMA DI INSERIRE----*/
 		category.setId(parameters.getCategoryId());
 		category.setName(parameters.getCategoryName());
+		
 		creator.setId(parameters.getCreatorId());
+		
 		event.setCategory(category);
 		event.setCreator(creator);
 		/*-------------------------------------------------------------------------*/
 		UpdateEventResponse responseEvent = new UpdateEventResponse();
+
 		try {
 
 			connection = dataSource.getConnection();
 			connection.setAutoCommit(false);
 
 			if(check_creator(connection, event.getId(), event.getCreator().getId())) {
+				
+				
 				if(update(connection, event.getId(), event.getTitle(), event.getLocality(), event.getStartDate(), event.getEndDate(), event.getCategory().getId(), event.getCreator().getId())) {
 
 					result = "Event updated";
@@ -225,6 +232,8 @@ public class JDBCEventManagerServiceImpl implements EventManagerService {
 					result = "Event not updated";
 				}
 			}else {
+				System.out.println("EVENT_ID: " + event.getId());
+				System.out.println("CREATOR_ID: " + event.getCreator().getId());
 				result = "Event not updated: user is not its creator";
 			}
 		}

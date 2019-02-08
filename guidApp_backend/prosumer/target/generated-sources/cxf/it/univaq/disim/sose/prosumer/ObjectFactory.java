@@ -34,6 +34,12 @@ public class ObjectFactory {
     private final static QName _AttractionInsertRequest_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "attractionInsertRequest");
     private final static QName _AttractionDeleteRequest_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "attractionDeleteRequest");
     private final static QName _AttractionUpdateRequest_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "attractionUpdateRequest");
+    private final static QName _EventResearchRequest_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "eventResearchRequest");
+    private final static QName _AttractionResearchRequest_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "attractionResearchRequest");
+    private final static QName _EventByCreatorResearchRequest_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "eventByCreatorResearchRequest");
+    private final static QName _AttractionByCreatorResearchRequest_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "attractionByCreatorResearchRequest");
+    private final static QName _EventDetailResearchRequest_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "eventDetailResearchRequest");
+    private final static QName _AttractionDetailResearchRequest_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "attractionDetailResearchRequest");
     private final static QName _AccountSignupResponse_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "accountSignupResponse");
     private final static QName _AccountLoginResponse_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "accountLoginResponse");
     private final static QName _AccountLogoutResponse_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "accountLogoutResponse");
@@ -44,6 +50,15 @@ public class ObjectFactory {
     private final static QName _AttractionInsertResponse_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "attractionInsertResponse");
     private final static QName _AttractionDeleteResponse_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "attractionDeleteResponse");
     private final static QName _AttractionUpdateResponse_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "attractionUpdateResponse");
+    private final static QName _AttractionInsertFault_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "attractionInsertFault");
+    private final static QName _AttractionDeleteFault_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "attractionDeleteFault");
+    private final static QName _AttractionUpdateFault_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "attractionUpdateFault");
+    private final static QName _AttractionResearchResponse_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "attractionResearchResponse");
+    private final static QName _EventResearchResponse_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "eventResearchResponse");
+    private final static QName _EventByCreatorResearchResponse_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "eventByCreatorResearchResponse");
+    private final static QName _AttractionByCreatorResearchResponse_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "attractionByCreatorResearchResponse");
+    private final static QName _AttractionDetailResearchResponse_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "attractionDetailResearchResponse");
+    private final static QName _EventDetailResearchResponse_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "eventDetailResearchResponse");
     private final static QName _AccountSignupFault_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "accountSignupFault");
     private final static QName _AccountLoginFault_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "accountLoginFault");
     private final static QName _AccountLogoutFault_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "accountLogoutFault");
@@ -51,9 +66,12 @@ public class ObjectFactory {
     private final static QName _EventInsertFault_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "eventInsertFault");
     private final static QName _EventDeleteFault_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "eventDeleteFault");
     private final static QName _EventUpdateFault_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "eventUpdateFault");
-    private final static QName _AttractionInsertFault_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "attractionInsertFault");
-    private final static QName _AttractionDeleteFault_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "attractionDeleteFault");
-    private final static QName _AttractionUpdateFault_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "attractionUpdateFault");
+    private final static QName _EventResearchFault_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "eventResearchFault");
+    private final static QName _AttractionResearchFault_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "attractionResearchFault");
+    private final static QName _EventByCreatorResearchFault_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "eventByCreatorResearchFault");
+    private final static QName _AttractionByCreatorResearchFault_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "attractionByCreatorResearchFault");
+    private final static QName _EventDetailResearchFault_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "eventDetailResearchFault");
+    private final static QName _AttractionDetailResearchFault_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "attractionDetailResearchFault");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: it.univaq.disim.sose.prosumer
@@ -143,6 +161,54 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link EventResearchRequest }
+     * 
+     */
+    public EventResearchRequest createEventResearchRequest() {
+        return new EventResearchRequest();
+    }
+
+    /**
+     * Create an instance of {@link AttractionResearchRequest }
+     * 
+     */
+    public AttractionResearchRequest createAttractionResearchRequest() {
+        return new AttractionResearchRequest();
+    }
+
+    /**
+     * Create an instance of {@link EventByCreatorResearchRequest }
+     * 
+     */
+    public EventByCreatorResearchRequest createEventByCreatorResearchRequest() {
+        return new EventByCreatorResearchRequest();
+    }
+
+    /**
+     * Create an instance of {@link AttractionByCreatorResearchRequest }
+     * 
+     */
+    public AttractionByCreatorResearchRequest createAttractionByCreatorResearchRequest() {
+        return new AttractionByCreatorResearchRequest();
+    }
+
+    /**
+     * Create an instance of {@link EventDetailResearchRequest }
+     * 
+     */
+    public EventDetailResearchRequest createEventDetailResearchRequest() {
+        return new EventDetailResearchRequest();
+    }
+
+    /**
+     * Create an instance of {@link AttractionDetailResearchRequest }
+     * 
+     */
+    public AttractionDetailResearchRequest createAttractionDetailResearchRequest() {
+        return new AttractionDetailResearchRequest();
+    }
+
+    /**
      * Create an instance of {@link AccountSignupResponse }
      * 
      */
@@ -223,6 +289,78 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link AttractionInsertFault }
+     * 
+     */
+    public AttractionInsertFault createAttractionInsertFault() {
+        return new AttractionInsertFault();
+    }
+
+    /**
+     * Create an instance of {@link AttractionDeleteFault }
+     * 
+     */
+    public AttractionDeleteFault createAttractionDeleteFault() {
+        return new AttractionDeleteFault();
+    }
+
+    /**
+     * Create an instance of {@link AttractionUpdateFault }
+     * 
+     */
+    public AttractionUpdateFault createAttractionUpdateFault() {
+        return new AttractionUpdateFault();
+    }
+
+    /**
+     * Create an instance of {@link AttractionResearchResponse }
+     * 
+     */
+    public AttractionResearchResponse createAttractionResearchResponse() {
+        return new AttractionResearchResponse();
+    }
+
+    /**
+     * Create an instance of {@link EventResearchResponse }
+     * 
+     */
+    public EventResearchResponse createEventResearchResponse() {
+        return new EventResearchResponse();
+    }
+
+    /**
+     * Create an instance of {@link EventByCreatorResearchResponse }
+     * 
+     */
+    public EventByCreatorResearchResponse createEventByCreatorResearchResponse() {
+        return new EventByCreatorResearchResponse();
+    }
+
+    /**
+     * Create an instance of {@link AttractionByCreatorResearchResponse }
+     * 
+     */
+    public AttractionByCreatorResearchResponse createAttractionByCreatorResearchResponse() {
+        return new AttractionByCreatorResearchResponse();
+    }
+
+    /**
+     * Create an instance of {@link AttractionDetailResearchResponse }
+     * 
+     */
+    public AttractionDetailResearchResponse createAttractionDetailResearchResponse() {
+        return new AttractionDetailResearchResponse();
+    }
+
+    /**
+     * Create an instance of {@link EventDetailResearchResponse }
+     * 
+     */
+    public EventDetailResearchResponse createEventDetailResearchResponse() {
+        return new EventDetailResearchResponse();
+    }
+
+    /**
      * Create an instance of {@link AccountSignupFault }
      * 
      */
@@ -279,27 +417,83 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link AttractionInsertFault }
+     * Create an instance of {@link EventResearchFault }
      * 
      */
-    public AttractionInsertFault createAttractionInsertFault() {
-        return new AttractionInsertFault();
+    public EventResearchFault createEventResearchFault() {
+        return new EventResearchFault();
     }
 
     /**
-     * Create an instance of {@link AttractionDeleteFault }
+     * Create an instance of {@link AttractionResearchFault }
      * 
      */
-    public AttractionDeleteFault createAttractionDeleteFault() {
-        return new AttractionDeleteFault();
+    public AttractionResearchFault createAttractionResearchFault() {
+        return new AttractionResearchFault();
     }
 
     /**
-     * Create an instance of {@link AttractionUpdateFault }
+     * Create an instance of {@link EventByCreatorResearchFault }
      * 
      */
-    public AttractionUpdateFault createAttractionUpdateFault() {
-        return new AttractionUpdateFault();
+    public EventByCreatorResearchFault createEventByCreatorResearchFault() {
+        return new EventByCreatorResearchFault();
+    }
+
+    /**
+     * Create an instance of {@link AttractionByCreatorResearchFault }
+     * 
+     */
+    public AttractionByCreatorResearchFault createAttractionByCreatorResearchFault() {
+        return new AttractionByCreatorResearchFault();
+    }
+
+    /**
+     * Create an instance of {@link EventDetailResearchFault }
+     * 
+     */
+    public EventDetailResearchFault createEventDetailResearchFault() {
+        return new EventDetailResearchFault();
+    }
+
+    /**
+     * Create an instance of {@link AttractionDetailResearchFault }
+     * 
+     */
+    public AttractionDetailResearchFault createAttractionDetailResearchFault() {
+        return new AttractionDetailResearchFault();
+    }
+
+    /**
+     * Create an instance of {@link AttractionsList }
+     * 
+     */
+    public AttractionsList createAttractionsList() {
+        return new AttractionsList();
+    }
+
+    /**
+     * Create an instance of {@link AttractionElement }
+     * 
+     */
+    public AttractionElement createAttractionElement() {
+        return new AttractionElement();
+    }
+
+    /**
+     * Create an instance of {@link EventsList }
+     * 
+     */
+    public EventsList createEventsList() {
+        return new EventsList();
+    }
+
+    /**
+     * Create an instance of {@link EventElement }
+     * 
+     */
+    public EventElement createEventElement() {
+        return new EventElement();
     }
 
     /**
@@ -393,6 +587,60 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link EventResearchRequest }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://it.univaq.disim.sose/prosumer", name = "eventResearchRequest")
+    public JAXBElement<EventResearchRequest> createEventResearchRequest(EventResearchRequest value) {
+        return new JAXBElement<EventResearchRequest>(_EventResearchRequest_QNAME, EventResearchRequest.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link AttractionResearchRequest }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://it.univaq.disim.sose/prosumer", name = "attractionResearchRequest")
+    public JAXBElement<AttractionResearchRequest> createAttractionResearchRequest(AttractionResearchRequest value) {
+        return new JAXBElement<AttractionResearchRequest>(_AttractionResearchRequest_QNAME, AttractionResearchRequest.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link EventByCreatorResearchRequest }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://it.univaq.disim.sose/prosumer", name = "eventByCreatorResearchRequest")
+    public JAXBElement<EventByCreatorResearchRequest> createEventByCreatorResearchRequest(EventByCreatorResearchRequest value) {
+        return new JAXBElement<EventByCreatorResearchRequest>(_EventByCreatorResearchRequest_QNAME, EventByCreatorResearchRequest.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link AttractionByCreatorResearchRequest }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://it.univaq.disim.sose/prosumer", name = "attractionByCreatorResearchRequest")
+    public JAXBElement<AttractionByCreatorResearchRequest> createAttractionByCreatorResearchRequest(AttractionByCreatorResearchRequest value) {
+        return new JAXBElement<AttractionByCreatorResearchRequest>(_AttractionByCreatorResearchRequest_QNAME, AttractionByCreatorResearchRequest.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link EventDetailResearchRequest }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://it.univaq.disim.sose/prosumer", name = "eventDetailResearchRequest")
+    public JAXBElement<EventDetailResearchRequest> createEventDetailResearchRequest(EventDetailResearchRequest value) {
+        return new JAXBElement<EventDetailResearchRequest>(_EventDetailResearchRequest_QNAME, EventDetailResearchRequest.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link AttractionDetailResearchRequest }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://it.univaq.disim.sose/prosumer", name = "attractionDetailResearchRequest")
+    public JAXBElement<AttractionDetailResearchRequest> createAttractionDetailResearchRequest(AttractionDetailResearchRequest value) {
+        return new JAXBElement<AttractionDetailResearchRequest>(_AttractionDetailResearchRequest_QNAME, AttractionDetailResearchRequest.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link AccountSignupResponse }{@code >}}
      * 
      */
@@ -483,6 +731,87 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link AttractionInsertFault }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://it.univaq.disim.sose/prosumer", name = "attractionInsertFault")
+    public JAXBElement<AttractionInsertFault> createAttractionInsertFault(AttractionInsertFault value) {
+        return new JAXBElement<AttractionInsertFault>(_AttractionInsertFault_QNAME, AttractionInsertFault.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link AttractionDeleteFault }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://it.univaq.disim.sose/prosumer", name = "attractionDeleteFault")
+    public JAXBElement<AttractionDeleteFault> createAttractionDeleteFault(AttractionDeleteFault value) {
+        return new JAXBElement<AttractionDeleteFault>(_AttractionDeleteFault_QNAME, AttractionDeleteFault.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link AttractionUpdateFault }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://it.univaq.disim.sose/prosumer", name = "attractionUpdateFault")
+    public JAXBElement<AttractionUpdateFault> createAttractionUpdateFault(AttractionUpdateFault value) {
+        return new JAXBElement<AttractionUpdateFault>(_AttractionUpdateFault_QNAME, AttractionUpdateFault.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link AttractionResearchResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://it.univaq.disim.sose/prosumer", name = "attractionResearchResponse")
+    public JAXBElement<AttractionResearchResponse> createAttractionResearchResponse(AttractionResearchResponse value) {
+        return new JAXBElement<AttractionResearchResponse>(_AttractionResearchResponse_QNAME, AttractionResearchResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link EventResearchResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://it.univaq.disim.sose/prosumer", name = "eventResearchResponse")
+    public JAXBElement<EventResearchResponse> createEventResearchResponse(EventResearchResponse value) {
+        return new JAXBElement<EventResearchResponse>(_EventResearchResponse_QNAME, EventResearchResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link EventByCreatorResearchResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://it.univaq.disim.sose/prosumer", name = "eventByCreatorResearchResponse")
+    public JAXBElement<EventByCreatorResearchResponse> createEventByCreatorResearchResponse(EventByCreatorResearchResponse value) {
+        return new JAXBElement<EventByCreatorResearchResponse>(_EventByCreatorResearchResponse_QNAME, EventByCreatorResearchResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link AttractionByCreatorResearchResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://it.univaq.disim.sose/prosumer", name = "attractionByCreatorResearchResponse")
+    public JAXBElement<AttractionByCreatorResearchResponse> createAttractionByCreatorResearchResponse(AttractionByCreatorResearchResponse value) {
+        return new JAXBElement<AttractionByCreatorResearchResponse>(_AttractionByCreatorResearchResponse_QNAME, AttractionByCreatorResearchResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link AttractionDetailResearchResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://it.univaq.disim.sose/prosumer", name = "attractionDetailResearchResponse")
+    public JAXBElement<AttractionDetailResearchResponse> createAttractionDetailResearchResponse(AttractionDetailResearchResponse value) {
+        return new JAXBElement<AttractionDetailResearchResponse>(_AttractionDetailResearchResponse_QNAME, AttractionDetailResearchResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link EventDetailResearchResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://it.univaq.disim.sose/prosumer", name = "eventDetailResearchResponse")
+    public JAXBElement<EventDetailResearchResponse> createEventDetailResearchResponse(EventDetailResearchResponse value) {
+        return new JAXBElement<EventDetailResearchResponse>(_EventDetailResearchResponse_QNAME, EventDetailResearchResponse.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link AccountSignupFault }{@code >}}
      * 
      */
@@ -546,30 +875,57 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link AttractionInsertFault }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link EventResearchFault }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://it.univaq.disim.sose/prosumer", name = "attractionInsertFault")
-    public JAXBElement<AttractionInsertFault> createAttractionInsertFault(AttractionInsertFault value) {
-        return new JAXBElement<AttractionInsertFault>(_AttractionInsertFault_QNAME, AttractionInsertFault.class, null, value);
+    @XmlElementDecl(namespace = "http://it.univaq.disim.sose/prosumer", name = "eventResearchFault")
+    public JAXBElement<EventResearchFault> createEventResearchFault(EventResearchFault value) {
+        return new JAXBElement<EventResearchFault>(_EventResearchFault_QNAME, EventResearchFault.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link AttractionDeleteFault }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link AttractionResearchFault }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://it.univaq.disim.sose/prosumer", name = "attractionDeleteFault")
-    public JAXBElement<AttractionDeleteFault> createAttractionDeleteFault(AttractionDeleteFault value) {
-        return new JAXBElement<AttractionDeleteFault>(_AttractionDeleteFault_QNAME, AttractionDeleteFault.class, null, value);
+    @XmlElementDecl(namespace = "http://it.univaq.disim.sose/prosumer", name = "attractionResearchFault")
+    public JAXBElement<AttractionResearchFault> createAttractionResearchFault(AttractionResearchFault value) {
+        return new JAXBElement<AttractionResearchFault>(_AttractionResearchFault_QNAME, AttractionResearchFault.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link AttractionUpdateFault }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link EventByCreatorResearchFault }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://it.univaq.disim.sose/prosumer", name = "attractionUpdateFault")
-    public JAXBElement<AttractionUpdateFault> createAttractionUpdateFault(AttractionUpdateFault value) {
-        return new JAXBElement<AttractionUpdateFault>(_AttractionUpdateFault_QNAME, AttractionUpdateFault.class, null, value);
+    @XmlElementDecl(namespace = "http://it.univaq.disim.sose/prosumer", name = "eventByCreatorResearchFault")
+    public JAXBElement<EventByCreatorResearchFault> createEventByCreatorResearchFault(EventByCreatorResearchFault value) {
+        return new JAXBElement<EventByCreatorResearchFault>(_EventByCreatorResearchFault_QNAME, EventByCreatorResearchFault.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link AttractionByCreatorResearchFault }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://it.univaq.disim.sose/prosumer", name = "attractionByCreatorResearchFault")
+    public JAXBElement<AttractionByCreatorResearchFault> createAttractionByCreatorResearchFault(AttractionByCreatorResearchFault value) {
+        return new JAXBElement<AttractionByCreatorResearchFault>(_AttractionByCreatorResearchFault_QNAME, AttractionByCreatorResearchFault.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link EventDetailResearchFault }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://it.univaq.disim.sose/prosumer", name = "eventDetailResearchFault")
+    public JAXBElement<EventDetailResearchFault> createEventDetailResearchFault(EventDetailResearchFault value) {
+        return new JAXBElement<EventDetailResearchFault>(_EventDetailResearchFault_QNAME, EventDetailResearchFault.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link AttractionDetailResearchFault }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://it.univaq.disim.sose/prosumer", name = "attractionDetailResearchFault")
+    public JAXBElement<AttractionDetailResearchFault> createAttractionDetailResearchFault(AttractionDetailResearchFault value) {
+        return new JAXBElement<AttractionDetailResearchFault>(_AttractionDetailResearchFault_QNAME, AttractionDetailResearchFault.class, null, value);
     }
 
 }

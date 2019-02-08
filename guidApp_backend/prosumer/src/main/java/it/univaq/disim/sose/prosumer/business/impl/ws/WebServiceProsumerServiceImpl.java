@@ -51,25 +51,67 @@ import it.univaq.disim.sose.prosumer.AccountSessionResponse;
 import it.univaq.disim.sose.prosumer.AccountSignupFault_Exception;
 import it.univaq.disim.sose.prosumer.AccountSignupRequest;
 import it.univaq.disim.sose.prosumer.AccountSignupResponse;
+import it.univaq.disim.sose.prosumer.AttractionByCreatorResearchFault_Exception;
+import it.univaq.disim.sose.prosumer.AttractionByCreatorResearchRequest;
+import it.univaq.disim.sose.prosumer.AttractionByCreatorResearchResponse;
 import it.univaq.disim.sose.prosumer.AttractionDeleteFault_Exception;
 import it.univaq.disim.sose.prosumer.AttractionDeleteRequest;
 import it.univaq.disim.sose.prosumer.AttractionDeleteResponse;
+import it.univaq.disim.sose.prosumer.AttractionDetailResearchFault_Exception;
+import it.univaq.disim.sose.prosumer.AttractionDetailResearchRequest;
+import it.univaq.disim.sose.prosumer.AttractionDetailResearchResponse;
+import it.univaq.disim.sose.prosumer.AttractionElement;
 import it.univaq.disim.sose.prosumer.AttractionInsertFault_Exception;
 import it.univaq.disim.sose.prosumer.AttractionInsertRequest;
 import it.univaq.disim.sose.prosumer.AttractionInsertResponse;
+import it.univaq.disim.sose.prosumer.AttractionResearchFault_Exception;
+import it.univaq.disim.sose.prosumer.AttractionResearchRequest;
+import it.univaq.disim.sose.prosumer.AttractionResearchResponse;
 import it.univaq.disim.sose.prosumer.AttractionUpdateFault_Exception;
 import it.univaq.disim.sose.prosumer.AttractionUpdateRequest;
 import it.univaq.disim.sose.prosumer.AttractionUpdateResponse;
+import it.univaq.disim.sose.prosumer.AttractionsList;
+import it.univaq.disim.sose.prosumer.EventByCreatorResearchFault_Exception;
+import it.univaq.disim.sose.prosumer.EventByCreatorResearchRequest;
+import it.univaq.disim.sose.prosumer.EventByCreatorResearchResponse;
 import it.univaq.disim.sose.prosumer.EventDeleteFault_Exception;
 import it.univaq.disim.sose.prosumer.EventDeleteRequest;
 import it.univaq.disim.sose.prosumer.EventDeleteResponse;
+import it.univaq.disim.sose.prosumer.EventDetailResearchFault_Exception;
+import it.univaq.disim.sose.prosumer.EventDetailResearchRequest;
+import it.univaq.disim.sose.prosumer.EventDetailResearchResponse;
+import it.univaq.disim.sose.prosumer.EventElement;
 import it.univaq.disim.sose.prosumer.EventInsertFault_Exception;
 import it.univaq.disim.sose.prosumer.EventInsertRequest;
 import it.univaq.disim.sose.prosumer.EventInsertResponse;
+import it.univaq.disim.sose.prosumer.EventResearchFault_Exception;
+import it.univaq.disim.sose.prosumer.EventResearchRequest;
+import it.univaq.disim.sose.prosumer.EventResearchResponse;
 import it.univaq.disim.sose.prosumer.EventUpdateFault_Exception;
 import it.univaq.disim.sose.prosumer.EventUpdateRequest;
 import it.univaq.disim.sose.prosumer.EventUpdateResponse;
+import it.univaq.disim.sose.prosumer.EventsList;
 import it.univaq.disim.sose.prosumer.business.ProsumerService;
+import it.univaq.disim.sose.researchmanager.ResearchAttractionByCreatorFault_Exception;
+import it.univaq.disim.sose.researchmanager.ResearchAttractionByCreatorRequest;
+import it.univaq.disim.sose.researchmanager.ResearchAttractionByCreatorResponse;
+import it.univaq.disim.sose.researchmanager.ResearchAttractionDetailFault_Exception;
+import it.univaq.disim.sose.researchmanager.ResearchAttractionDetailRequest;
+import it.univaq.disim.sose.researchmanager.ResearchAttractionDetailResponse;
+import it.univaq.disim.sose.researchmanager.ResearchAttractionFault_Exception;
+import it.univaq.disim.sose.researchmanager.ResearchAttractionRequest;
+import it.univaq.disim.sose.researchmanager.ResearchAttractionResponse;
+import it.univaq.disim.sose.researchmanager.ResearchEventByCreatorFault_Exception;
+import it.univaq.disim.sose.researchmanager.ResearchEventByCreatorRequest;
+import it.univaq.disim.sose.researchmanager.ResearchEventByCreatorResponse;
+import it.univaq.disim.sose.researchmanager.ResearchEventDetailFault_Exception;
+import it.univaq.disim.sose.researchmanager.ResearchEventDetailRequest;
+import it.univaq.disim.sose.researchmanager.ResearchEventDetailResponse;
+import it.univaq.disim.sose.researchmanager.ResearchEventFault_Exception;
+import it.univaq.disim.sose.researchmanager.ResearchEventRequest;
+import it.univaq.disim.sose.researchmanager.ResearchEventResponse;
+import it.univaq.disim.sose.researchmanager.ResearchManagerPT;
+import it.univaq.disim.sose.researchmanager.ResearchManagerService;
 
 
 @Service
@@ -355,8 +397,243 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 		} catch (UpdateAttractionFault_Exception e) {
 			e.printStackTrace();
 			try {
-				throw new UpdateEventFault_Exception("Something was wrong with Insert Event");
-			} catch (UpdateEventFault_Exception e1) {
+				throw new UpdateAttractionFault_Exception("Something was wrong with Insert Event");
+			} catch (UpdateAttractionFault_Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		
+		return response;
+	}
+	
+	public EventElement buildEventElement(it.univaq.disim.sose.researchmanager.EventElement response_element) {
+		EventElement event = new EventElement();
+		
+		event.setId(response_element.getId());
+		event.setLocality(response_element.getLocality());
+		event.setCategoryId(response_element.getCategoryId());
+		event.setCategoryName(response_element.getCategoryName());
+		event.setCreatorId(response_element.getCreatorId());
+		event.setStartDate(response_element.getStartDate());
+		event.setEndDate(response_element.getEndDate());
+		event.setTitle(response_element.getTitle());
+		return event;
+	}
+	
+	public AttractionElement buildAttractionElement(it.univaq.disim.sose.researchmanager.AttractionElement response_element) {
+		AttractionElement attraction = new AttractionElement();
+		
+		attraction.setId(response_element.getId());
+		attraction.setLocality(response_element.getLocality());
+		attraction.setCategoryId(response_element.getCategoryId());
+		attraction.setCategoryName(response_element.getCategoryName());
+		attraction.setCreatorId(response_element.getCreatorId());
+		attraction.setName(response_element.getName());
+	
+		return attraction;
+	}
+	
+	public EventsList buildEventsList(it.univaq.disim.sose.researchmanager.EventsList response_list) {
+		EventsList l = new EventsList();
+		
+		for (int i = 0; i<response_list.getEventElement().size(); i++ ) {
+			l.getEventElement().add(buildEventElement(response_list.getEventElement().get(i)));
+		}
+		return l;
+	}
+	
+
+	public AttractionsList buildAttractionsList(it.univaq.disim.sose.researchmanager.AttractionsList response_list) {
+		AttractionsList l = new AttractionsList();
+		
+		for (int i = 0; i<response_list.getAttractionElement().size(); i++ ) {
+			l.getAttractionElement().add(buildAttractionElement(response_list.getAttractionElement().get(i)));
+		}
+		return l;
+	}
+	
+	
+	@Override
+	public EventByCreatorResearchResponse eventByCreatorResearch(EventByCreatorResearchRequest request)
+			throws EventByCreatorResearchFault_Exception {
+		
+		EventByCreatorResearchResponse response = new EventByCreatorResearchResponse();
+		ResearchManagerService researchManagerService = new ResearchManagerService();
+		ResearchManagerPT research = researchManagerService.getResearchManagerPort();
+		ResearchEventByCreatorRequest researchRequest = new ResearchEventByCreatorRequest();
+
+		researchRequest.setCreatorId(request.getCreatorId());
+		
+		try { 
+			ResearchEventByCreatorResponse researchResponse = research.researchEventByCreator(researchRequest);
+			
+			response.setMessage(researchResponse.getMessage());
+			response.setEventsList(buildEventsList(researchResponse.getEventsList()));
+			
+		} catch (ResearchEventByCreatorFault_Exception e) {
+			e.printStackTrace();
+			try {
+				throw new ResearchEventByCreatorFault_Exception("Something was wrong with Research Event for this user");
+			} catch (ResearchEventByCreatorFault_Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		
+		return response;
+	}
+
+	@Override
+	public AttractionDetailResearchResponse attractionDetailResearch(AttractionDetailResearchRequest request)
+			throws AttractionDetailResearchFault_Exception {
+		
+		AttractionDetailResearchResponse response = new AttractionDetailResearchResponse();
+		ResearchManagerService researchManagerService = new ResearchManagerService();
+		ResearchManagerPT research = researchManagerService.getResearchManagerPort();
+		ResearchAttractionDetailRequest researchRequest = new ResearchAttractionDetailRequest();
+
+		researchRequest.setId(request.getId());
+		
+		try { 
+			ResearchAttractionDetailResponse researchResponse = research.researchAttractionDetail(researchRequest);
+			
+			response.setMessage(researchResponse.getMessage());
+			response.setAttractionElement(buildAttractionElement(researchResponse.getAttractionElement()));
+
+		} catch (ResearchAttractionDetailFault_Exception e) {
+			e.printStackTrace();
+			try {
+				throw new ResearchAttractionDetailFault_Exception("Something was wrong with Research Attraction");
+			} catch (ResearchAttractionDetailFault_Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		
+		return response;
+	}
+
+	@Override
+	public EventDetailResearchResponse eventDetailResearch(EventDetailResearchRequest request)
+			throws EventDetailResearchFault_Exception {
+		
+		EventDetailResearchResponse response = new EventDetailResearchResponse();
+		ResearchManagerService researchManagerService = new ResearchManagerService();
+		ResearchManagerPT research = researchManagerService.getResearchManagerPort();
+		ResearchEventDetailRequest researchRequest = new ResearchEventDetailRequest();
+
+		researchRequest.setId(request.getId());
+		
+		try { 
+			ResearchEventDetailResponse researchResponse = research.researchEventDetail(researchRequest);
+			
+			response.setMessage(researchResponse.getMessage());
+			
+		} catch (ResearchEventDetailFault_Exception e) {
+			e.printStackTrace();
+			try {
+				throw new ResearchEventDetailFault_Exception("Something was wrong with Research Event");
+			} catch (ResearchEventDetailFault_Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		
+		return response;
+	}
+
+	@Override
+	public AttractionResearchResponse attractionResearch(AttractionResearchRequest request)
+			throws AttractionResearchFault_Exception {
+		
+		AttractionResearchResponse response = new AttractionResearchResponse();
+		ResearchManagerService researchManagerService = new ResearchManagerService();
+		ResearchManagerPT research = researchManagerService.getResearchManagerPort();
+		ResearchAttractionRequest researchRequest = new ResearchAttractionRequest();
+
+		researchRequest.setLocality(request.getLocality());
+		researchRequest.setName(request.getName());
+		researchRequest.setCategoryId(request.getCategoryId());
+		
+		try { 
+			ResearchAttractionResponse researchResponse = research.researchAttraction(researchRequest);
+			
+			response.setMessage(researchResponse.getMessage());
+			response.setAttractionsList(buildAttractionsList(researchResponse.getAttractionsList()));
+
+			
+		} catch (ResearchAttractionFault_Exception e) {
+			e.printStackTrace();
+			try {
+				throw new ResearchAttractionFault_Exception("Something was wrong with Research Attraction");
+			} catch (ResearchAttractionFault_Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		
+		return response;
+	}
+
+	@Override
+	public EventResearchResponse eventResearch(EventResearchRequest request) throws EventResearchFault_Exception {
+		
+		EventResearchResponse response = new EventResearchResponse();
+		ResearchManagerService researchManagerService = new ResearchManagerService();
+		ResearchManagerPT research = researchManagerService.getResearchManagerPort();
+		ResearchEventRequest researchRequest = new ResearchEventRequest();
+
+		researchRequest.setLocality(request.getLocality());
+		researchRequest.setTitle(request.getTitle());
+		researchRequest.setCategoryId(request.getCategoryId());
+		if(request.getDate() != null) {
+			researchRequest.setDate(request.getDate());
+		}
+		
+		try { 
+			ResearchEventResponse researchResponse = research.researchEvent(researchRequest);
+			
+			response.setMessage(researchResponse.getMessage());
+			response.setEventsList(buildEventsList(researchResponse.getEventsList()));
+
+			
+		} catch (ResearchEventFault_Exception e) {
+			e.printStackTrace();
+			try {
+				throw new ResearchEventFault_Exception("Something was wrong with Research Event");
+			} catch (ResearchEventFault_Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		
+		return response;
+	}
+
+	@Override
+	public AttractionByCreatorResearchResponse attractionByCreatorResearch(
+			AttractionByCreatorResearchRequest request) throws AttractionByCreatorResearchFault_Exception {
+		
+		AttractionByCreatorResearchResponse response = new AttractionByCreatorResearchResponse();
+		ResearchManagerService researchManagerService = new ResearchManagerService();
+		ResearchManagerPT research = researchManagerService.getResearchManagerPort();
+		ResearchAttractionByCreatorRequest researchRequest = new ResearchAttractionByCreatorRequest();
+
+		researchRequest.setCreatorId(request.getCreatorId());
+		
+		try { 
+			ResearchAttractionByCreatorResponse researchResponse = research.researchAttractionByCreator(researchRequest);
+			
+			response.setMessage(researchResponse.getMessage());
+			response.setAttractionsList(buildAttractionsList(researchResponse.getAttractionsList()));
+
+			
+		} catch (ResearchAttractionByCreatorFault_Exception e) {
+			e.printStackTrace();
+			try {
+				throw new ResearchAttractionByCreatorFault_Exception("Something was wrong with Research Attraction for this user");
+			} catch (ResearchAttractionByCreatorFault_Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}

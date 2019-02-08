@@ -147,6 +147,7 @@ public class JDBCAttractionManagerServiceImpl implements AttractionManagerServic
 		// PRENDERE ANCHE ID UTENTE CHE VUOLE CANCELLARE E VEDERE SE È LUI IL CREATORE!
 		attraction.setId(parameters.getId());
 		user.setId(parameters.getUserId());
+		
 		attraction.setCreator(user);
 
 		DeleteAttractionResponse responseAttraction = new DeleteAttractionResponse();
@@ -204,6 +205,7 @@ public class JDBCAttractionManagerServiceImpl implements AttractionManagerServic
 		category.setId(parameters.getCategoryId());
 		category.setName(parameters.getCategoryName());
 		creator.setId(parameters.getCreatorId());
+		
 		attraction.setCategory(category);
 		attraction.setCreator(creator);
 

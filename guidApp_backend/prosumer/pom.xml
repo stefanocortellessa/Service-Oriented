@@ -148,6 +148,16 @@
 										<extraarg>it.univaq.disim.sose.attractionmanager</extraarg>
 									</extraargs>
 								</wsdlOption>
+								<!-- Research Manager -->
+								<wsdlOption>
+									<wsdl>src/main/resources/clients/researchManager.wsdl</wsdl>
+									<faultSerialVersionUID>1</faultSerialVersionUID>
+									<extraargs>
+										<extraarg>-verbose</extraarg>
+										<extraarg>-p </extraarg>
+										<extraarg>it.univaq.disim.sose.researchmanager</extraarg>
+									</extraargs>
+								</wsdlOption>
 							</wsdlOptions>
 						</configuration>
 						<goals>

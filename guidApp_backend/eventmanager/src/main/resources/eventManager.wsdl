@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions name="EventManagerService"
+<definitions name="InsertEventService"
 	targetNamespace="http://it.univaq.disim.sose/eventManager" 
 	xmlns:tns="http://it.univaq.disim.sose/eventManager"
 	xmlns="http://schemas.xmlsoap.org/wsdl/"
