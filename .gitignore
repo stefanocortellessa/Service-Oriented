@@ -35,3 +35,8 @@ UserInterfaceState.xcuserstate
 */.settings/
 */target/
 */.DS_Store
+
+# Eclipse
+.classpath
+.project
+.settings/
