@@ -32,8 +32,6 @@ $RECYCLE.BIN/
 .DS_Store
 Thumbs.db
 UserInterfaceState.xcuserstate
-*.classpath
-*.DS_Store
 */.settings/
 */target/
 */.DS_Store
