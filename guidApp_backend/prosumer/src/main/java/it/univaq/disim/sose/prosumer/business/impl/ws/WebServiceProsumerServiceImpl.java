@@ -80,6 +80,11 @@ import it.univaq.disim.sose.prosumer.AttractionUpdateFault_Exception;
 import it.univaq.disim.sose.prosumer.AttractionUpdateRequest;
 import it.univaq.disim.sose.prosumer.AttractionUpdateResponse;
 import it.univaq.disim.sose.prosumer.AttractionsList;
+import it.univaq.disim.sose.prosumer.CategoryElement;
+import it.univaq.disim.sose.prosumer.CategoryList;
+import it.univaq.disim.sose.prosumer.CategoryResearchFault_Exception;
+import it.univaq.disim.sose.prosumer.CategoryResearchRequest;
+import it.univaq.disim.sose.prosumer.CategoryResearchResponse;
 import it.univaq.disim.sose.prosumer.EventByCreatorResearchFault_Exception;
 import it.univaq.disim.sose.prosumer.EventByCreatorResearchRequest;
 import it.univaq.disim.sose.prosumer.EventByCreatorResearchResponse;
@@ -113,6 +118,9 @@ import it.univaq.disim.sose.researchmanager.ResearchAttractionDetailResponse;
 import it.univaq.disim.sose.researchmanager.ResearchAttractionFault_Exception;
 import it.univaq.disim.sose.researchmanager.ResearchAttractionRequest;
 import it.univaq.disim.sose.researchmanager.ResearchAttractionResponse;
+import it.univaq.disim.sose.researchmanager.ResearchCategoryFault_Exception;
+import it.univaq.disim.sose.researchmanager.ResearchCategoryRequest;
+import it.univaq.disim.sose.researchmanager.ResearchCategoryResponse;
 import it.univaq.disim.sose.researchmanager.ResearchEventByCreatorFault_Exception;
 import it.univaq.disim.sose.researchmanager.ResearchEventByCreatorRequest;
 import it.univaq.disim.sose.researchmanager.ResearchEventByCreatorResponse;
@@ -459,6 +467,15 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 		return attraction;
 	}
 	
+	public CategoryElement buildCategoryElement(it.univaq.disim.sose.researchmanager.CategoryElement response_element) {
+		CategoryElement category = new CategoryElement();
+		
+		category.setId(response_element.getId());
+		category.setName(response_element.getName());
+		return category;
+	}
+	
+	
 	public EventsList buildEventsList(it.univaq.disim.sose.researchmanager.EventsList response_list) {
 		EventsList l = new EventsList();
 		
@@ -478,6 +495,15 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 		return l;
 	}
 	
+
+	public CategoryList buildCategoryList(it.univaq.disim.sose.researchmanager.CategoryList response_list) {
+		CategoryList l = new CategoryList();
+		
+		for (int i = 0; i<response_list.getCategoryElement().size(); i++ ) {
+			l.getCategoryElement().add(buildCategoryElement(response_list.getCategoryElement().get(i)));
+		}
+		return l;
+	}
 	
 	@Override
 	public EventByCreatorResearchResponse eventByCreatorResearch(EventByCreatorResearchRequest request)
@@ -684,5 +710,35 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 			
 			return response;
 		
+	}
+
+	@Override
+	public CategoryResearchResponse categoryResearch(CategoryResearchRequest request)
+			throws CategoryResearchFault_Exception{
+		CategoryResearchResponse response = new CategoryResearchResponse();
+		ResearchManagerService researchManagerService = new ResearchManagerService();
+		ResearchManagerPT research = researchManagerService.getResearchManagerPort();
+		ResearchCategoryRequest researchRequest = new ResearchCategoryRequest();
+
+		researchRequest.setId(request.getId());
+		
+		try { 
+			ResearchCategoryResponse researchResponse = research.researchCategory(researchRequest);
+			
+			response.setMessage(researchResponse.getMessage());
+			response.setCategoryList(buildCategoryList(researchResponse.getCategoryList()));
+
+			
+		} catch (ResearchCategoryFault_Exception e) {
+			e.printStackTrace();
+			try {
+				throw new ResearchCategoryFault_Exception("Something was wrong with Research Category");
+			} catch (ResearchCategoryFault_Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		
+		return response;
 	}
 }

@@ -39,6 +39,9 @@ import it.univaq.disim.sose.prosumer.AttractionResearchResponse;
 import it.univaq.disim.sose.prosumer.AttractionUpdateFault_Exception;
 import it.univaq.disim.sose.prosumer.AttractionUpdateRequest;
 import it.univaq.disim.sose.prosumer.AttractionUpdateResponse;
+import it.univaq.disim.sose.prosumer.CategoryResearchFault_Exception;
+import it.univaq.disim.sose.prosumer.CategoryResearchRequest;
+import it.univaq.disim.sose.prosumer.CategoryResearchResponse;
 import it.univaq.disim.sose.prosumer.EventByCreatorResearchFault_Exception;
 import it.univaq.disim.sose.prosumer.EventByCreatorResearchRequest;
 import it.univaq.disim.sose.prosumer.EventByCreatorResearchResponse;
@@ -177,6 +180,13 @@ public class ProsumerPTImpl implements ProsumerPT {
 			throws GoogleGeocodingFault_Exception, ApiException, InterruptedException, IOException {
 		LOGGER.info("CALLED googleGeocoding ON prosumer");
 		GoogleGeocodingResponse response = service.googleGeocoding(parameters);
+		return response;
+	}
+	@Override
+	public CategoryResearchResponse categoryResearch(CategoryResearchRequest parameters)
+			throws CategoryResearchFault_Exception, ApiException, InterruptedException, IOException{
+		LOGGER.info("CALLED category Research ON prosumer");
+		CategoryResearchResponse response = service.categoryResearch(parameters);
 		return response;
 	}	
 }

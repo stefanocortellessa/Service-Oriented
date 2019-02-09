@@ -4,9 +4,7 @@
 				  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
 				  xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
 				  name="prosumer" 
-				  targetNamespace="http://it.univaq.disim.sose/prosumer">
-		
-				  			  
+				  targetNamespace="http://it.univaq.disim.sose/prosumer">				     			  
 	 <wsdl:types>
 	 	<xsd:schema targetNamespace="http://it.univaq.disim.sose/prosumer">
 		    <xsd:element name="accountSignupRequest" type="tns:accountSignupRequest"/>
@@ -15,8 +13,8 @@
 			<xsd:element name="accountSessionRequest" type="tns:accountSessionRequest"/>		
 			<xsd:element name="eventInsertRequest" type="tns:eventInsertRequest"/>
 			<xsd:element name="eventDeleteRequest" type="tns:eventDeleteRequest" />
-			<xsd:element name="eventUpdateRequest" type="tns:eventUpdateRequest" />		
-			
+			<xsd:element name="eventUpdateRequest" type="tns:eventUpdateRequest" />			 
+			 
 			<xsd:element name="attractionInsertRequest" type="tns:attractionInsertRequest" />
 			<xsd:element name="attractionDeleteRequest" type="tns:attractionDeleteRequest" />
 			<xsd:element name="attractionUpdateRequest" type="tns:attractionUpdateRequest" />
@@ -66,16 +64,21 @@
 			<xsd:element name="attractionByCreatorResearchFault" type="tns:attractionByCreatorResearchFault" />
 			<xsd:element name="eventDetailResearchFault" type="tns:eventDetailResearchFault" />
 			<xsd:element name="attractionDetailResearchFault" type="tns:attractionDetailResearchFault" />
-			
+			 
 			<xsd:element name="googleGeocodingResponse" type="tns:googleGeocodingResponse"/>
 			<xsd:element name="googleGeocodingRequest" type="tns:googleGeocodingRequest"/>
 			<xsd:element name="googleGeocodingFault" type="tns:googleGeocodingFault"/>
+		 	  
+		 	  
+			<xsd:element name="categoryResearchRequest" type="tns:categoryResearchRequest" />
+			<xsd:element name="categoryResearchResponse" type="tns:categoryResearchResponse" />
+			<xsd:element name="categoryResearchFault" type="tns:categoryResearchFault" />
+
 			
-			
-			<!-- Account Signup -->
+			<!-- Account Signup --> 
 			<!-- Request -->
-			<xsd:complexType name="accountSignupRequest">
-				<xsd:sequence>
+			<xsd:complexType name="accountSignupRequest"> 
+				<xsd:sequence> 
 					<xsd:element name="username" type="xsd:string" />
 					<xsd:element name="email" type="xsd:string" />
 					<xsd:element name="password" type="xsd:string" />
@@ -382,6 +385,24 @@
 			</xsd:complexType>
 			
 			
+			<xsd:element name="categoryList" type="tns:categoryList" />			
+		
+			<xsd:complexType name="categoryList">
+				<xsd:sequence>
+					<xsd:element name="categoryElement" maxOccurs="unbounded" type="tns:categoryElement"/>
+				</xsd:sequence>
+			</xsd:complexType>
+			 
+			<xsd:complexType name="categoryElement">
+			      <xsd:sequence>
+			      	<xsd:element name="id" type="xsd:long" />
+					<xsd:element name="name" type="xsd:string" />		
+			      </xsd:sequence>
+			</xsd:complexType>
+
+			
+		
+			
 			<!-- Research Event by Filter -->
 			<!-- Request -->
 			<xsd:complexType name="eventResearchRequest">
@@ -560,6 +581,34 @@
                         <xsd:element name="message" type="xsd:string" />
 				</xsd:sequence>
 			</xsd:complexType>
+			
+			<!-- Research Category -->
+			<!-- Request -->
+			<xsd:complexType name="categoryResearchRequest">
+				<xsd:sequence>
+					<xsd:element name="id" type="xsd:long" minOccurs="0" maxOccurs="1" />
+				</xsd:sequence>
+			</xsd:complexType>
+			
+			<!-- Response -->
+			<xsd:complexType name="categoryResearchResponse">
+				<xsd:sequence>
+					<xsd:element name="categoryList" type="tns:categoryList" />
+					<xsd:element name="message" type="xsd:string" />
+					
+				</xsd:sequence>
+			</xsd:complexType>
+					
+			<!-- Fault -->
+			<xsd:complexType name="categoryResearchFault">
+				<xsd:sequence>
+                        <xsd:element name="faultInfo" type="xsd:string" />
+                        <xsd:element name="message" type="xsd:string" />
+				</xsd:sequence>
+			</xsd:complexType>
+			
+			
+			
 			
 		</xsd:schema>
 	 </wsdl:types>
@@ -802,6 +851,25 @@
 		</wsdl:part>
 	</wsdl:message>
 	
+	
+	
+	<!-- Messages -->
+	<!-- Research Category -->
+	<wsdl:message name="categoryResearchRequest">
+		<wsdl:part name="parameters" element="tns:categoryResearchRequest">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="categoryResearchResponse">
+		<wsdl:part name="parameters" element="tns:categoryResearchResponse">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="categoryResearchFault">
+		<wsdl:part name="parameters" element="tns:categoryResearchFault">
+		</wsdl:part>
+	</wsdl:message>
+
+
+	
   	
   	<!-- Prosumer Port -->
     <wsdl:portType name="prosumerPT">
@@ -891,7 +959,11 @@
 			<wsdl:output name="googleGeocodingResponse" message="tns:googleGeocodingResponse" />
 			<wsdl:fault name="googleGeocodingFault" message="tns:googleGeocodingFault" />
 		</wsdl:operation>
-		
+		<wsdl:operation name="categoryResearch">
+			<wsdl:input name="categoryResearchRequest" message="tns:categoryResearchRequest" />
+			<wsdl:output name="categoryResearchResponse" message="tns:categoryResearchResponse" />
+			<wsdl:fault name="categoryResearchFault" message="tns:categoryResearchFault" />
+		</wsdl:operation>
   	</wsdl:portType> 
   
   	<!-- Prosumer Binding -->
@@ -1043,7 +1115,7 @@
 			</wsdl:input>
 			<wsdl:output>
 				<soap:body use="literal" />
-			</wsdl:output>
+			</wsdl:output> 
 		</wsdl:operation>
 		<wsdl:operation name="attractionDetailResearch">
 			<soap:operation soapAction="" />
@@ -1063,9 +1135,17 @@
 				<soap:body use="literal" />
 			</wsdl:output>
 		</wsdl:operation> 
-	
+		<wsdl:operation name="categoryResearch">
+			<soap:operation soapAction="" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input> 
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation> 
 	</wsdl:binding>
-	
+	 
 	<!-- Prosumer Service -->
   	<wsdl:service name="prosumerService">
 	    <wsdl:port name="prosumerPort" binding="tns:prosumerBinding">

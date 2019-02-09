@@ -9,6 +9,9 @@ import it.univaq.disim.sose.researchmanager.ResearchAttractionDetailResponse;
 import it.univaq.disim.sose.researchmanager.ResearchAttractionFault_Exception;
 import it.univaq.disim.sose.researchmanager.ResearchAttractionRequest;
 import it.univaq.disim.sose.researchmanager.ResearchAttractionResponse;
+import it.univaq.disim.sose.researchmanager.ResearchCategoryFault_Exception;
+import it.univaq.disim.sose.researchmanager.ResearchCategoryRequest;
+import it.univaq.disim.sose.researchmanager.ResearchCategoryResponse;
 import it.univaq.disim.sose.researchmanager.ResearchEventByCreatorFault_Exception;
 import it.univaq.disim.sose.researchmanager.ResearchEventByCreatorRequest;
 import it.univaq.disim.sose.researchmanager.ResearchEventByCreatorResponse;
@@ -32,5 +35,8 @@ public interface ResearchManagerService {
 	ResearchEventDetailResponse researchEventDetail(ResearchEventDetailRequest parameters) throws ResearchEventDetailFault_Exception;
 
 	ResearchEventByCreatorResponse researchEventByCreator(ResearchEventByCreatorRequest parameters) throws ResearchEventByCreatorFault_Exception;
+	
+	ResearchCategoryResponse researchCategory(ResearchCategoryRequest parameters) throws ResearchCategoryFault_Exception;
+
 
 }

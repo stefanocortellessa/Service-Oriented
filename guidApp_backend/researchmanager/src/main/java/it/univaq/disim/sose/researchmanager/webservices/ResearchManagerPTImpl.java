@@ -14,6 +14,9 @@ import it.univaq.disim.sose.researchmanager.ResearchAttractionDetailResponse;
 import it.univaq.disim.sose.researchmanager.ResearchAttractionFault_Exception;
 import it.univaq.disim.sose.researchmanager.ResearchAttractionRequest;
 import it.univaq.disim.sose.researchmanager.ResearchAttractionResponse;
+import it.univaq.disim.sose.researchmanager.ResearchCategoryFault_Exception;
+import it.univaq.disim.sose.researchmanager.ResearchCategoryRequest;
+import it.univaq.disim.sose.researchmanager.ResearchCategoryResponse;
 import it.univaq.disim.sose.researchmanager.ResearchEventByCreatorFault_Exception;
 import it.univaq.disim.sose.researchmanager.ResearchEventByCreatorRequest;
 import it.univaq.disim.sose.researchmanager.ResearchEventByCreatorResponse;
@@ -96,6 +99,16 @@ public class ResearchManagerPTImpl implements ResearchManagerPT {
 		LOGGER.info("called Research Event Details in Research Manager Service");
 		ResearchEventDetailResponse response = new ResearchEventDetailResponse();
 		response = service.researchEventDetail(parameters);
+		LOGGER.info(response.getMessage());
+		return response;
+	}
+
+	@Override
+	public ResearchCategoryResponse researchCategory(ResearchCategoryRequest parameters)
+			throws ResearchCategoryFault_Exception {
+		LOGGER.info("called Research Category in Research Manager Service");
+		ResearchCategoryResponse response = new ResearchCategoryResponse();
+		response = service.researchCategory(parameters);
 		LOGGER.info(response.getMessage());
 		return response;
 	}

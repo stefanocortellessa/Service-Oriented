@@ -34,6 +34,9 @@ import it.univaq.disim.sose.prosumer.AttractionResearchResponse;
 import it.univaq.disim.sose.prosumer.AttractionUpdateFault_Exception;
 import it.univaq.disim.sose.prosumer.AttractionUpdateRequest;
 import it.univaq.disim.sose.prosumer.AttractionUpdateResponse;
+import it.univaq.disim.sose.prosumer.CategoryResearchFault_Exception;
+import it.univaq.disim.sose.prosumer.CategoryResearchRequest;
+import it.univaq.disim.sose.prosumer.CategoryResearchResponse;
 import it.univaq.disim.sose.prosumer.EventByCreatorResearchFault_Exception;
 import it.univaq.disim.sose.prosumer.EventByCreatorResearchRequest;
 import it.univaq.disim.sose.prosumer.EventByCreatorResearchResponse;
@@ -92,4 +95,7 @@ public interface ProsumerService {
 	AttractionByCreatorResearchResponse attractionByCreatorResearch(AttractionByCreatorResearchRequest parameters) throws AttractionByCreatorResearchFault_Exception;
 	
 	GoogleGeocodingResponse googleGeocoding(GoogleGeocodingRequest parameters) throws GoogleGeocodingFault_Exception, ApiException, InterruptedException, IOException;
+	
+	CategoryResearchResponse categoryResearch(CategoryResearchRequest parameters) throws CategoryResearchFault_Exception, ApiException, InterruptedException, IOException;
+
 }

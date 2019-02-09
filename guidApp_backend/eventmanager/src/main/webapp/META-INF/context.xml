@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Context antiJARLocking="true" path="/insertevent">
+<Context antiJARLocking="true" path="/eventmanager">
 	<Resource name="jdbc/guidApp" driverClassName="com.mysql.jdbc.Driver" type="javax.sql.DataSource"
 		      factory="org.apache.tomcat.jdbc.pool.DataSourceFactory" 
 		      logAbandoned="true" maxActive="100" maxIdle="30" maxWait="50000"

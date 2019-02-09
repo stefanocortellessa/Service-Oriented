@@ -1,11 +1,13 @@
 package it.univaq.disim.sose.routingrequests.controller;
 
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Optional;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
@@ -17,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.google.maps.errors.ApiException;
+
 import it.univaq.disim.sose.prosumer.AttractionByCreatorResearchFault_Exception;
 import it.univaq.disim.sose.prosumer.AttractionByCreatorResearchRequest;
 import it.univaq.disim.sose.prosumer.AttractionByCreatorResearchResponse;
@@ -26,6 +30,9 @@ import it.univaq.disim.sose.prosumer.AttractionDetailResearchResponse;
 import it.univaq.disim.sose.prosumer.AttractionResearchFault_Exception;
 import it.univaq.disim.sose.prosumer.AttractionResearchRequest;
 import it.univaq.disim.sose.prosumer.AttractionResearchResponse;
+import it.univaq.disim.sose.prosumer.CategoryResearchFault_Exception;
+import it.univaq.disim.sose.prosumer.CategoryResearchRequest;
+import it.univaq.disim.sose.prosumer.CategoryResearchResponse;
 import it.univaq.disim.sose.prosumer.EventByCreatorResearchFault_Exception;
 import it.univaq.disim.sose.prosumer.EventByCreatorResearchRequest;
 import it.univaq.disim.sose.prosumer.EventByCreatorResearchResponse;
@@ -158,6 +165,22 @@ public class ResearchController {
 		request.setId(id);
 				
 		response = prosumer.eventDetailResearch(request);
+		
+		return response;
+	}
+	
+	@GetMapping({"/categories/{id}", "/categories"})
+	@ResponseBody
+	public CategoryResearchResponse researchCategory(@PathVariable(value = "id") Optional<Long> id) throws CategoryResearchFault_Exception, ApiException, InterruptedException, IOException {
+		
+		ProsumerService prosumerService = new ProsumerService();
+		ProsumerPT prosumer = prosumerService.getProsumerPort();
+		CategoryResearchResponse response = new CategoryResearchResponse();
+		CategoryResearchRequest request = new CategoryResearchRequest();
+		if (id.isPresent()) {
+			request.setId(id.get());
+		}
+		response = prosumer.categoryResearch(request);
 		
 		return response;
 	}

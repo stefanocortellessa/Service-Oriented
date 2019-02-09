@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 
 import it.univaq.disim.sose.researchmanager.AttractionElement;
 import it.univaq.disim.sose.researchmanager.AttractionsList;
+import it.univaq.disim.sose.researchmanager.CategoryElement;
+import it.univaq.disim.sose.researchmanager.CategoryList;
 import it.univaq.disim.sose.researchmanager.EventElement;
 import it.univaq.disim.sose.researchmanager.EventsList;
 import it.univaq.disim.sose.researchmanager.ResearchAttractionByCreatorFault_Exception;
@@ -25,6 +27,9 @@ import it.univaq.disim.sose.researchmanager.ResearchAttractionDetailResponse;
 import it.univaq.disim.sose.researchmanager.ResearchAttractionFault_Exception;
 import it.univaq.disim.sose.researchmanager.ResearchAttractionRequest;
 import it.univaq.disim.sose.researchmanager.ResearchAttractionResponse;
+import it.univaq.disim.sose.researchmanager.ResearchCategoryFault_Exception;
+import it.univaq.disim.sose.researchmanager.ResearchCategoryRequest;
+import it.univaq.disim.sose.researchmanager.ResearchCategoryResponse;
 import it.univaq.disim.sose.researchmanager.ResearchEventByCreatorFault_Exception;
 import it.univaq.disim.sose.researchmanager.ResearchEventByCreatorRequest;
 import it.univaq.disim.sose.researchmanager.ResearchEventByCreatorResponse;
@@ -170,7 +175,6 @@ public class JDBCResearchManagerServiceImpl implements ResearchManagerService {
 	public AttractionsList selectAttractionByFilter(Connection con, String name, String locality, Long categoryId) {
 
 		AttractionsList return_list = new AttractionsList();
-		
 		String query = "SELECT * FROM attractions WHERE ";
 
 		int counter = 0; 
@@ -578,6 +582,77 @@ public class JDBCResearchManagerServiceImpl implements ResearchManagerService {
 			return return_list;
 		}
 	}
+	
+	
+	@Override
+	public ResearchCategoryResponse researchCategory(ResearchCategoryRequest parameters) throws ResearchCategoryFault_Exception {
+		
+		Connection connection = null;
+		CategoryList return_list = new CategoryList();
+		Category category = new Category();
+		category.setId(parameters.getId());
+
+		/*-------------------------------------------------------------------------*/
+		ResearchCategoryResponse responseCategory = new ResearchCategoryResponse();
+		try {
+
+			connection = dataSource.getConnection();
+			connection.setAutoCommit(false);
+			return_list = selectCategory(connection, category.getId());
+
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+			throw new ResearchCategoryFault_Exception("Something was wrong with Research Category for this filters..");
+		}
+		finally {
+			if (connection != null) {
+				try {
+					connection.setAutoCommit(true);
+					connection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		responseCategory.setCategoryList(return_list);
+		responseCategory.setMessage("Returned Category List for this filter");	
+		return responseCategory;
+
+	}
+	
+	public CategoryList selectCategory(Connection con, Long id) {
+
+		CategoryList return_list = new CategoryList();
+		String query = "SELECT * FROM categories WHERE ";
+		//date BETWEEN date(events.startDate) AND date(events.endDate) AND name LIKE ? AND locality LIKE ? AND id_category=?";
+
+		if(id != null) {
+			query = query + "id=?";
+		}else {
+			query = query + "id=id";
+		}
+
+		try {
+			PreparedStatement sql = con.prepareStatement(query);
+			if(id != null) {
+				sql.setLong(1, id);
+			}
+			ResultSet rs = sql.executeQuery();
+			while(rs.next()) {
+				CategoryElement category = new CategoryElement();
+				category.setId(rs.getLong("id"));
+				category.setName(rs.getString("name"));
+				return_list.getCategoryElement().add(category);
+			}
+			return return_list;
+
+		} catch (SQLException e) {
+			return return_list;
+		}
+	}
+
 
 
 
