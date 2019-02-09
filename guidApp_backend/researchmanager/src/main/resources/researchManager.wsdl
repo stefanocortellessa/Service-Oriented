@@ -9,7 +9,7 @@
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
 	xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata">
-	
+	 
 	<types>
 		<xsd:schema targetNamespace="http://it.univaq.disim.sose/researchManager">
 			<xsd:element name="researchEventRequest" type="tns:researchEventRequest" />
