@@ -32,22 +32,6 @@ $RECYCLE.BIN/
 .DS_Store
 Thumbs.db
 UserInterfaceState.xcuserstate
-*/.settings/
-*/target/
-*/.DS_Store
 
-# Eclipse
-.settings/
 
-./guidApp_backend/routingrequests/.settings
-
-./guidApp_backend/accountmanager/.settings
-
-./guidApp_backend/eventmanager/.settings
-
-./guidApp_backend/attractionmanager/.settings
-
-./guidApp_backend/researchmanager/.settings
-
-./guidApp_backend/prosumer/.settings
 
