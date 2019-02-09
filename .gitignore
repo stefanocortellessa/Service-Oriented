@@ -34,10 +34,6 @@ Thumbs.db
 UserInterfaceState.xcuserstate
 *.classpath
 *.DS_Store
-*.project
-*.settings/
+*/.settings/
 */target/
-*.DS_Store
-*.classpath
-*.project
-*.settings/
+*/.DS_Store
