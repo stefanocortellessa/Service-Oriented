@@ -11,6 +11,7 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import it.univaq.disim.sose.attractionmanager.CheckSessionFault_Exception;
 import it.univaq.disim.sose.attractionmanager.CheckSessionRequest;
 import it.univaq.disim.sose.attractionmanager.CheckSessionResponse;
@@ -37,7 +38,7 @@ public class JDBCAttractionManagerServiceImpl implements AttractionManagerServic
 
 	@Override
 	public InsertAttractionResponse insertAttraction(InsertAttractionRequest parameters) throws InsertAttractionFault_Exception {
-
+		
 		Connection connection = null;
 		String result = "Attraction not inserted";
 
@@ -48,14 +49,16 @@ public class JDBCAttractionManagerServiceImpl implements AttractionManagerServic
 
 		attraction.setName(parameters.getName());
 		attraction.setLocality(parameters.getLocality());
-
+		
 		/*----SI DEVE CONTROLLARE CHE ID E NAME CORRISPONDONO PRIMA DI INSERIRE----*/
 		category.setId(parameters.getCategoryId());
 		category.setName(parameters.getCategoryName());
 		creator.setId(parameters.getCreatorId());
 		attraction.setCategory(category);
 		attraction.setCreator(creator);
-
+		
+		attraction.setLat(parameters.getLat());
+		attraction.setLng(parameters.getLng());
 		/*-------------------------------------------------------------------------*/
 		InsertAttractionResponse responseAttraction = new InsertAttractionResponse();
 		try {
@@ -63,7 +66,8 @@ public class JDBCAttractionManagerServiceImpl implements AttractionManagerServic
 			connection = dataSource.getConnection();
 			connection.setAutoCommit(false);
 
-			if(insert(connection, attraction.getName(), attraction.getLocality(), attraction.getCategory().getId(), attraction.getCreator().getId())) {
+			if(insert(connection, attraction.getName(), attraction.getLocality(), attraction.getCategory().getId(), attraction.getCreator().getId(), 
+					attraction.getLat(), attraction.getLng())) {
 				result = "Attraction inserted";
 			}else {
 				result = "Attraction not inserted";
@@ -208,6 +212,9 @@ public class JDBCAttractionManagerServiceImpl implements AttractionManagerServic
 		
 		attraction.setCategory(category);
 		attraction.setCreator(creator);
+		
+		attraction.setLat(parameters.getLat());
+		attraction.setLng(parameters.getLng());
 
 		/*-------------------------------------------------------------------------*/
 		UpdateAttractionResponse responseAttraction = new UpdateAttractionResponse();
@@ -217,7 +224,8 @@ public class JDBCAttractionManagerServiceImpl implements AttractionManagerServic
 			connection.setAutoCommit(false);
 			
 			if(check_creator(connection, attraction.getId(), attraction.getCreator().getId())) {	
-				if(update(connection, attraction.getId(), attraction.getName(), attraction.getLocality(), attraction.getCategory().getId(), attraction.getCreator().getId())) {
+				if(update(connection, attraction.getId(), attraction.getName(), attraction.getLocality(), attraction.getCategory().getId(), 
+						attraction.getCreator().getId(), attraction.getLat(), attraction.getLng())) {
 					result = "Attraction updated";
 				}else {
 					result = "Attraction not updated";
@@ -248,9 +256,9 @@ public class JDBCAttractionManagerServiceImpl implements AttractionManagerServic
 
 	
 	
-	public boolean insert(Connection con, String name, String locality, Long idCategory, Long idCreator) {
+	public boolean insert(Connection con, String name, String locality, Long idCategory, Long idCreator, String lat, String lng) {
 
-		String query = "INSERT INTO attractions (name, locality, id_category, id_creator) VALUES (?,?,?,?)";
+		String query = "INSERT INTO attractions (name, locality, id_category, id_creator, lat, lng) VALUES (?,?,?,?,?,?)";
 
 		try {
 
@@ -260,6 +268,8 @@ public class JDBCAttractionManagerServiceImpl implements AttractionManagerServic
 			sql.setString(2, locality);
 			sql.setLong(3, idCategory);
 			sql.setLong(4, idCreator);
+			sql.setString(5, lat);
+			sql.setString(6, lng);
 
 
 			if (sql.executeUpdate() == 1) {
@@ -273,9 +283,9 @@ public class JDBCAttractionManagerServiceImpl implements AttractionManagerServic
 		}
 	}
 
-	public boolean update(Connection con, Long id, String name, String locality, Long idCategory, Long idCreator) {
+	public boolean update(Connection con, Long id, String name, String locality, Long idCategory, Long idCreator, String lat, String lng) {
 
-		String query = "UPDATE attractions SET name=?, locality=?, id_category=?, id_creator=? WHERE id=?";
+		String query = "UPDATE attractions SET name=?, locality=?, id_category=?, id_creator=?, lat=?, lng=? WHERE id=?";
 
 		try {
 
@@ -285,7 +295,9 @@ public class JDBCAttractionManagerServiceImpl implements AttractionManagerServic
 			sql.setString(2, locality);
 			sql.setLong(3, idCategory);
 			sql.setLong(4, idCreator);
-			sql.setLong(5, id);
+			sql.setString(5, lat);
+			sql.setString(6, lng);
+			sql.setLong(7, id);
 
 
 			if (sql.executeUpdate() == 1) {

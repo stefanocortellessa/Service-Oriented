@@ -1,5 +1,6 @@
 package it.univaq.disim.sose.routingrequests.model;
 
+
 public class Attraction implements java.io.Serializable {
 
 	private Long id;
@@ -7,7 +8,33 @@ public class Attraction implements java.io.Serializable {
 	private String locality;
 	private Category category;
 	private User creator;
+	private String lat;
+	private String lng;
 	
+	public String getLat() {
+		return lat;
+	}
+	public void setLat(String lat) {
+		this.lat = lat;
+	}
+	public String getLng() {
+		return lng;
+	}
+	public void setLng(String lng) {
+		this.lng = lng;
+	}
+	public User getCreator() {
+		return creator;
+	}
+	public void setCreator(User creator) {
+		this.creator = creator;
+	}
+	public Category getCategory() {
+		return category;
+	}
+	public void setCategory(Category category) {
+		this.category = category;
+	}
 	public Long getId() {
 		return id;
 	}
@@ -25,17 +52,5 @@ public class Attraction implements java.io.Serializable {
 	}
 	public void setName(String name) {
 		this.name = name;
-	}
-	public User getCreator() {
-		return creator;
-	}
-	public void setCreator(User creator) {
-		this.creator = creator;
-	}
-	public Category getCategory() {
-		return category;
-	}
-	public void setCategory(Category category) {
-		this.category = category;
 	}
 }

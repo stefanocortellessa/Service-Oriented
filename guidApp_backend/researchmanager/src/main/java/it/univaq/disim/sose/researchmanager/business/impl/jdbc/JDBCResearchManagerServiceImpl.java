@@ -106,6 +106,8 @@ public class JDBCResearchManagerServiceImpl implements ResearchManagerService {
 				attraction.setLocality(rs.getString("locality"));
 				attraction.setCategoryId(rs.getLong("id_category"));
 				attraction.setCreatorId(rs.getLong("id_creator"));
+				attraction.setLat(rs.getString("lat"));
+				attraction.setLng(rs.getString("lng"));
 				return_list.getAttractionElement().add(attraction);
 			}
 			return return_list;
@@ -212,6 +214,8 @@ public class JDBCResearchManagerServiceImpl implements ResearchManagerService {
 				attraction.setLocality(rs.getString("locality"));
 				attraction.setCategoryId(rs.getLong("id_category"));
 				attraction.setCreatorId(rs.getLong("id_creator"));
+				attraction.setLat(rs.getString("lat"));
+				attraction.setLng(rs.getString("lng"));
 				return_list.getAttractionElement().add(attraction);
 			}
 			return return_list;
@@ -282,6 +286,8 @@ public class JDBCResearchManagerServiceImpl implements ResearchManagerService {
 				attraction_detail.setLocality(rs.getString("locality"));
 				attraction_detail.setCategoryId(rs.getLong("id_category"));
 				attraction_detail.setCreatorId(rs.getLong("id_creator"));
+				attraction_detail.setLat(rs.getString("lat"));
+				attraction_detail.setLng(rs.getString("lng"));
 			}
 			return attraction_detail;
 
@@ -403,6 +409,8 @@ public class JDBCResearchManagerServiceImpl implements ResearchManagerService {
 				event.setStartDate(utility.convertToXML(startDate));
 				Date endDate = new Date(rs.getTimestamp("endDate").getTime());
 				event.setEndDate(utility.convertToXML(endDate));
+				event.setLat(rs.getString("lat"));
+				event.setLng(rs.getString("lng"));
 				return_list.getEventElement().add(event);
 			}
 			return return_list;
@@ -480,6 +488,8 @@ public class JDBCResearchManagerServiceImpl implements ResearchManagerService {
 				event_detail.setStartDate(utility.convertToXML(startDate));
 				Date endDate = new Date(rs.getTimestamp("endDate").getTime());
 				event_detail.setEndDate(utility.convertToXML(endDate));
+				event_detail.setLat(rs.getString("lat"));
+				event_detail.setLng(rs.getString("lng"));
 			}
 			return event_detail;
 
@@ -556,10 +566,9 @@ public class JDBCResearchManagerServiceImpl implements ResearchManagerService {
 				event.setStartDate(utility.convertToXML(startDate));
 				Date endDate = new Date(rs.getTimestamp("endDate").getTime());
 				event.setEndDate(utility.convertToXML(endDate));
-					
-				System.out.println("EVENT : " + event);
-				
-				//return_list.getEventElement().add(event);
+				event.setLat(rs.getString("lat"));
+				event.setLng(rs.getString("lng"));
+									
 				return_list.getEventElement().add(event);
 				
 			}

@@ -1,5 +1,9 @@
 package it.univaq.disim.sose.prosumer.business;
 
+import java.io.IOException;
+
+import com.google.maps.errors.ApiException;
+
 import it.univaq.disim.sose.prosumer.AccountLoginFault_Exception;
 import it.univaq.disim.sose.prosumer.AccountLoginRequest;
 import it.univaq.disim.sose.prosumer.AccountLoginResponse;
@@ -48,6 +52,9 @@ import it.univaq.disim.sose.prosumer.EventResearchResponse;
 import it.univaq.disim.sose.prosumer.EventUpdateFault_Exception;
 import it.univaq.disim.sose.prosumer.EventUpdateRequest;
 import it.univaq.disim.sose.prosumer.EventUpdateResponse;
+import it.univaq.disim.sose.prosumer.GoogleGeocodingFault_Exception;
+import it.univaq.disim.sose.prosumer.GoogleGeocodingRequest;
+import it.univaq.disim.sose.prosumer.GoogleGeocodingResponse;
 
 public interface ProsumerService {
 	
@@ -83,4 +90,6 @@ public interface ProsumerService {
 	EventResearchResponse eventResearch(EventResearchRequest parameters) throws EventResearchFault_Exception;
 
 	AttractionByCreatorResearchResponse attractionByCreatorResearch(AttractionByCreatorResearchRequest parameters) throws AttractionByCreatorResearchFault_Exception;
+	
+	GoogleGeocodingResponse googleGeocoding(GoogleGeocodingRequest parameters) throws GoogleGeocodingFault_Exception, ApiException, InterruptedException, IOException;
 }

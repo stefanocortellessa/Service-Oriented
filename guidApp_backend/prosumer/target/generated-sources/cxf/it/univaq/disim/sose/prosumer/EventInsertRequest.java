@@ -26,6 +26,8 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *         &lt;element name="categoryName" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="categoryId" type="{http://www.w3.org/2001/XMLSchema}long"/&gt;
  *         &lt;element name="creatorId" type="{http://www.w3.org/2001/XMLSchema}long"/&gt;
+ *         &lt;element name="lat" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="lng" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -42,7 +44,9 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "endDate",
     "categoryName",
     "categoryId",
-    "creatorId"
+    "creatorId",
+    "lat",
+    "lng"
 })
 public class EventInsertRequest {
 
@@ -60,6 +64,10 @@ public class EventInsertRequest {
     protected String categoryName;
     protected long categoryId;
     protected long creatorId;
+    @XmlElement(required = true)
+    protected String lat;
+    @XmlElement(required = true)
+    protected String lng;
 
     /**
      * Recupera il valore della proprietà title.
@@ -211,6 +219,54 @@ public class EventInsertRequest {
      */
     public void setCreatorId(long value) {
         this.creatorId = value;
+    }
+
+    /**
+     * Recupera il valore della proprietà lat.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getLat() {
+        return lat;
+    }
+
+    /**
+     * Imposta il valore della proprietà lat.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setLat(String value) {
+        this.lat = value;
+    }
+
+    /**
+     * Recupera il valore della proprietà lng.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getLng() {
+        return lng;
+    }
+
+    /**
+     * Imposta il valore della proprietà lng.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setLng(String value) {
+        this.lng = value;
     }
 
 }

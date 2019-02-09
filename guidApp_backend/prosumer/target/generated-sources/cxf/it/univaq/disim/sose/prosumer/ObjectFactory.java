@@ -72,6 +72,9 @@ public class ObjectFactory {
     private final static QName _AttractionByCreatorResearchFault_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "attractionByCreatorResearchFault");
     private final static QName _EventDetailResearchFault_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "eventDetailResearchFault");
     private final static QName _AttractionDetailResearchFault_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "attractionDetailResearchFault");
+    private final static QName _GoogleGeocodingResponse_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "googleGeocodingResponse");
+    private final static QName _GoogleGeocodingRequest_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "googleGeocodingRequest");
+    private final static QName _GoogleGeocodingFault_QNAME = new QName("http://it.univaq.disim.sose/prosumer", "googleGeocodingFault");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: it.univaq.disim.sose.prosumer
@@ -462,6 +465,30 @@ public class ObjectFactory {
      */
     public AttractionDetailResearchFault createAttractionDetailResearchFault() {
         return new AttractionDetailResearchFault();
+    }
+
+    /**
+     * Create an instance of {@link GoogleGeocodingResponse }
+     * 
+     */
+    public GoogleGeocodingResponse createGoogleGeocodingResponse() {
+        return new GoogleGeocodingResponse();
+    }
+
+    /**
+     * Create an instance of {@link GoogleGeocodingRequest }
+     * 
+     */
+    public GoogleGeocodingRequest createGoogleGeocodingRequest() {
+        return new GoogleGeocodingRequest();
+    }
+
+    /**
+     * Create an instance of {@link GoogleGeocodingFault }
+     * 
+     */
+    public GoogleGeocodingFault createGoogleGeocodingFault() {
+        return new GoogleGeocodingFault();
     }
 
     /**
@@ -926,6 +953,33 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://it.univaq.disim.sose/prosumer", name = "attractionDetailResearchFault")
     public JAXBElement<AttractionDetailResearchFault> createAttractionDetailResearchFault(AttractionDetailResearchFault value) {
         return new JAXBElement<AttractionDetailResearchFault>(_AttractionDetailResearchFault_QNAME, AttractionDetailResearchFault.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GoogleGeocodingResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://it.univaq.disim.sose/prosumer", name = "googleGeocodingResponse")
+    public JAXBElement<GoogleGeocodingResponse> createGoogleGeocodingResponse(GoogleGeocodingResponse value) {
+        return new JAXBElement<GoogleGeocodingResponse>(_GoogleGeocodingResponse_QNAME, GoogleGeocodingResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GoogleGeocodingRequest }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://it.univaq.disim.sose/prosumer", name = "googleGeocodingRequest")
+    public JAXBElement<GoogleGeocodingRequest> createGoogleGeocodingRequest(GoogleGeocodingRequest value) {
+        return new JAXBElement<GoogleGeocodingRequest>(_GoogleGeocodingRequest_QNAME, GoogleGeocodingRequest.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GoogleGeocodingFault }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://it.univaq.disim.sose/prosumer", name = "googleGeocodingFault")
+    public JAXBElement<GoogleGeocodingFault> createGoogleGeocodingFault(GoogleGeocodingFault value) {
+        return new JAXBElement<GoogleGeocodingFault>(_GoogleGeocodingFault_QNAME, GoogleGeocodingFault.class, null, value);
     }
 
 }

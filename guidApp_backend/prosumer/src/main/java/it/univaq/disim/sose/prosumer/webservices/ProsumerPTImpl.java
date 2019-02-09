@@ -1,9 +1,13 @@
 package it.univaq.disim.sose.prosumer.webservices;
 
+import java.io.IOException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import com.google.maps.errors.ApiException;
 
 import it.univaq.disim.sose.prosumer.AccountLoginFault_Exception;
 import it.univaq.disim.sose.prosumer.AccountLoginRequest;
@@ -53,6 +57,9 @@ import it.univaq.disim.sose.prosumer.EventResearchResponse;
 import it.univaq.disim.sose.prosumer.EventUpdateFault_Exception;
 import it.univaq.disim.sose.prosumer.EventUpdateRequest;
 import it.univaq.disim.sose.prosumer.EventUpdateResponse;
+import it.univaq.disim.sose.prosumer.GoogleGeocodingFault_Exception;
+import it.univaq.disim.sose.prosumer.GoogleGeocodingRequest;
+import it.univaq.disim.sose.prosumer.GoogleGeocodingResponse;
 import it.univaq.disim.sose.prosumer.ProsumerPT;
 import it.univaq.disim.sose.prosumer.business.ProsumerService;
 
@@ -163,6 +170,13 @@ public class ProsumerPTImpl implements ProsumerPT {
 			AttractionByCreatorResearchRequest parameters) throws AttractionByCreatorResearchFault_Exception {
 		LOGGER.info("CALLED attractionByCreatorResearch ON prosumer");
 		AttractionByCreatorResearchResponse response = service.attractionByCreatorResearch(parameters);
+		return response;
+	}
+	@Override
+	public GoogleGeocodingResponse googleGeocoding(GoogleGeocodingRequest parameters)
+			throws GoogleGeocodingFault_Exception, ApiException, InterruptedException, IOException {
+		LOGGER.info("CALLED googleGeocoding ON prosumer");
+		GoogleGeocodingResponse response = service.googleGeocoding(parameters);
 		return response;
 	}	
 }

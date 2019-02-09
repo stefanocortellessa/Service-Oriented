@@ -58,6 +58,8 @@ public class JDBCEventManagerServiceImpl implements EventManagerService {
 		creator.setId(parameters.getCreatorId());
 		event.setCategory(category);
 		event.setCreator(creator);
+		event.setLat(parameters.getLat());
+		event.setLng(parameters.getLng());
 		/*-------------------------------------------------------------------------*/
 		InsertEventResponse responseEvent = new InsertEventResponse();
 		try {
@@ -65,7 +67,8 @@ public class JDBCEventManagerServiceImpl implements EventManagerService {
 			connection = dataSource.getConnection();
 			connection.setAutoCommit(false);
 
-			if(insert(connection, event.getTitle(), event.getLocality(), event.getStartDate(), event.getEndDate(), event.getCategory().getId(), event.getCreator().getId())) {
+			if(insert(connection, event.getTitle(), event.getLocality(), event.getStartDate(), event.getEndDate(), event.getCategory().getId(),
+					event.getCreator().getId(), event.getLat(), event.getLng())) {
 
 				result = "Event inserted";
 
@@ -213,6 +216,10 @@ public class JDBCEventManagerServiceImpl implements EventManagerService {
 		
 		event.setCategory(category);
 		event.setCreator(creator);
+		
+		event.setLat(parameters.getLat());
+		event.setLng(parameters.getLng());
+		
 		/*-------------------------------------------------------------------------*/
 		UpdateEventResponse responseEvent = new UpdateEventResponse();
 
@@ -224,7 +231,8 @@ public class JDBCEventManagerServiceImpl implements EventManagerService {
 			if(check_creator(connection, event.getId(), event.getCreator().getId())) {
 				
 				
-				if(update(connection, event.getId(), event.getTitle(), event.getLocality(), event.getStartDate(), event.getEndDate(), event.getCategory().getId(), event.getCreator().getId())) {
+				if(update(connection, event.getId(), event.getTitle(), event.getLocality(), event.getStartDate(), event.getEndDate(), event.getCategory().getId(),
+						event.getCreator().getId(), event.getLat(), event.getLng())) {
 
 					result = "Event updated";
 
@@ -258,9 +266,9 @@ public class JDBCEventManagerServiceImpl implements EventManagerService {
 	}
 
 
-	public boolean insert(Connection con, String title, String locality, Timestamp startDate, Timestamp endDate, Long idCategory, Long idCreator) {
+	public boolean insert(Connection con, String title, String locality, Timestamp startDate, Timestamp endDate, Long idCategory, Long idCreator, String lat, String lng) {
 
-		String query = "INSERT INTO events (title, locality, startDate, endDate, id_category, id_creator) VALUES (?,?,?,?,?,?)";
+		String query = "INSERT INTO events (title, locality, startDate, endDate, id_category, id_creator, lat, lng) VALUES (?,?,?,?,?,?,?,?)";
 
 		try {
 
@@ -272,7 +280,10 @@ public class JDBCEventManagerServiceImpl implements EventManagerService {
 			sql.setTimestamp(4, endDate);
 			sql.setLong(5, idCategory);
 			sql.setLong(6, idCreator);
-
+			sql.setString(7, lat);
+			sql.setString(8, lng);
+			
+			System.out.println(sql.toString());
 			if (sql.executeUpdate() == 1) {
 				return true;
 			} else {
@@ -304,9 +315,9 @@ public class JDBCEventManagerServiceImpl implements EventManagerService {
 		}
 	}
 
-	public boolean update(Connection con, Long id, String title, String locality, Timestamp startDate, Timestamp endDate, Long idCategory, Long idCreator) {
+	public boolean update(Connection con, Long id, String title, String locality, Timestamp startDate, Timestamp endDate, Long idCategory, Long idCreator, String lat, String lng) {
 
-		String query = "UPDATE events SET title=?, locality=?, startDate=?, endDate=?, id_category=?, id_creator=? WHERE id=?";
+		String query = "UPDATE events SET title=?, locality=?, startDate=?, endDate=?, id_category=?, id_creator=?, lat=?, lng=? WHERE id=?";
 
 		try {
 
@@ -318,7 +329,9 @@ public class JDBCEventManagerServiceImpl implements EventManagerService {
 			sql.setTimestamp(4, endDate);
 			sql.setLong(5, idCategory);
 			sql.setLong(6, idCreator);
-			sql.setLong(7, id);
+			sql.setString(7, lat);
+			sql.setString(8, lng);
+			sql.setLong(9, id);
 			
 			if (sql.executeUpdate() == 1) {
 				return true;

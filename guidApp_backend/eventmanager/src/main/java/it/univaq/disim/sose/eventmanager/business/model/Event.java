@@ -12,6 +12,8 @@ public class Event implements java.io.Serializable {
 	private Timestamp endDate;
 	private Category category;
 	private User creator;
+	private String lat;
+	private String lng;
 	
 	public User getCreator() {
 		return creator;
@@ -54,5 +56,17 @@ public class Event implements java.io.Serializable {
 	}
 	public void setEndDate(Date endDate) {
 		this.endDate = new Timestamp(endDate.getTime());
+	}
+	public String getLat() {
+		return lat;
+	}
+	public void setLat(String lat) {
+		this.lat = lat;
+	}
+	public String getLng() {
+		return lng;
+	}
+	public void setLng(String lng) {
+		this.lng = lng;
 	}
 }

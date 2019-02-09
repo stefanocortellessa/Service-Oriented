@@ -12,18 +12,20 @@ public class Event implements java.io.Serializable {
 	private Timestamp endDate;
 	private Category category;
 	private User creator;
-
-	public Category getCategory() {
-		return category;
-	}
-	public void setCategory(Category category) {
-		this.category = category;
-	}
+	private String lat;
+	private String lng;
+	
 	public User getCreator() {
 		return creator;
 	}
 	public void setCreator(User creator) {
 		this.creator = creator;
+	}
+	public Category getCategory() {
+		return category;
+	}
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 	public Long getId() {
 		return id;
@@ -37,14 +39,14 @@ public class Event implements java.io.Serializable {
 	public void setTitle(String title) {
 		this.title = title;
 	}
+	public Timestamp getStartDate() {
+		return startDate;	
+	}
 	public String getLocality() {
 		return locality;
 	}
 	public void setLocality(String locality) {
 		this.locality = locality;
-	}
-	public Timestamp getStartDate() {
-		return startDate;	
 	}
 	public void setStartDate(Date startDate) {
 		this.startDate = new Timestamp(startDate.getTime());
@@ -54,5 +56,17 @@ public class Event implements java.io.Serializable {
 	}
 	public void setEndDate(Date endDate) {
 		this.endDate = new Timestamp(endDate.getTime());
+	}
+	public String getLat() {
+		return lat;
+	}
+	public void setLat(String lat) {
+		this.lat = lat;
+	}
+	public String getLng() {
+		return lng;
+	}
+	public void setLng(String lng) {
+		this.lng = lng;
 	}
 }

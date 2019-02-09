@@ -1,8 +1,17 @@
 
 package it.univaq.disim.sose.prosumer.business.impl.ws;
 
+import java.io.IOException;
+
 import org.springframework.stereotype.Service;
-	
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.maps.GeoApiContext;
+import com.google.maps.GeocodingApi;
+import com.google.maps.errors.ApiException;
+import com.google.maps.model.GeocodingResult;
+
 import it.univaq.disim.sose.accountmanager.AccountManagerPT;
 import it.univaq.disim.sose.accountmanager.AccountManagerService;
 import it.univaq.disim.sose.accountmanager.CheckSessionFault_Exception;
@@ -91,6 +100,9 @@ import it.univaq.disim.sose.prosumer.EventUpdateFault_Exception;
 import it.univaq.disim.sose.prosumer.EventUpdateRequest;
 import it.univaq.disim.sose.prosumer.EventUpdateResponse;
 import it.univaq.disim.sose.prosumer.EventsList;
+import it.univaq.disim.sose.prosumer.GoogleGeocodingFault_Exception;
+import it.univaq.disim.sose.prosumer.GoogleGeocodingRequest;
+import it.univaq.disim.sose.prosumer.GoogleGeocodingResponse;
 import it.univaq.disim.sose.prosumer.business.ProsumerService;
 import it.univaq.disim.sose.researchmanager.ResearchAttractionByCreatorFault_Exception;
 import it.univaq.disim.sose.researchmanager.ResearchAttractionByCreatorRequest;
@@ -232,6 +244,8 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 		insertEventRequest.setCategoryName(request.getCategoryName());
 		insertEventRequest.setCategoryId(request.getCategoryId());
 		insertEventRequest.setCreatorId(request.getCreatorId());
+		insertEventRequest.setLat(request.getLat());
+		insertEventRequest.setLng(request.getLng());
 		
 		try { 
 			InsertEventResponse insertEventResponse = insertEvent.insertEvent(insertEventRequest);
@@ -296,6 +310,8 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 		updateEventRequest.setCategoryName(request.getCategoryName());
 		updateEventRequest.setCategoryId(request.getCategoryId());
 		updateEventRequest.setCreatorId(request.getCreatorId());
+		updateEventRequest.setLat(request.getLat());
+		updateEventRequest.setLng(request.getLng());
 		
 		try {
 			UpdateEventResponse updateEventResponse = updateEvent.updateEvent(updateEventRequest);
@@ -327,6 +343,8 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 		insertAttractionRequest.setCategoryId(request.getCategoryId());
 		insertAttractionRequest.setCategoryName(request.getCategoryName());
 		insertAttractionRequest.setCreatorId(request.getCreatorId());
+		insertAttractionRequest.setLat(request.getLat());
+		insertAttractionRequest.setLng(request.getLng());
 		
 		
 		try { 
@@ -388,6 +406,8 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 		updateAttractionRequest.setCategoryId(request.getCategoryId());
 		updateAttractionRequest.setCategoryName(request.getCategoryName());
 		updateAttractionRequest.setCreatorId(request.getCreatorId());
+		updateAttractionRequest.setLat(request.getLat());
+		updateAttractionRequest.setLng(request.getLng());
 		
 		try { 
 			UpdateAttractionResponse updateEventResponse = updateAttr.updateAttraction(updateAttractionRequest);
@@ -418,6 +438,8 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 		event.setStartDate(response_element.getStartDate());
 		event.setEndDate(response_element.getEndDate());
 		event.setTitle(response_element.getTitle());
+		event.setLat(response_element.getLat());
+		event.setLng(response_element.getLng());
 		return event;
 	}
 	
@@ -430,6 +452,9 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 		attraction.setCategoryName(response_element.getCategoryName());
 		attraction.setCreatorId(response_element.getCreatorId());
 		attraction.setName(response_element.getName());
+
+		attraction.setLat(response_element.getLat());
+		attraction.setLng(response_element.getLng());
 	
 		return attraction;
 	}
@@ -644,5 +669,20 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 		}
 		
 		return response;
+	}
+ 
+	@Override
+	public GoogleGeocodingResponse googleGeocoding(GoogleGeocodingRequest parameters)
+			throws GoogleGeocodingFault_Exception, ApiException, InterruptedException, IOException {
+		GeoApiContext context = new GeoApiContext.Builder().apiKey("AIzaSyBa5iuW05l3hyHLGDr1fnumGssMI-Yombw").build();
+			GeocodingResult[] results;
+			results = GeocodingApi.geocode(context, parameters.getLocality()).await();
+			Gson gson = new GsonBuilder().setPrettyPrinting().create();
+			GoogleGeocodingResponse response = new GoogleGeocodingResponse();
+			response.setLat(gson.toJson(results[0].geometry.location.lat));
+			response.setLng(gson.toJson(results[0].geometry.location.lng));
+			
+			return response;
+		
 	}
 }

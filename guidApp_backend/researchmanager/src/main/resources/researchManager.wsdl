@@ -52,6 +52,8 @@
 					<xsd:element name="categoryName" type="xsd:string" />
 					<xsd:element name="categoryId" type="xsd:long" />
 					<xsd:element name="creatorId" type="xsd:long" />	
+					<xsd:element name="lat" type="xsd:string" />	
+					<xsd:element name="lng" type="xsd:string" />	
 			      </xsd:sequence>
 			</xsd:complexType>
 			
@@ -74,6 +76,8 @@
 					<xsd:element name="categoryName" type="xsd:string" />
 					<xsd:element name="categoryId" type="xsd:long" />
 					<xsd:element name="creatorId" type="xsd:long" />		
+					<xsd:element name="lat" type="xsd:string" />	
+					<xsd:element name="lng" type="xsd:string" />		
 			      </xsd:sequence>
 			</xsd:complexType>
 			
