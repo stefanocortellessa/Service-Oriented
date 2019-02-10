@@ -150,13 +150,14 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 		userSignupRequest.setName(request.getName());
 		userSignupRequest.setPassword(request.getPassword());
 		userSignupRequest.setSurname(request.getSurname());
-		userSignupRequest.setUsername(request.getUsername());
 		
 		try {
 			UserSignupResponse userSignupResponse = accountManager.userSignup(userSignupRequest);
 			
 			response.setId(userSignupResponse.getId());
 			response.setToken(userSignupResponse.getToken());
+			response.setMessage(userSignupResponse.getMessage());
+
 			
 		} catch (UserSignupFault_Exception e) {
 			e.printStackTrace();
