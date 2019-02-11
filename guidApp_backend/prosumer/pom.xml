@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>it.univaq.disim.sose.touristicguide</groupId>
 	<artifactId>prosumer</artifactId>
-	<packaging>jar</packaging>
+	<!--<packaging>jar</packaging>-->
 	<version>1.0.0-SNAPSHOT</version>
 	<name>Prosumer</name>
 	<url>http://maven.apache.org</url>
@@ -18,11 +18,6 @@
 	
 	<!-- Dependencies -->
 	<dependencies>
-		<dependency>
-  			<groupId>com.google.maps</groupId>
-  			<artifactId>google-maps-services</artifactId>
-  			<version>(insert latest version)</version>
-		</dependency>
 		<dependency>
   			<groupId>org.slf4j</groupId>
   			<artifactId>slf4j-simple</artifactId>
@@ -125,7 +120,7 @@
 									<extraargs>
 										<extraarg>-verbose</extraarg>
 										<extraarg>-p </extraarg>
-										<extraarg>it.univaq.disim.sose.prosumer</extraarg>
+										<extraarg>it.univaq.disim.sose.touristicguide.prosumer</extraarg>
 									</extraargs>
 								</wsdlOption>
 								<!-- Account Manager -->
@@ -135,7 +130,7 @@
 									<extraargs>
 										<extraarg>-verbose</extraarg>
 										<extraarg>-p </extraarg>
-										<extraarg>it.univaq.disim.sose.accountmanager</extraarg>
+										<extraarg>it.univaq.disim.sose.touristicguide.accountmanager</extraarg>
 									</extraargs>
 								</wsdlOption>
 								<!-- Event Manager -->
@@ -145,7 +140,7 @@
 									<extraargs>
 										<extraarg>-verbose</extraarg>
 										<extraarg>-p </extraarg>
-										<extraarg>it.univaq.disim.sose.eventmanager</extraarg>
+										<extraarg>it.univaq.disim.sose.touristicguide.eventmanager</extraarg>
 									</extraargs>
 								</wsdlOption>
 								<!-- Attraction Manager -->
@@ -155,7 +150,7 @@
 									<extraargs>
 										<extraarg>-verbose</extraarg>
 										<extraarg>-p </extraarg>
-										<extraarg>it.univaq.disim.sose.attractionmanager</extraarg>
+										<extraarg>it.univaq.disim.sose.touristicguide.attractionmanager</extraarg>
 									</extraargs>
 								</wsdlOption>
 								<!-- Research Manager -->
@@ -165,7 +160,7 @@
 									<extraargs>
 										<extraarg>-verbose</extraarg>
 										<extraarg>-p </extraarg>
-										<extraarg>it.univaq.disim.sose.researchmanager</extraarg>
+										<extraarg>it.univaq.disim.sose.touristicguide.researchmanager</extraarg>
 									</extraargs>
 								</wsdlOption>
 							</wsdlOptions>

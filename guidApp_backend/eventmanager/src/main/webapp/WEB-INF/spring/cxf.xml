@@ -8,7 +8,7 @@
                            http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
                            
     <jaxws:endpoint id="EventManagerHTTP" 
-			xmlns:eventmanager="http://it.univaq.disim.sose/eventmanager"
+			xmlns:eventmanager="http://it.univaq.disim.sose.touristicguide/eventmanager"
 		    address="/eventmanager" 
 		    serviceName="eventmanager:EventManagerService"
 		    implementor="#EventManagerPTImpl">

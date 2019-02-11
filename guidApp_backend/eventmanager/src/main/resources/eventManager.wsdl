@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions name="InsertEventService"
-	targetNamespace="http://it.univaq.disim.sose/eventManager" 
-	xmlns:tns="http://it.univaq.disim.sose/eventManager"
+	targetNamespace="http://it.univaq.disim.sose.touristicguide/eventManager" 
+	xmlns:tns="http://it.univaq.disim.sose.touristicguide/eventManager"
 	xmlns="http://schemas.xmlsoap.org/wsdl/"
 	xmlns:wsp="http://www.w3.org/ns/ws-policy" 
 	xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy"
@@ -12,7 +12,7 @@
 	
 	
 	<types>
-		<xsd:schema targetNamespace="http://it.univaq.disim.sose/eventManager">
+		<xsd:schema targetNamespace="http://it.univaq.disim.sose.touristicguide/eventManager">
 			<xsd:element name="insertEventRequest" type="tns:insertEventRequest" />
 			<xsd:element name="insertEventResponse" type="tns:insertEventResponse" />
 			<xsd:element name="insertEventFault" type="tns:insertEventFault" />

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions name="ResearchManagerService"
-	targetNamespace="http://it.univaq.disim.sose/researchManager" 
-	xmlns:tns="http://it.univaq.disim.sose/researchManager"
+	targetNamespace="http://it.univaq.disim.sose.touristicguide/researchManager" 
+	xmlns:tns="http://it.univaq.disim.sose.touristicguide/researchManager"
 	xmlns="http://schemas.xmlsoap.org/wsdl/"
 	xmlns:wsp="http://www.w3.org/ns/ws-policy" 
 	xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy"
@@ -10,9 +10,8 @@
 	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
 	xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata">
 	          
-	          
 	<types>   
-		<xsd:schema targetNamespace="http://it.univaq.disim.sose/researchManager">
+		<xsd:schema targetNamespace="http://it.univaq.disim.sose.touristicguide/researchManager">
 			<xsd:element name="researchEventRequest" type="tns:researchEventRequest" />
 			<xsd:element name="researchEventResponse" type="tns:researchEventResponse" />
 			<xsd:element name="researchEventFault" type="tns:researchEventFault" />

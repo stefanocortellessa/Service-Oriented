@@ -8,7 +8,7 @@
                            http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
                            
     <jaxws:endpoint id="AttractionManagerHTTP" 
-			xmlns:attractionmanager="http://it.univaq.disim.sose/attractionmanager"
+			xmlns:attractionmanager="http://it.univaq.disim.sose.touristicguide/attractionmanager"
 		    address="/attractionmanager" 
 		    serviceName="attractionmanager:AttractionManagerService"
 		    endpointName="attractionmanager:attractionManagerPort" 

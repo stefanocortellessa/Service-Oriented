@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions name="AccountManagerService"
-	targetNamespace="http://it.univaq.disim.sose/accountManager" 
-	xmlns:tns="http://it.univaq.disim.sose/accountManager"
+	targetNamespace="http://it.univaq.disim.sose.touristicguide/accountManager" 
+	xmlns:tns="http://it.univaq.disim.sose.touristicguide/accountManager"
 	xmlns="http://schemas.xmlsoap.org/wsdl/"
 	xmlns:wsp="http://www.w3.org/ns/ws-policy" 
 	xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy"
@@ -11,7 +11,7 @@
 	xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata">
 	
 	<types>
-		<xsd:schema targetNamespace="http://it.univaq.disim.sose/accountManager">
+		<xsd:schema targetNamespace="http://it.univaq.disim.sose.touristicguide/accountManager">
 			<xsd:element name="userSignupRequest" type="tns:userSignupRequest" />
 			<xsd:element name="userSignupResponse" type="tns:userSignupResponse" />
 			<xsd:element name="userSignupFault" type="tns:userSignupFault" />

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions name="AttractionManagerService"
-	targetNamespace="http://it.univaq.disim.sose/attractionManager" 
-	xmlns:tns="http://it.univaq.disim.sose/attractionManager"
+	targetNamespace="http://it.univaq.disim.sose.touristicguide/attractionManager" 
+	xmlns:tns="http://it.univaq.disim.sose.touristicguide/attractionManager"
 	xmlns="http://schemas.xmlsoap.org/wsdl/"
 	xmlns:wsp="http://www.w3.org/ns/ws-policy" 
 	xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy"
@@ -11,7 +11,7 @@
 	xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata">
 	
 	<types>
-		<xsd:schema targetNamespace="http://it.univaq.disim.sose/attractionManager">
+		<xsd:schema targetNamespace="http://it.univaq.disim.sose.touristicguide/attractionManager">
 			<xsd:element name="insertAttractionRequest" type="tns:insertAttractionRequest" />
 			<xsd:element name="insertAttractionResponse" type="tns:insertAttractionResponse" />
 			<xsd:element name="insertAttractionFault" type="tns:insertAttractionFault" />
