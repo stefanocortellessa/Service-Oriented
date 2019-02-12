@@ -34,6 +34,9 @@ import it.univaq.disim.sose.touristicguide.prosumer.AttractionResearchResponse;
 import it.univaq.disim.sose.touristicguide.prosumer.AttractionUpdateFault_Exception;
 import it.univaq.disim.sose.touristicguide.prosumer.AttractionUpdateRequest;
 import it.univaq.disim.sose.touristicguide.prosumer.AttractionUpdateResponse;
+import it.univaq.disim.sose.touristicguide.prosumer.BalanceCheckFault_Exception;
+import it.univaq.disim.sose.touristicguide.prosumer.BalanceCheckRequest;
+import it.univaq.disim.sose.touristicguide.prosumer.BalanceCheckResponse;
 import it.univaq.disim.sose.touristicguide.prosumer.CategoryResearchFault_Exception;
 import it.univaq.disim.sose.touristicguide.prosumer.CategoryResearchRequest;
 import it.univaq.disim.sose.touristicguide.prosumer.CategoryResearchResponse;
@@ -96,5 +99,7 @@ public interface ProsumerService {
 	GoogleGeocodingResponse googleGeocoding(GoogleGeocodingRequest parameters) throws GoogleGeocodingFault_Exception, ApiException, InterruptedException, IOException;
 	
 	CategoryResearchResponse categoryResearch(CategoryResearchRequest parameters) throws CategoryResearchFault_Exception, ApiException, InterruptedException, IOException;
+
+	BalanceCheckResponse balanceCheck(BalanceCheckRequest parameters) throws BalanceCheckFault_Exception;
 
 }

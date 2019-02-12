@@ -3,25 +3,22 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>it.univaq.disim.sose.touristicguide</groupId>
-	<artifactId>prosumer</artifactId>
-	<!--<packaging>jar</packaging> -->
+	<artifactId>loadbalancer</artifactId>
+	<packaging>war</packaging>
 	<version>1.0.0-SNAPSHOT</version>
-	<name>Prosumer</name>
+	<name>Load Balancer</name>
 	<url>http://maven.apache.org</url>
-	<!-- Properties -->
 	<properties>
 		<cxf.version>3.2.7</cxf.version>
 		<cxf.xjc-utils.version>3.2.3</cxf.xjc-utils.version>
 		<spring.version>4.3.20.RELEASE</spring.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
-
-	<!-- Dependencies -->
 	<dependencies>
 		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-simple</artifactId>
-			<version>1.7.25</version>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>20.0</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.xml.ws</groupId>
@@ -37,6 +34,12 @@
 			<groupId>com.sun.xml.bind</groupId>
 			<artifactId>jaxb-core</artifactId>
 			<version>2.2.11</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.4</version>
 		</dependency>
 
 		<dependency>
@@ -76,26 +79,14 @@
 			<version>1.2.17</version>
 			<scope>runtime</scope>
 		</dependency>
-		<dependency>
-			<groupId>com.google.maps</groupId>
-			<artifactId>google-maps-services</artifactId>
-			<version>0.2.6</version>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-nop</artifactId>
-			<version>1.7.25</version>
-		</dependency>
 	</dependencies>
-
-	<!-- Build -->
 	<build>
 		<defaultGoal>install</defaultGoal>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.6.2</version>
+				<version>3.8.0</version>
 				<configuration>
 					<source>1.8</source>
 					<target>1.8</target>
@@ -112,60 +103,8 @@
 						<phase>generate-sources</phase>
 						<configuration>
 							<wsdlOptions>
-								<!-- WSDL of all services -->
-								<!-- Prosumer -->
 								<wsdlOption>
-									<wsdl>src/main/resources/prosumer.wsdl</wsdl>
-									<faultSerialVersionUID>1</faultSerialVersionUID>
-									<extraargs>
-										<extraarg>-verbose</extraarg>
-										<extraarg>-p </extraarg>
-										<extraarg>it.univaq.disim.sose.touristicguide.prosumer</extraarg>
-									</extraargs>
-								</wsdlOption>
-								<!-- Account Manager -->
-								<wsdlOption>
-									<wsdl>src/main/resources/clients/accountManager.wsdl</wsdl>
-									<faultSerialVersionUID>1</faultSerialVersionUID>
-									<extraargs>
-										<extraarg>-verbose</extraarg>
-										<extraarg>-p </extraarg>
-										<extraarg>it.univaq.disim.sose.touristicguide.accountmanager</extraarg>
-									</extraargs>
-								</wsdlOption>
-								<!-- Event Manager -->
-								<wsdlOption>
-									<wsdl>src/main/resources/clients/eventManager.wsdl</wsdl>
-									<faultSerialVersionUID>1</faultSerialVersionUID>
-									<extraargs>
-										<extraarg>-verbose</extraarg>
-										<extraarg>-p </extraarg>
-										<extraarg>it.univaq.disim.sose.touristicguide.eventmanager</extraarg>
-									</extraargs>
-								</wsdlOption>
-								<!-- Attraction Manager -->
-								<wsdlOption>
-									<wsdl>src/main/resources/clients/attractionManager.wsdl</wsdl>
-									<faultSerialVersionUID>1</faultSerialVersionUID>
-									<extraargs>
-										<extraarg>-verbose</extraarg>
-										<extraarg>-p </extraarg>
-										<extraarg>it.univaq.disim.sose.touristicguide.attractionmanager</extraarg>
-									</extraargs>
-								</wsdlOption>
-								<!-- Research Manager -->
-								<wsdlOption>
-									<wsdl>src/main/resources/clients/researchManager.wsdl</wsdl>
-									<faultSerialVersionUID>1</faultSerialVersionUID>
-									<extraargs>
-										<extraarg>-verbose</extraarg>
-										<extraarg>-p </extraarg>
-										<extraarg>it.univaq.disim.sose.touristicguide.researchmanager</extraarg>
-									</extraargs>
-								</wsdlOption>
-								<!-- Load Balancer -->
-								<wsdlOption>
-									<wsdl>src/main/resources/clients/loadBalancer.wsdl</wsdl>
+									<wsdl>src/main/resources/loadBalancer.wsdl</wsdl>
 									<faultSerialVersionUID>1</faultSerialVersionUID>
 									<extraargs>
 										<extraarg>-verbose</extraarg>
@@ -182,6 +121,6 @@
 				</executions>
 			</plugin>
 		</plugins>
-		<finalName>prosumer</finalName>
+		<finalName>loadbalancer</finalName>
 	</build>
 </project>

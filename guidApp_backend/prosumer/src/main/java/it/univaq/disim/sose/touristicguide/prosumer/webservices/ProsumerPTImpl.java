@@ -39,6 +39,9 @@ import it.univaq.disim.sose.touristicguide.prosumer.AttractionResearchResponse;
 import it.univaq.disim.sose.touristicguide.prosumer.AttractionUpdateFault_Exception;
 import it.univaq.disim.sose.touristicguide.prosumer.AttractionUpdateRequest;
 import it.univaq.disim.sose.touristicguide.prosumer.AttractionUpdateResponse;
+import it.univaq.disim.sose.touristicguide.prosumer.BalanceCheckFault_Exception;
+import it.univaq.disim.sose.touristicguide.prosumer.BalanceCheckRequest;
+import it.univaq.disim.sose.touristicguide.prosumer.BalanceCheckResponse;
 import it.univaq.disim.sose.touristicguide.prosumer.CategoryResearchFault_Exception;
 import it.univaq.disim.sose.touristicguide.prosumer.CategoryResearchRequest;
 import it.univaq.disim.sose.touristicguide.prosumer.CategoryResearchResponse;
@@ -187,6 +190,12 @@ public class ProsumerPTImpl implements ProsumerPT {
 			throws CategoryResearchFault_Exception, ApiException, InterruptedException, IOException{
 		LOGGER.info("CALLED category Research ON prosumer");
 		CategoryResearchResponse response = service.categoryResearch(parameters);
+		return response;
+	}
+	@Override
+	public BalanceCheckResponse balanceCheck(BalanceCheckRequest parameters) throws BalanceCheckFault_Exception {
+		LOGGER.info("CALLED balancecheck ON prosumer");
+		BalanceCheckResponse response = service.balanceCheck(parameters);
 		return response;
 	}	
 }

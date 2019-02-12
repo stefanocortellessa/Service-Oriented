@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="loadBalancerService"
+	targetNamespace="http://it.univaq.disim.sose.touristicguide/loadBalancer" 
+	xmlns:tns="http://it.univaq.disim.sose.touristicguide/loadBalancer"
+	xmlns="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:wsp="http://www.w3.org/ns/ws-policy" 
+	xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy"
+	xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata">
+	  
+	<types>
+		<xsd:schema targetNamespace="http://it.univaq.disim.sose.touristicguide/loadBalancer">
+			<xsd:element name="checkBalanceRequest" type="tns:checkBalanceRequest" />
+			<xsd:element name="checkBalanceResponse" type="tns:checkBalanceResponse" />
+			<xsd:element name="checkBalanceFault" type="tns:checkBalanceFault" />
+			
+			<!-- Check balance -->
+			<!-- Request -->
+			<xsd:complexType name="checkBalanceRequest">
+				<xsd:sequence>
+					<xsd:element name="service" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+				</xsd:sequence>
+			</xsd:complexType>
+			
+			<!-- Response -->
+			<xsd:complexType name="checkBalanceResponse">
+				<xsd:sequence>
+					<xsd:element name="serverPort" type="xsd:string" />
+					<xsd:element name="message" type="xsd:string" />
+				</xsd:sequence>
+			</xsd:complexType>
+					
+			<!-- Fault -->
+			<xsd:complexType name="checkBalanceFault">
+				<xsd:sequence>
+                        <xsd:element name="faultInfo" type="xsd:string" />
+                        <xsd:element name="message" type="xsd:string" />
+				</xsd:sequence>
+			</xsd:complexType>
+ 		</xsd:schema>
+	</types>
+	
+	<!-- Message -->
+	<!-- Check balance -->
+	<message name="checkBalanceRequest">
+		<part name="parameters" element="tns:checkBalanceRequest">
+		</part>
+	</message>
+	<message name="checkBalanceResponse">
+		<part name="parameters" element="tns:checkBalanceResponse">
+		</part>
+	</message>
+	<message name="checkBalanceFault">
+		<part name="parameters" element="tns:checkBalanceFault">
+		</part>
+	</message>
+	 
+	<!-- Port -->
+	<portType name="loadBalancerPT"> 
+		<operation name="checkBalance">
+			<input name="checkBalanceRequest" message="tns:checkBalanceRequest" />
+			<output name="checkBalanceResponse" message="tns:checkBalanceResponse" />
+			<fault name="checkBalanceFault" message="tns:checkBalanceFault" />
+		</operation>
+	</portType>
+	
+	<!-- Binding -->
+	<binding name="loadBalancerBinding" type="tns:loadBalancerPT">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+			<operation name="checkBalance">
+			<soap:operation soapAction="" />
+			<input>
+				<soap:body use="literal" />
+			</input>
+			<output>
+				<soap:body use="literal" />
+			</output>
+		</operation>
+	</binding>
+	
+	<!-- Service -->
+	<service name="LoadBalancerService">
+		<port name="loadBalancerPort" binding="tns:loadBalancerBinding">
+			<soap:address location="http://localhost:8080/loadbalancer/services/loadbalancer" />
+		</port>
+	</service>
+	<service name="LoadBalancerService2">
+		<port name="loadBalancerPort2" binding="tns:loadBalancerBinding">
+			<soap:address location="http://localhost:8100/loadbalancer/services/loadbalancer" />
+		</port>
+	</service>
+</definitions>
