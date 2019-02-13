@@ -2,7 +2,6 @@
 package it.univaq.disim.sose.touristicguide.prosumer.business.impl.ws;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import org.springframework.stereotype.Service;
 
@@ -43,18 +42,12 @@ import it.univaq.disim.sose.touristicguide.eventmanager.DeleteEventRequest;
 import it.univaq.disim.sose.touristicguide.eventmanager.DeleteEventResponse;
 import it.univaq.disim.sose.touristicguide.eventmanager.InsertEventFault_Exception;
 import it.univaq.disim.sose.touristicguide.eventmanager.EventManagerPT;
+import it.univaq.disim.sose.touristicguide.eventmanager.EventManagerService;
 import it.univaq.disim.sose.touristicguide.eventmanager.InsertEventRequest;
 import it.univaq.disim.sose.touristicguide.eventmanager.InsertEventResponse;
 import it.univaq.disim.sose.touristicguide.eventmanager.UpdateEventFault_Exception;
 import it.univaq.disim.sose.touristicguide.eventmanager.UpdateEventRequest;
 import it.univaq.disim.sose.touristicguide.eventmanager.UpdateEventResponse;
-import it.univaq.disim.sose.touristicguide.loadbalancer.CheckBalanceFault_Exception;
-import it.univaq.disim.sose.touristicguide.loadbalancer.CheckBalanceRequest;
-import it.univaq.disim.sose.touristicguide.loadbalancer.CheckBalanceResponse;
-import it.univaq.disim.sose.touristicguide.loadbalancer.LoadBalancerPT;
-import it.univaq.disim.sose.touristicguide.loadbalancer.LoadBalancerService;
-import it.univaq.disim.sose.touristicguide.loadbalancer.LoadBalancerService2;
-import it.univaq.disim.sose.touristicguide.eventmanager.EventManagerService;
 import it.univaq.disim.sose.touristicguide.prosumer.AccountLoginFault_Exception;
 import it.univaq.disim.sose.touristicguide.prosumer.AccountLoginRequest;
 import it.univaq.disim.sose.touristicguide.prosumer.AccountLoginResponse;
@@ -87,9 +80,6 @@ import it.univaq.disim.sose.touristicguide.prosumer.AttractionUpdateFault_Except
 import it.univaq.disim.sose.touristicguide.prosumer.AttractionUpdateRequest;
 import it.univaq.disim.sose.touristicguide.prosumer.AttractionUpdateResponse;
 import it.univaq.disim.sose.touristicguide.prosumer.AttractionsList;
-import it.univaq.disim.sose.touristicguide.prosumer.BalanceCheckFault_Exception;
-import it.univaq.disim.sose.touristicguide.prosumer.BalanceCheckRequest;
-import it.univaq.disim.sose.touristicguide.prosumer.BalanceCheckResponse;
 import it.univaq.disim.sose.touristicguide.prosumer.CategoryElement;
 import it.univaq.disim.sose.touristicguide.prosumer.CategoryList;
 import it.univaq.disim.sose.touristicguide.prosumer.CategoryResearchFault_Exception;
@@ -147,7 +137,7 @@ import it.univaq.disim.sose.touristicguide.prosumer.business.ProsumerService;
 @Service
 public class WebServiceProsumerServiceImpl implements ProsumerService {
 	
-	@Override
+	/*@Override
 	public BalanceCheckResponse balanceCheck(BalanceCheckRequest request) throws BalanceCheckFault_Exception {
 		LoadBalancerService loadBalancerService = new LoadBalancerService();
 		LoadBalancerService2 loadBalancer2Service = new LoadBalancerService2();	
@@ -169,16 +159,10 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 
 		return null;
 	}
-	
+	*/
 	@Override
 	public AccountSignupResponse userSignup(AccountSignupRequest request) throws AccountSignupFault_Exception {
 		
-		try {
-			balanceCheck(null);
-		} catch (BalanceCheckFault_Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 		AccountSignupResponse response = new AccountSignupResponse();
 		AccountManagerService accountManagerService = new AccountManagerService();
 		AccountManagerPT accountManager = accountManagerService.getAccountManagerPort();

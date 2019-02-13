@@ -100,6 +100,4 @@ public interface ProsumerService {
 	
 	CategoryResearchResponse categoryResearch(CategoryResearchRequest parameters) throws CategoryResearchFault_Exception, ApiException, InterruptedException, IOException;
 
-	BalanceCheckResponse balanceCheck(BalanceCheckRequest parameters) throws BalanceCheckFault_Exception;
-
 }
