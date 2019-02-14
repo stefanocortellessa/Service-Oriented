@@ -115,7 +115,7 @@
 								<!-- WSDL of all services -->
 								<!-- balanceagent -->
 								<wsdlOption>
-									<wsdl>src/main/resources/balanceagent.wsdl</wsdl>
+									<wsdl>src/main/resources/balanceAgent.wsdl</wsdl>
 									<faultSerialVersionUID>1</faultSerialVersionUID>
 									<extraargs>
 										<extraarg>-verbose</extraarg>

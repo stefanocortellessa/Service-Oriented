@@ -168,7 +168,7 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 		String bestPort = this.getBestPort("accountManager");
 		System.out.println("BEST PORT: " + bestPort);
 		String url = "http://localhost:"+bestPort+"/accountmanager/services/accountmanager";
-
+		
 		AccountSignupResponse response = new AccountSignupResponse();
 		AccountManagerService accountManagerService = new AccountManagerService();
 		AccountManagerPT accountManager = accountManagerService.getAccountManagerPort();
@@ -204,9 +204,19 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 	@Override
 	public AccountLoginResponse userLogin(AccountLoginRequest request) throws AccountLoginFault_Exception {
 		
+		String bestPort = this.getBestPort("accountManager");
+		System.out.println("BEST PORT: " + bestPort);
+		String url = "http://localhost:"+bestPort+"/accountmanager/services/accountmanager";
+		
 		AccountLoginResponse response = new AccountLoginResponse();
 		AccountManagerService accountManagerService = new AccountManagerService();
 		AccountManagerPT accountManager = accountManagerService.getAccountManagerPort();
+		
+		BindingProvider bp = (BindingProvider)accountManager;
+
+		bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+
+		
 		UserLoginRequest userLoginRequest = new UserLoginRequest();
 		
 		userLoginRequest.setEmail(request.getEmail());
@@ -229,9 +239,18 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 	@Override
 	public AccountLogoutResponse userLogout(AccountLogoutRequest request) throws AccountLogoutFault_Exception {
 		
+		String bestPort = this.getBestPort("accountManager");
+		System.out.println("BEST PORT: " + bestPort);
+		String url = "http://localhost:"+bestPort+"/accountmanager/services/accountmanager";
+		
 		AccountLogoutResponse response = new AccountLogoutResponse();
 		AccountManagerService accountManagerService = new AccountManagerService();
 		AccountManagerPT accountManager = accountManagerService.getAccountManagerPort();
+		
+		BindingProvider bp = (BindingProvider)accountManager;
+
+		bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+
 		UserLogoutRequest userLogoutRequest = new UserLogoutRequest();
 		
 		userLogoutRequest.setToken(request.getToken());
@@ -252,9 +271,19 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 	@Override
 	public AccountSessionResponse accountSession(AccountSessionRequest request) throws AccountSessionFault_Exception {
 		
+		String bestPort = this.getBestPort("accountManager");
+		System.out.println("BEST PORT: " + bestPort);
+		String url = "http://localhost:"+bestPort+"/accountmanager/services/accountmanager";
+		
 		AccountSessionResponse response = new AccountSessionResponse();
 		AccountManagerService accountManagerService = new AccountManagerService();
 		AccountManagerPT accountManager = accountManagerService.getAccountManagerPort();
+		
+		BindingProvider bp = (BindingProvider)accountManager;
+
+		bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+
+		
 		CheckSessionRequest checkSessionRequest = new CheckSessionRequest();
 		
 		checkSessionRequest.setToken(request.getToken());
@@ -275,9 +304,18 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 	@Override
 	public EventInsertResponse eventInsert(EventInsertRequest request) throws EventInsertFault_Exception {
 		
+		String bestPort = this.getBestPort("eventManager");
+		System.out.println("BEST PORT: " + bestPort);
+		String url = "http://localhost:"+bestPort+"/eventmanager/services/eventmanager";
+		
 		EventInsertResponse response = new EventInsertResponse();
 		EventManagerService insertEventService = new EventManagerService();
 		EventManagerPT insertEvent = insertEventService.getEventManagerPort();
+		
+		BindingProvider bp = (BindingProvider)insertEvent;
+
+		bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+
 		InsertEventRequest insertEventRequest = new InsertEventRequest();
 
 		insertEventRequest.setTitle(request.getTitle());
@@ -311,9 +349,18 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 	@Override
 	public EventDeleteResponse eventDelete(EventDeleteRequest request) throws EventDeleteFault_Exception {
 		
+		String bestPort = this.getBestPort("eventManager");
+		System.out.println("BEST PORT: " + bestPort);
+		String url = "http://localhost:"+bestPort+"/eventmanager/services/eventmanager";
+		
 		EventDeleteResponse response = new EventDeleteResponse();
 		EventManagerService insertEventService = new EventManagerService();
 		EventManagerPT deleteEvent = insertEventService.getEventManagerPort();
+		
+		BindingProvider bp = (BindingProvider)deleteEvent;
+
+		bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+		
 		DeleteEventRequest deleteEventRequest = new DeleteEventRequest();
 		
 		deleteEventRequest.setId(request.getId());    
@@ -340,9 +387,19 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 	@Override
 	public EventUpdateResponse eventUpdate(EventUpdateRequest request) throws EventUpdateFault_Exception {
 		
+		String bestPort = this.getBestPort("eventManager");
+		System.out.println("BEST PORT: " + bestPort);
+		String url = "http://localhost:"+bestPort+"/eventmanager/services/eventmanager";
+		
 		EventUpdateResponse response = new EventUpdateResponse();
 		EventManagerService updateEventService = new EventManagerService();
 		EventManagerPT updateEvent = updateEventService.getEventManagerPort();
+		
+		
+		BindingProvider bp = (BindingProvider)updateEvent;
+
+		bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+		
 		UpdateEventRequest updateEventRequest = new UpdateEventRequest();
 		
 		updateEventRequest.setId(request.getId());
@@ -376,9 +433,19 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 	@Override
 	public AttractionInsertResponse attractionInsert(AttractionInsertRequest request) throws AttractionInsertFault_Exception {
 		
+		String bestPort = this.getBestPort("attractionManager");
+		System.out.println("BEST PORT: " + bestPort);
+		String url = "http://localhost:"+bestPort+"/attractionmanager/services/attractionmanager";
+		
 		AttractionInsertResponse response = new AttractionInsertResponse();
 		AttractionManagerService insertAttractionService = new AttractionManagerService();
 		AttractionManagerPT insertAttr = insertAttractionService.getAttractionManagerPort();
+		
+		
+		BindingProvider bp = (BindingProvider)insertAttr;
+
+		bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+		
 		InsertAttractionRequest insertAttractionRequest = new InsertAttractionRequest();
 
 		insertAttractionRequest.setName(request.getName());
@@ -410,9 +477,20 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 	@Override
 	public AttractionDeleteResponse attractionDelete(AttractionDeleteRequest request) throws AttractionDeleteFault_Exception {
 		
+
+		String bestPort = this.getBestPort("attractionManager");
+		System.out.println("BEST PORT: " + bestPort);
+		String url = "http://localhost:"+bestPort+"/attractionmanager/services/attractionmanager";
+		
 		AttractionDeleteResponse response = new AttractionDeleteResponse();
 		AttractionManagerService deleteAttractionService = new AttractionManagerService();
 		AttractionManagerPT deleteAttr = deleteAttractionService.getAttractionManagerPort();
+		
+		
+		BindingProvider bp = (BindingProvider)deleteAttr;
+
+		bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+		
 		DeleteAttractionRequest deleteAttractionRequest = new DeleteAttractionRequest();
 
 		deleteAttractionRequest.setId(request.getId());
@@ -438,9 +516,19 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 	@Override
 	public AttractionUpdateResponse attractionUpdate(AttractionUpdateRequest request) throws AttractionUpdateFault_Exception {
 		
+		String bestPort = this.getBestPort("attractionManager");
+		System.out.println("BEST PORT: " + bestPort);
+		String url = "http://localhost:"+bestPort+"/attractionmanager/services/attractionmanager";
+		
 		AttractionUpdateResponse response = new AttractionUpdateResponse();
 		AttractionManagerService updateAttractionService = new AttractionManagerService();
 		AttractionManagerPT updateAttr = updateAttractionService.getAttractionManagerPort();
+		
+		
+		BindingProvider bp = (BindingProvider)updateAttr;
+
+		bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+		
 		UpdateAttractionRequest updateAttractionRequest = new UpdateAttractionRequest();
 
 		updateAttractionRequest.setId(request.getId());
@@ -542,11 +630,20 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 	
 	@Override
 	public EventByCreatorResearchResponse eventByCreatorResearch(EventByCreatorResearchRequest request)
-			throws EventByCreatorResearchFault_Exception {
+			throws EventByCreatorResearchFault_Exception {		
+
+		String bestPort = this.getBestPort("researchManager");
+		System.out.println("BEST PORT: " + bestPort);
+		String url = "http://localhost:"+bestPort+"/researchmanager/services/researchmanager";
 		
 		EventByCreatorResearchResponse response = new EventByCreatorResearchResponse();
 		ResearchManagerService researchManagerService = new ResearchManagerService();
 		ResearchManagerPT research = researchManagerService.getResearchManagerPort();
+		
+		BindingProvider bp = (BindingProvider)research;
+
+		bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+		
 		ResearchEventByCreatorRequest researchRequest = new ResearchEventByCreatorRequest();
 
 		researchRequest.setCreatorId(request.getCreatorId());
@@ -574,9 +671,18 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 	public AttractionDetailResearchResponse attractionDetailResearch(AttractionDetailResearchRequest request)
 			throws AttractionDetailResearchFault_Exception {
 		
+		String bestPort = this.getBestPort("researchManager");
+		System.out.println("BEST PORT: " + bestPort);
+		String url = "http://localhost:"+bestPort+"/researchmanager/services/researchmanager";
+		
 		AttractionDetailResearchResponse response = new AttractionDetailResearchResponse();
 		ResearchManagerService researchManagerService = new ResearchManagerService();
 		ResearchManagerPT research = researchManagerService.getResearchManagerPort();
+		
+		BindingProvider bp = (BindingProvider)research;
+
+		bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+		
 		ResearchAttractionDetailRequest researchRequest = new ResearchAttractionDetailRequest();
 
 		researchRequest.setId(request.getId());
@@ -604,10 +710,18 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 	@Override
 	public EventDetailResearchResponse eventDetailResearch(EventDetailResearchRequest request)
 			throws EventDetailResearchFault_Exception {
+
+		String bestPort = this.getBestPort("researchManager");
+		System.out.println("BEST PORT: " + bestPort);
+		String url = "http://localhost:"+bestPort+"/researchmanager/services/researchmanager";
 		
 		EventDetailResearchResponse response = new EventDetailResearchResponse();
 		ResearchManagerService researchManagerService = new ResearchManagerService();
 		ResearchManagerPT research = researchManagerService.getResearchManagerPort();
+		
+		BindingProvider bp = (BindingProvider)research;
+
+		bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
 		ResearchEventDetailRequest researchRequest = new ResearchEventDetailRequest();
 
 		researchRequest.setId(request.getId());
@@ -636,10 +750,19 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 	@Override
 	public AttractionResearchResponse attractionResearch(AttractionResearchRequest request)
 			throws AttractionResearchFault_Exception {
+
+		String bestPort = this.getBestPort("researchManager");
+		System.out.println("BEST PORT: " + bestPort);
+		String url = "http://localhost:"+bestPort+"/researchmanager/services/researchmanager";
 		
 		AttractionResearchResponse response = new AttractionResearchResponse();
 		ResearchManagerService researchManagerService = new ResearchManagerService();
 		ResearchManagerPT research = researchManagerService.getResearchManagerPort();
+
+		BindingProvider bp = (BindingProvider)research;
+
+		bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+		
 		ResearchAttractionRequest researchRequest = new ResearchAttractionRequest();
 
 		researchRequest.setLocality(request.getLocality());
@@ -668,10 +791,19 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 
 	@Override
 	public EventResearchResponse eventResearch(EventResearchRequest request) throws EventResearchFault_Exception {
+
+		String bestPort = this.getBestPort("researchManager");
+		System.out.println("BEST PORT: " + bestPort);
+		String url = "http://localhost:"+bestPort+"/researchmanager/services/researchmanager";
 		
 		EventResearchResponse response = new EventResearchResponse();
 		ResearchManagerService researchManagerService = new ResearchManagerService();
 		ResearchManagerPT research = researchManagerService.getResearchManagerPort();
+		
+		BindingProvider bp = (BindingProvider)research;
+
+		bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+		
 		ResearchEventRequest researchRequest = new ResearchEventRequest();
 
 		researchRequest.setLocality(request.getLocality());
@@ -704,10 +836,18 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 	@Override
 	public AttractionByCreatorResearchResponse attractionByCreatorResearch(
 			AttractionByCreatorResearchRequest request) throws AttractionByCreatorResearchFault_Exception {
+
+		String bestPort = this.getBestPort("researchManager");
+		System.out.println("BEST PORT: " + bestPort);
+		String url = "http://localhost:"+bestPort+"/researchmanager/services/researchmanager";
 		
 		AttractionByCreatorResearchResponse response = new AttractionByCreatorResearchResponse();
 		ResearchManagerService researchManagerService = new ResearchManagerService();
 		ResearchManagerPT research = researchManagerService.getResearchManagerPort();
+		
+		BindingProvider bp = (BindingProvider)research;
+
+		bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
 		ResearchAttractionByCreatorRequest researchRequest = new ResearchAttractionByCreatorRequest();
 
 		researchRequest.setCreatorId(request.getCreatorId());
@@ -750,9 +890,18 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 	@Override
 	public CategoryResearchResponse categoryResearch(CategoryResearchRequest request)
 			throws CategoryResearchFault_Exception{
+
+		String bestPort = this.getBestPort("researchManager");
+		System.out.println("BEST PORT: " + bestPort);
+		String url = "http://localhost:"+bestPort+"/researchmanager/services/researchmanager";
+		
 		CategoryResearchResponse response = new CategoryResearchResponse();
 		ResearchManagerService researchManagerService = new ResearchManagerService();
 		ResearchManagerPT research = researchManagerService.getResearchManagerPort();
+		
+		BindingProvider bp = (BindingProvider)research;
+
+		bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
 		ResearchCategoryRequest researchRequest = new ResearchCategoryRequest();
 
 		researchRequest.setId(request.getId());

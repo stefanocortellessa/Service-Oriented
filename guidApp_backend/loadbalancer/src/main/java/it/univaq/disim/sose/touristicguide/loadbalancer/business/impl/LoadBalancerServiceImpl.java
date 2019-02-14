@@ -17,11 +17,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import it.univaq.disim.sose.touristicguide.balanceAgent.BalanceAgentPT;
-import it.univaq.disim.sose.touristicguide.balanceAgent.BalanceAgentService;
-import it.univaq.disim.sose.touristicguide.balanceAgent.GetServerScoreFault_Exception;
-import it.univaq.disim.sose.touristicguide.balanceAgent.GetServerScoreRequest;
-import it.univaq.disim.sose.touristicguide.balanceAgent.GetServerScoreResponse;
+import it.univaq.disim.sose.touristicguide.balanceagent.BalanceAgentPT;
+import it.univaq.disim.sose.touristicguide.balanceagent.BalanceAgentService;
+import it.univaq.disim.sose.touristicguide.balanceagent.GetServerScoreFault_Exception;
+import it.univaq.disim.sose.touristicguide.balanceagent.GetServerScoreRequest;
+import it.univaq.disim.sose.touristicguide.balanceagent.GetServerScoreResponse;
 import it.univaq.disim.sose.touristicguide.loadbalancer.GetServerInfoFault_Exception;
 import it.univaq.disim.sose.touristicguide.loadbalancer.GetServerInfoRequest;
 import it.univaq.disim.sose.touristicguide.loadbalancer.GetServerInfoResponse;
@@ -37,7 +37,7 @@ public class LoadBalancerServiceImpl implements LoadBalancerService {
 	private boolean threadStarted = false;
 	private HashMap<String,Double> serverScoresMap = new HashMap<String,Double>();
 	private HashMap<String, HashMap<String,Double>> scoresMap = new HashMap<String, HashMap<String,Double>>();
-	private List<String> ports = Arrays.asList("8100","8110");
+	private List<String> ports = Arrays.asList("8100","8110", "8120");
 	private List<String> services = Arrays.asList("accountManager","attractionManager", "eventManager",
 			"researchManager");
 	
