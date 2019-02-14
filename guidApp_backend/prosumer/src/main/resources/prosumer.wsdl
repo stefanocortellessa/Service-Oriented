@@ -403,9 +403,9 @@
 					<xsd:element name="message" type="xsd:string" />
 				</xsd:sequence>
 			</xsd:complexType>
-
-			<xsd:complexType name="attractionsList"
-				type="tns:attractionsList">
+			
+			<xsd:element name="attractionsList" type="tns:attractionsList" />
+			<xsd:complexType name="attractionsList">
 				<xsd:sequence>
 					<xsd:element name="attractionElement"
 						maxOccurs="unbounded" type="tns:attractionElement" />
@@ -425,8 +425,8 @@
 				</xsd:sequence>
 			</xsd:complexType>
 
-			<xsd:complexType name="eventsList"
-				type="tns:eventsList">
+			<xsd:element name="eventsList" type="tns:eventsList" />
+			<xsd:complexType name="eventsList">
 				<xsd:sequence>
 					<xsd:element name="eventElement" maxOccurs="unbounded"
 						type="tns:eventElement" />

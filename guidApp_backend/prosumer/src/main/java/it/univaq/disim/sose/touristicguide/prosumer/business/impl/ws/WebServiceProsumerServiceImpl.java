@@ -216,7 +216,6 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 
 		bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
 
-		
 		UserLoginRequest userLoginRequest = new UserLoginRequest();
 		
 		userLoginRequest.setEmail(request.getEmail());

@@ -36,7 +36,6 @@ public class AccountController {
 		request.setSurname(user.getSurname());
 		response = prosumer.userSignup(request);
 
-
 		return response;
 	}
 	
