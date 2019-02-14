@@ -3,6 +3,8 @@ package it.univaq.disim.sose.touristicguide.prosumer.business.impl.ws;
 
 import java.io.IOException;
 
+import javax.xml.ws.BindingProvider;
+
 import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
@@ -48,6 +50,11 @@ import it.univaq.disim.sose.touristicguide.eventmanager.InsertEventResponse;
 import it.univaq.disim.sose.touristicguide.eventmanager.UpdateEventFault_Exception;
 import it.univaq.disim.sose.touristicguide.eventmanager.UpdateEventRequest;
 import it.univaq.disim.sose.touristicguide.eventmanager.UpdateEventResponse;
+import it.univaq.disim.sose.touristicguide.loadbalancer.GetServerInfoFault_Exception;
+import it.univaq.disim.sose.touristicguide.loadbalancer.GetServerInfoRequest;
+import it.univaq.disim.sose.touristicguide.loadbalancer.GetServerInfoResponse;
+import it.univaq.disim.sose.touristicguide.loadbalancer.LoadBalancerPT;
+import it.univaq.disim.sose.touristicguide.loadbalancer.LoadBalancerService;
 import it.univaq.disim.sose.touristicguide.prosumer.AccountLoginFault_Exception;
 import it.univaq.disim.sose.touristicguide.prosumer.AccountLoginRequest;
 import it.univaq.disim.sose.touristicguide.prosumer.AccountLoginResponse;
@@ -105,6 +112,9 @@ import it.univaq.disim.sose.touristicguide.prosumer.EventUpdateFault_Exception;
 import it.univaq.disim.sose.touristicguide.prosumer.EventUpdateRequest;
 import it.univaq.disim.sose.touristicguide.prosumer.EventUpdateResponse;
 import it.univaq.disim.sose.touristicguide.prosumer.EventsList;
+import it.univaq.disim.sose.touristicguide.prosumer.GetBestServerFault_Exception;
+import it.univaq.disim.sose.touristicguide.prosumer.GetBestServerRequest;
+import it.univaq.disim.sose.touristicguide.prosumer.GetBestServerResponse;
 import it.univaq.disim.sose.touristicguide.prosumer.GoogleGeocodingFault_Exception;
 import it.univaq.disim.sose.touristicguide.prosumer.GoogleGeocodingRequest;
 import it.univaq.disim.sose.touristicguide.prosumer.GoogleGeocodingResponse;
@@ -137,35 +147,37 @@ import it.univaq.disim.sose.touristicguide.prosumer.business.ProsumerService;
 @Service
 public class WebServiceProsumerServiceImpl implements ProsumerService {
 	
-	/*@Override
-	public BalanceCheckResponse balanceCheck(BalanceCheckRequest request) throws BalanceCheckFault_Exception {
-		LoadBalancerService loadBalancerService = new LoadBalancerService();
-		LoadBalancerService2 loadBalancer2Service = new LoadBalancerService2();	
-
-		LoadBalancerPT loadBalancer = loadBalancerService.getLoadBalancerPort();
-		LoadBalancerPT loadBalancer2 = loadBalancer2Service.getLoadBalancerPort2();
+	public String getBestPort (String serviceName) {
 		
-		CheckBalanceRequest checkBalanceRequest = new CheckBalanceRequest();
-		
+		GetBestServerRequest loadRequest = new GetBestServerRequest();
+		GetBestServerResponse loadResponse = new GetBestServerResponse();
+		loadRequest.setServiceName(serviceName);
 		try {
-			CheckBalanceResponse response = loadBalancer.checkBalance(checkBalanceRequest);
-			System.out.println(response.getServerPort());
-			CheckBalanceResponse response2 = loadBalancer2.checkBalance(checkBalanceRequest);
-			System.out.println(response2.getServerPort());
-		} catch (CheckBalanceFault_Exception e) {
+			loadResponse = this.getBestServer(loadRequest);
+		} catch (GetBestServerFault_Exception e1) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			e1.printStackTrace();
 		}
-
-		return null;
+		return loadResponse.getServerPort();
+		
 	}
-	*/
+	
 	@Override
 	public AccountSignupResponse userSignup(AccountSignupRequest request) throws AccountSignupFault_Exception {
 		
+		String bestPort = this.getBestPort("accountManager");
+		System.out.println("BEST PORT: " + bestPort);
+		String url = "http://localhost:"+bestPort+"/accountmanager/services/accountmanager";
+
 		AccountSignupResponse response = new AccountSignupResponse();
 		AccountManagerService accountManagerService = new AccountManagerService();
 		AccountManagerPT accountManager = accountManagerService.getAccountManagerPort();
+		
+		BindingProvider bp = (BindingProvider)accountManager;
+
+		bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+		
+		
 		UserSignupRequest userSignupRequest = new UserSignupRequest();
 		
 		userSignupRequest.setEmail(request.getEmail());
@@ -757,6 +769,34 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 			try {
 				throw new ResearchCategoryFault_Exception("Something was wrong with Research Category");
 			} catch (ResearchCategoryFault_Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		
+		return response;
+	}
+
+	@Override
+	public GetBestServerResponse getBestServer(GetBestServerRequest request) throws GetBestServerFault_Exception {
+		GetBestServerResponse response = new GetBestServerResponse();
+		LoadBalancerService LoadBalancerService = new LoadBalancerService();
+		LoadBalancerPT balancer = LoadBalancerService.getLoadBalancerPort();
+		GetServerInfoRequest balancerRequest = new GetServerInfoRequest();
+
+		balancerRequest.setServiceName(request.getServiceName());
+		
+		try { 
+			GetServerInfoResponse balancerResponse = balancer.getServerInfo(balancerRequest);
+			
+			response.setMessage(balancerResponse.getMessage());
+			response.setServerPort(balancerResponse.getServerPort());
+			
+		} catch (GetServerInfoFault_Exception e) {
+			e.printStackTrace();
+			try {
+				throw new GetServerInfoFault_Exception("Something was wrong with Research Category");
+			} catch (GetServerInfoFault_Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}

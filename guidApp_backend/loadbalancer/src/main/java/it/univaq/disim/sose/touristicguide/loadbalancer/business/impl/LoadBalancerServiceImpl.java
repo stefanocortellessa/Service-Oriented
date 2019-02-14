@@ -34,30 +34,35 @@ public class LoadBalancerServiceImpl implements LoadBalancerService {
 	private static Logger LOGGER = LoggerFactory.getLogger(LoadBalancerServiceImpl.class);
 	private ScheduledExecutorService executor;
 	
+	private boolean threadStarted = false;
 	private HashMap<String,Double> serverScoresMap = new HashMap<String,Double>();
 	private HashMap<String, HashMap<String,Double>> scoresMap = new HashMap<String, HashMap<String,Double>>();
-	private List<String> ports = Arrays.asList("8080","8100");
+	private List<String> ports = Arrays.asList("8100","8110");
 	private List<String> services = Arrays.asList("accountManager","attractionManager", "eventManager",
 			"researchManager");
 	
 
 	@Override
 	public GetServerInfoResponse getServerInfo(GetServerInfoRequest request) throws GetServerInfoFault_Exception {
-		executor = Executors.newSingleThreadScheduledExecutor();
-		executor.scheduleAtFixedRate(new Runnable() {
-			public void run() {
-				LOGGER.info("Called 'run' method on checkServerScore");
-
-				try {
-					// for each instance of the service calculates the response time, then "return" the better.
-					checkServerScore(request);
-				} catch (GetServerInfoFault_Exception e) {
-					new GetServerInfoFault_Exception(e.getMessage());
+		if(!threadStarted) {
+			executor = Executors.newSingleThreadScheduledExecutor();
+			executor.scheduleAtFixedRate(new Runnable() {
+				public void run() {
+					LOGGER.info("Called 'run' method on checkServerScore");
+	
+					try {
+						// for each instance of the service calculates the response time, then "return" the better.
+						checkServerScore(request);
+					} catch (GetServerInfoFault_Exception e) {
+						new GetServerInfoFault_Exception(e.getMessage());
+					}
+	
 				}
-
-			}
-
-		}, 0, 5000, TimeUnit.MILLISECONDS);
+	
+			}, 0, 1000, TimeUnit.MILLISECONDS);
+		}
+		threadStarted = true;
+		checkServerScore(request);
 		GetServerInfoResponse response = new GetServerInfoResponse();
 		scoresMap = checkServerScore(request);		
 		

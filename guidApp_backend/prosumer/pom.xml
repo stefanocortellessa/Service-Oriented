@@ -163,6 +163,16 @@
 										<extraarg>it.univaq.disim.sose.touristicguide.researchmanager</extraarg>
 									</extraargs>
 								</wsdlOption>
+								<!-- Load Balancer -->
+								<wsdlOption>
+									<wsdl>src/main/resources/clients/loadBalancer.wsdl</wsdl>
+									<faultSerialVersionUID>1</faultSerialVersionUID>
+									<extraargs>
+										<extraarg>-verbose</extraarg>
+										<extraarg>-p </extraarg>
+										<extraarg>it.univaq.disim.sose.touristicguide.loadbalancer</extraarg>
+									</extraargs>
+								</wsdlOption>
 							</wsdlOptions>
 						</configuration>
 						<goals>

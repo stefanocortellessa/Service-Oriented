@@ -119,7 +119,7 @@
 									<extraargs>
 										<extraarg>-verbose</extraarg>
 										<extraarg>-p </extraarg>
-										<extraarg>it.univaq.disim.sose.touristicguide.balanceAgent</extraarg>
+										<extraarg>it.univaq.disim.sose.touristicguide.balanceagent</extraarg>
 									</extraargs>
 								</wsdlOption>
 							</wsdlOptions>

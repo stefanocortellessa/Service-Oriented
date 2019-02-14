@@ -25,7 +25,6 @@ import it.univaq.disim.sose.touristicguide.attractionmanager.UpdateAttractionFau
 import it.univaq.disim.sose.touristicguide.attractionmanager.UpdateAttractionRequest;
 import it.univaq.disim.sose.touristicguide.attractionmanager.UpdateAttractionResponse;
 import it.univaq.disim.sose.touristicguide.attractionmanager.business.AttractionManagerService;
-import it.univaq.disim.sose.touristicguide.attractionmanager.business.Utility;
 import it.univaq.disim.sose.touristicguide.attractionmanager.business.model.Attraction;
 import it.univaq.disim.sose.touristicguide.attractionmanager.business.model.Category;
 import it.univaq.disim.sose.touristicguide.attractionmanager.business.model.User;
@@ -38,28 +37,25 @@ public class JDBCAttractionManagerServiceImpl implements AttractionManagerServic
 
 	@Override
 	public InsertAttractionResponse insertAttraction(InsertAttractionRequest parameters) throws InsertAttractionFault_Exception {
-		
+
 		Connection connection = null;
 		String result = "Attraction not inserted";
 
 		Attraction attraction = new Attraction();
-		Utility utility = new Utility();
 		Category category = new Category();
 		User creator = new User();
 
 		attraction.setName(parameters.getName());
 		attraction.setLocality(parameters.getLocality());
-		
-		/*----SI DEVE CONTROLLARE CHE ID E NAME CORRISPONDONO PRIMA DI INSERIRE----*/
+
 		category.setId(parameters.getCategoryId());
 		category.setName(parameters.getCategoryName());
 		creator.setId(parameters.getCreatorId());
 		attraction.setCategory(category);
 		attraction.setCreator(creator);
-		
+
 		attraction.setLat(parameters.getLat());
 		attraction.setLng(parameters.getLng());
-		/*-------------------------------------------------------------------------*/
 		InsertAttractionResponse responseAttraction = new InsertAttractionResponse();
 		try {
 
@@ -138,7 +134,6 @@ public class JDBCAttractionManagerServiceImpl implements AttractionManagerServic
 		return responseSession;
 	}
 
-	//vedere per quali parametri cancellare un Attractiono, Attractionualmente cambiare il wsdl
 	@Override
 	public DeleteAttractionResponse deleteAttraction(DeleteAttractionRequest parameters) throws DeleteAttractionFault_Exception {
 
@@ -148,10 +143,9 @@ public class JDBCAttractionManagerServiceImpl implements AttractionManagerServic
 		Attraction attraction = new Attraction();
 		User user = new User();
 
-		// PRENDERE ANCHE ID UTENTE CHE VUOLE CANCELLARE E VEDERE SE È LUI IL CREATORE!
 		attraction.setId(parameters.getId());
 		user.setId(parameters.getUserId());
-		
+
 		attraction.setCreator(user);
 
 		DeleteAttractionResponse responseAttraction = new DeleteAttractionResponse();
@@ -197,10 +191,9 @@ public class JDBCAttractionManagerServiceImpl implements AttractionManagerServic
 		String result = "Attraction not updated";
 
 		Attraction attraction = new Attraction();
-		Utility utility = new Utility();
 		Category category = new Category();
 		User creator = new User();
-		
+
 		attraction.setId(parameters.getId());
 		attraction.setName(parameters.getName());
 		attraction.setLocality(parameters.getLocality());
@@ -209,10 +202,10 @@ public class JDBCAttractionManagerServiceImpl implements AttractionManagerServic
 		category.setId(parameters.getCategoryId());
 		category.setName(parameters.getCategoryName());
 		creator.setId(parameters.getCreatorId());
-		
+
 		attraction.setCategory(category);
 		attraction.setCreator(creator);
-		
+
 		attraction.setLat(parameters.getLat());
 		attraction.setLng(parameters.getLng());
 
@@ -222,7 +215,7 @@ public class JDBCAttractionManagerServiceImpl implements AttractionManagerServic
 
 			connection = dataSource.getConnection();
 			connection.setAutoCommit(false);
-			
+
 			if(check_creator(connection, attraction.getId(), attraction.getCreator().getId())) {	
 				if(update(connection, attraction.getId(), attraction.getName(), attraction.getLocality(), attraction.getCategory().getId(), 
 						attraction.getCreator().getId(), attraction.getLat(), attraction.getLng())) {
@@ -254,16 +247,15 @@ public class JDBCAttractionManagerServiceImpl implements AttractionManagerServic
 		return responseAttraction;
 	}
 
-	
-	
+
+
 	public boolean insert(Connection con, String name, String locality, Long idCategory, Long idCreator, String lat, String lng) {
 
 		String query = "INSERT INTO attractions (name, locality, id_category, id_creator, lat, lng) VALUES (?,?,?,?,?,?)";
-
+		PreparedStatement sql = null ;
 		try {
 
-			PreparedStatement sql = con.prepareStatement(query);
-
+			sql = con.prepareStatement(query);
 			sql.setString(1, name);
 			sql.setString(2, locality);
 			sql.setLong(3, idCategory);
@@ -280,16 +272,23 @@ public class JDBCAttractionManagerServiceImpl implements AttractionManagerServic
 
 		} catch (SQLException e) {
 			return false;
+		}finally {
+			if (sql != null) {
+				try {
+					sql.close();
+				} catch (SQLException e) {
+				}
+			}
 		}
 	}
 
 	public boolean update(Connection con, Long id, String name, String locality, Long idCategory, Long idCreator, String lat, String lng) {
 
 		String query = "UPDATE attractions SET name=?, locality=?, id_category=?, id_creator=?, lat=?, lng=? WHERE id=?";
-
+		PreparedStatement sql = null;
 		try {
 
-			PreparedStatement sql = con.prepareStatement(query);
+			sql = con.prepareStatement(query);
 
 			sql.setString(1, name);
 			sql.setString(2, locality);
@@ -308,16 +307,24 @@ public class JDBCAttractionManagerServiceImpl implements AttractionManagerServic
 
 		} catch (SQLException e) {
 			return false;
+		}finally {
+			if (sql != null) {
+				try {
+					sql.close();
+				} catch (SQLException e) {
+				}
+			}
 		}
 	}
-	
+
 	public boolean delete(Connection con, Long id) {
 
 		String query = "DELETE FROM attractions WHERE id = ?";
+		PreparedStatement sql = null;
 
 		try {
 
-			PreparedStatement sql = con.prepareStatement(query);
+			sql = con.prepareStatement(query);
 
 			sql.setLong(1, id);
 
@@ -328,14 +335,21 @@ public class JDBCAttractionManagerServiceImpl implements AttractionManagerServic
 			}
 		} catch (SQLException e) {
 			return false;
+		}finally {
+			if (sql != null) {
+				try {
+					sql.close();
+				} catch (SQLException e) {
+				}
+			}
 		}
 	}
 
 	public boolean check_creator(Connection con, Long id, Long userId) {
 		String query = "SELECT id_creator FROM attractions WHERE id = ?";
-
+		PreparedStatement sql = null;
 		try {
-			PreparedStatement sql = con.prepareStatement(query);
+			sql = con.prepareStatement(query);
 
 			sql.setLong(1, id);
 
@@ -350,6 +364,13 @@ public class JDBCAttractionManagerServiceImpl implements AttractionManagerServic
 			} return false;
 		} catch (SQLException e) {
 			return false;
+		}finally {
+			if (sql != null) {
+				try {
+					sql.close();
+				} catch (SQLException e) {
+				}
+			}
 		}
 	}
 

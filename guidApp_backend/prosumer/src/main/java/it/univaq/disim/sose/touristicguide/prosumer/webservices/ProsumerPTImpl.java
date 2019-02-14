@@ -60,6 +60,9 @@ import it.univaq.disim.sose.touristicguide.prosumer.EventResearchResponse;
 import it.univaq.disim.sose.touristicguide.prosumer.EventUpdateFault_Exception;
 import it.univaq.disim.sose.touristicguide.prosumer.EventUpdateRequest;
 import it.univaq.disim.sose.touristicguide.prosumer.EventUpdateResponse;
+import it.univaq.disim.sose.touristicguide.prosumer.GetBestServerFault_Exception;
+import it.univaq.disim.sose.touristicguide.prosumer.GetBestServerRequest;
+import it.univaq.disim.sose.touristicguide.prosumer.GetBestServerResponse;
 import it.univaq.disim.sose.touristicguide.prosumer.GoogleGeocodingFault_Exception;
 import it.univaq.disim.sose.touristicguide.prosumer.GoogleGeocodingRequest;
 import it.univaq.disim.sose.touristicguide.prosumer.GoogleGeocodingResponse;
@@ -187,6 +190,12 @@ public class ProsumerPTImpl implements ProsumerPT {
 			throws CategoryResearchFault_Exception, ApiException, InterruptedException, IOException{
 		LOGGER.info("CALLED category Research ON prosumer");
 		CategoryResearchResponse response = service.categoryResearch(parameters);
+		return response;
+	}
+	@Override
+	public GetBestServerResponse getBestServer(GetBestServerRequest parameters) throws GetBestServerFault_Exception {
+		LOGGER.info("CALLED getBestServer ON prosumer");
+		GetBestServerResponse response = service.getBestServer(parameters);
 		return response;
 	}
 }

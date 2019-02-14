@@ -140,7 +140,6 @@ public class JDBCEventManagerServiceImpl implements EventManagerService {
 		return responseSession;
 	}
 
-	//vedere per quali parametri cancellare un evento, eventualmente cambiare il wsdl
 	@Override
 	public DeleteEventResponse deleteEvent(DeleteEventRequest parameters) throws DeleteEventFault_Exception {
 
@@ -268,10 +267,10 @@ public class JDBCEventManagerServiceImpl implements EventManagerService {
 	public boolean insert(Connection con, String title, String locality, Timestamp startDate, Timestamp endDate, Long idCategory, Long idCreator, String lat, String lng) {
 
 		String query = "INSERT INTO events (title, locality, startDate, endDate, id_category, id_creator, lat, lng) VALUES (?,?,?,?,?,?,?,?)";
-
+		PreparedStatement sql = null;
 		try {
 
-			PreparedStatement sql = con.prepareStatement(query);
+			sql = con.prepareStatement(query);
 
 			sql.setString(1, title);
 			sql.setString(2, locality);
@@ -291,16 +290,23 @@ public class JDBCEventManagerServiceImpl implements EventManagerService {
 
 		} catch (SQLException e) {
 			return false;
+		}finally {
+			if (sql != null) {
+				try {
+					sql.close();
+				} catch (SQLException e) {
+				}
+			}
 		}
 	}
 
 	public boolean delete(Connection con, Long id) {
 
 		String query = "DELETE FROM events WHERE id = ?";
-
+		PreparedStatement sql = null;
 		try {
 
-			PreparedStatement sql = con.prepareStatement(query);
+			sql = con.prepareStatement(query);
 
 			sql.setLong(1, id);
 
@@ -311,16 +317,23 @@ public class JDBCEventManagerServiceImpl implements EventManagerService {
 			}
 		} catch (SQLException e) {
 			return false;
+		}finally {
+			if (sql != null) {
+				try {
+					sql.close();
+				} catch (SQLException e) {
+				}
+			}
 		}
 	}
 
 	public boolean update(Connection con, Long id, String title, String locality, Timestamp startDate, Timestamp endDate, Long idCategory, Long idCreator, String lat, String lng) {
 
 		String query = "UPDATE events SET title=?, locality=?, startDate=?, endDate=?, id_category=?, id_creator=?, lat=?, lng=? WHERE id=?";
-
+		PreparedStatement sql = null;
 		try {
 
-			PreparedStatement sql = con.prepareStatement(query);
+			sql = con.prepareStatement(query);
 			
 			sql.setString(1, title);
 			sql.setString(2, locality);
@@ -340,14 +353,21 @@ public class JDBCEventManagerServiceImpl implements EventManagerService {
 
 		} catch (SQLException e) {
 			return false;
+		}finally {
+			if (sql != null) {
+				try {
+					sql.close();
+				} catch (SQLException e) {
+				}
+			}
 		}
 	}
 
 	public boolean check_creator(Connection con, Long id, Long userId) {
 		String query = "SELECT id_creator FROM events WHERE id = ?";
-
+		PreparedStatement sql = null;
 		try {
-			PreparedStatement sql = con.prepareStatement(query);
+			sql = con.prepareStatement(query);
 
 			sql.setLong(1, id);
 
@@ -362,6 +382,13 @@ public class JDBCEventManagerServiceImpl implements EventManagerService {
 			} return false;
 		} catch (SQLException e) {
 			return false;
+		}finally {
+			if (sql != null) {
+				try {
+					sql.close();
+				} catch (SQLException e) {
+				}
+			}
 		}
 	}
 

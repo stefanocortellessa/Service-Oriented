@@ -121,14 +121,19 @@
 			<xsd:element name="googleGeocodingFault"
 				type="tns:googleGeocodingFault" />
 
-
 			<xsd:element name="categoryResearchRequest"
 				type="tns:categoryResearchRequest" />
 			<xsd:element name="categoryResearchResponse"
 				type="tns:categoryResearchResponse" />
 			<xsd:element name="categoryResearchFault"
 				type="tns:categoryResearchFault" />
-
+			
+			<xsd:element name="getBestServerRequest"
+				type="tns:getBestServerRequest" />
+			<xsd:element name="getBestServerResponse"
+				type="tns:getBestServerResponse" />
+			<xsd:element name="getBestServerFault"
+				type="tns:getBestServerFault" />
 
 			<!-- Account Signup -->
 			<!-- Request -->
@@ -460,9 +465,6 @@
 				</xsd:sequence>
 			</xsd:complexType>
 
-
-
-
 			<!-- Research Event by Filter -->
 			<!-- Request -->
 			<xsd:complexType name="eventResearchRequest">
@@ -685,7 +687,30 @@
 					<xsd:element name="message" type="xsd:string" />
 				</xsd:sequence>
 			</xsd:complexType>
+				
+			<!-- get server Score-->
+			<!-- Request -->
+			<xsd:complexType name="getBestServerRequest">
+				<xsd:sequence>
+					<xsd:element name="serviceName" type="xsd:string" />
+				</xsd:sequence>
+			</xsd:complexType>
 
+			<!-- Response -->
+			<xsd:complexType name="getBestServerResponse">
+				<xsd:sequence>
+					<xsd:element name="serverPort" type="xsd:string" />
+					<xsd:element name="message" type="xsd:string" />
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<!-- Fault -->
+			<xsd:complexType name="getBestServerFault">
+				<xsd:sequence>
+					<xsd:element name="faultInfo" type="xsd:string" />
+					<xsd:element name="message" type="xsd:string" />
+				</xsd:sequence>
+			</xsd:complexType>
 		</xsd:schema>
 	</wsdl:types>
 
@@ -973,8 +998,6 @@
 		</wsdl:part>
 	</wsdl:message>
 
-
-
 	<!-- Messages -->
 	<!-- Research Category -->
 	<wsdl:message name="categoryResearchRequest">
@@ -990,6 +1013,21 @@
 	<wsdl:message name="categoryResearchFault">
 		<wsdl:part name="parameters"
 			element="tns:categoryResearchFault">
+		</wsdl:part>
+	</wsdl:message>
+
+	<!-- Message -->
+	<!-- get server -->
+	<wsdl:message name="getBestServerRequest">
+		<wsdl:part name="parameters" element="tns:getBestServerRequest">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="getBestServerResponse">
+		<wsdl:part name="parameters" element="tns:getBestServerResponse">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="getBestServerFault">
+		<wsdl:part name="parameters" element="tns:getBestServerFault">
 		</wsdl:part>
 	</wsdl:message>
 
@@ -1139,6 +1177,12 @@
 				message="tns:categoryResearchResponse" />
 			<wsdl:fault name="categoryResearchFault"
 				message="tns:categoryResearchFault" />
+		</wsdl:operation>
+		<wsdl:operation name="getBestServer">
+			<wsdl:input name="getBestServerRequest" message="tns:getBestServerRequest" />
+			<wsdl:output name="getBestServerResponse"
+				message="tns:getBestServerResponse" />
+			<wsdl:fault name="getBestServerFault" message="tns:getBestServerFault" />
 		</wsdl:operation>
 	</wsdl:portType>
 
@@ -1320,6 +1364,15 @@
 				<soap:body use="literal" />
 			</wsdl:output>
 		</wsdl:operation>
+		<wsdl:operation name="getBestServer">
+			<soap:operation soapAction="" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation> 
 	</wsdl:binding>
 
 	<!-- Prosumer Service -->
