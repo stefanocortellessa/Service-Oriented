@@ -96,9 +96,9 @@ public interface ProsumerService {
 
 	AttractionByCreatorResearchResponse attractionByCreatorResearch(AttractionByCreatorResearchRequest parameters) throws AttractionByCreatorResearchFault_Exception;
 	
-	GoogleGeocodingResponse googleGeocoding(GoogleGeocodingRequest parameters) throws GoogleGeocodingFault_Exception, ApiException, InterruptedException, IOException;
+	GoogleGeocodingResponse googleGeocoding(GoogleGeocodingRequest parameters) throws GoogleGeocodingFault_Exception;
 	
-	CategoryResearchResponse categoryResearch(CategoryResearchRequest parameters) throws CategoryResearchFault_Exception, ApiException, InterruptedException, IOException;
+	CategoryResearchResponse categoryResearch(CategoryResearchRequest parameters) throws CategoryResearchFault_Exception;
 
 	GetBestServerResponse getBestServer(GetBestServerRequest parameters) throws GetBestServerFault_Exception;
 }

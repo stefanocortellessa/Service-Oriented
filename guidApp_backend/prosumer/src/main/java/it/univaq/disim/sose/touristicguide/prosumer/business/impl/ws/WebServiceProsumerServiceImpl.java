@@ -827,17 +827,23 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
  
 	@Override
 	public GoogleGeocodingResponse googleGeocoding(GoogleGeocodingRequest parameters)
-			throws GoogleGeocodingFault_Exception, ApiException, InterruptedException, IOException {
+			throws GoogleGeocodingFault_Exception{
 		
 		GeoApiContext context = new GeoApiContext.Builder().apiKey("AIzaSyBa5iuW05l3hyHLGDr1fnumGssMI-Yombw").build();	
-		GeocodingResult[] results;
-		
-		results = GeocodingApi.geocode(context, parameters.getLocality()).await();
-		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		GoogleGeocodingResponse response = new GoogleGeocodingResponse();
-		
-		response.setLat(gson.toJson(results[0].geometry.location.lat));
-		response.setLng(gson.toJson(results[0].geometry.location.lng));
+
+		try {
+			GeocodingResult[] results;
+			results = GeocodingApi.geocode(context, parameters.getLocality()).await();
+
+			Gson gson = new GsonBuilder().setPrettyPrinting().create();
+			
+			response.setLat(gson.toJson(results[0].geometry.location.lat));
+			response.setLng(gson.toJson(results[0].geometry.location.lng));
+		} catch (ApiException | InterruptedException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		return response;
 	}

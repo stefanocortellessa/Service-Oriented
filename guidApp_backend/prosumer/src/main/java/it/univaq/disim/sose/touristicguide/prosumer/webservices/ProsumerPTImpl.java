@@ -180,14 +180,14 @@ public class ProsumerPTImpl implements ProsumerPT {
 	}
 	@Override
 	public GoogleGeocodingResponse googleGeocoding(GoogleGeocodingRequest parameters)
-			throws GoogleGeocodingFault_Exception, ApiException, InterruptedException, IOException {
+			throws GoogleGeocodingFault_Exception {
 		LOGGER.info("CALLED googleGeocoding ON prosumer");
 		GoogleGeocodingResponse response = service.googleGeocoding(parameters);
 		return response;
 	}
 	@Override
 	public CategoryResearchResponse categoryResearch(CategoryResearchRequest parameters)
-			throws CategoryResearchFault_Exception, ApiException, InterruptedException, IOException{
+			throws CategoryResearchFault_Exception{
 		LOGGER.info("CALLED category Research ON prosumer");
 		CategoryResearchResponse response = service.categoryResearch(parameters);
 		return response;
