@@ -169,7 +169,7 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 		
 		String bestPort = this.getBestPort("accountManager");
 		System.out.println("BEST PORT: " + bestPort);
-		String url = "http://localhost:"+bestPort+"/accountmanager/services/accountmanager";
+		String url = bestPort+"/accountmanager/services/accountmanager";
 		AccountSignupResponse response = new AccountSignupResponse();
 		AccountManagerService accountManagerService = new AccountManagerService();
 		AccountManagerPT accountManager = accountManagerService.getAccountManagerPort();
@@ -203,7 +203,7 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 		
 		String bestPort = this.getBestPort("accountManager");
 		System.out.println("BEST PORT: " + bestPort);
-		String url = "http://localhost:"+bestPort+"/accountmanager/services/accountmanager";
+		String url = bestPort+"/accountmanager/services/accountmanager";
 		AccountLoginResponse response = new AccountLoginResponse();
 		AccountManagerService accountManagerService = new AccountManagerService();
 		AccountManagerPT accountManager = accountManagerService.getAccountManagerPort();
@@ -234,7 +234,7 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 		
 		String bestPort = this.getBestPort("accountManager");
 		System.out.println("BEST PORT: " + bestPort);
-		String url = "http://localhost:"+bestPort+"/accountmanager/services/accountmanager";
+		String url = bestPort+"/accountmanager/services/accountmanager";
 		AccountLogoutResponse response = new AccountLogoutResponse();
 		AccountManagerService accountManagerService = new AccountManagerService();
 		AccountManagerPT accountManager = accountManagerService.getAccountManagerPort();
@@ -263,7 +263,7 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 		
 		String bestPort = this.getBestPort("accountManager");
 		System.out.println("BEST PORT: " + bestPort);
-		String url = "http://localhost:"+bestPort+"/accountmanager/services/accountmanager";
+		String url = bestPort+"/accountmanager/services/accountmanager";
 		AccountSessionResponse response = new AccountSessionResponse();
 		AccountManagerService accountManagerService = new AccountManagerService();
 		AccountManagerPT accountManager = accountManagerService.getAccountManagerPort();
@@ -292,7 +292,7 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 		
 		String bestPort = this.getBestPort("eventManager");
 		System.out.println("BEST PORT: " + bestPort);
-		String url = "http://localhost:"+bestPort+"/eventmanager/services/eventmanager";
+		String url = bestPort+"/eventmanager/services/eventmanager";
 		
 		EventInsertResponse response = new EventInsertResponse();
 		EventManagerService insertEventService = new EventManagerService();
@@ -334,7 +334,7 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 		
 		String bestPort = this.getBestPort("eventManager");
 		System.out.println("BEST PORT: " + bestPort);
-		String url = "http://localhost:"+bestPort+"/eventmanager/services/eventmanager";
+		String url = bestPort+"/eventmanager/services/eventmanager";
 		EventDeleteResponse response = new EventDeleteResponse();
 		EventManagerService insertEventService = new EventManagerService();
 		EventManagerPT deleteEvent = insertEventService.getEventManagerPort();
@@ -367,7 +367,7 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 		
 		String bestPort = this.getBestPort("eventManager");
 		System.out.println("BEST PORT: " + bestPort);
-		String url = "http://localhost:"+bestPort+"/eventmanager/services/eventmanager";
+		String url = bestPort+"/eventmanager/services/eventmanager";
 		EventUpdateResponse response = new EventUpdateResponse();
 		EventManagerService updateEventService = new EventManagerService();
 		EventManagerPT updateEvent = updateEventService.getEventManagerPort();
@@ -409,7 +409,7 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 		
 		String bestPort = this.getBestPort("attractionManager");
 		System.out.println("BEST PORT: " + bestPort);
-		String url = "http://localhost:"+bestPort+"/attractionmanager/services/attractionmanager";
+		String url = bestPort+"/attractionmanager/services/attractionmanager";
 		AttractionInsertResponse response = new AttractionInsertResponse();
 		AttractionManagerService insertAttractionService = new AttractionManagerService();
 		AttractionManagerPT insertAttr = insertAttractionService.getAttractionManagerPort();
@@ -450,7 +450,7 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 
 		String bestPort = this.getBestPort("attractionManager");
 		System.out.println("BEST PORT: " + bestPort);
-		String url = "http://localhost:"+bestPort+"/attractionmanager/services/attractionmanager";
+		String url = bestPort+"/attractionmanager/services/attractionmanager";
 		AttractionDeleteResponse response = new AttractionDeleteResponse();
 		AttractionManagerService deleteAttractionService = new AttractionManagerService();
 		AttractionManagerPT deleteAttr = deleteAttractionService.getAttractionManagerPort();
@@ -485,7 +485,7 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 		
 		String bestPort = this.getBestPort("attractionManager");
 		System.out.println("BEST PORT: " + bestPort);
-		String url = "http://localhost:"+bestPort+"/attractionmanager/services/attractionmanager";
+		String url = bestPort+"/attractionmanager/services/attractionmanager";
 		AttractionUpdateResponse response = new AttractionUpdateResponse();
 		AttractionManagerService updateAttractionService = new AttractionManagerService();
 		AttractionManagerPT updateAttr = updateAttractionService.getAttractionManagerPort();
@@ -605,7 +605,7 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 
 		String bestPort = this.getBestPort("researchManager");
 		System.out.println("BEST PORT: " + bestPort);
-		String url = "http://localhost:"+bestPort+"/researchmanager/services/researchmanager";
+		String url = bestPort+"/researchmanager/services/researchmanager";
 		EventByCreatorResearchResponse response = new EventByCreatorResearchResponse();
 		ResearchManagerService researchManagerService = new ResearchManagerService();
 		ResearchManagerPT research = researchManagerService.getResearchManagerPort();
@@ -640,7 +640,7 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 		
 		String bestPort = this.getBestPort("researchManager");
 		System.out.println("BEST PORT: " + bestPort);
-		String url = "http://localhost:"+bestPort+"/researchmanager/services/researchmanager";
+		String url = bestPort+"/researchmanager/services/researchmanager";
 		AttractionDetailResearchResponse response = new AttractionDetailResearchResponse();
 		ResearchManagerService researchManagerService = new ResearchManagerService();
 		ResearchManagerPT research = researchManagerService.getResearchManagerPort();
@@ -679,7 +679,7 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 
 		String bestPort = this.getBestPort("researchManager");
 		System.out.println("BEST PORT: " + bestPort);
-		String url = "http://localhost:"+bestPort+"/researchmanager/services/researchmanager";
+		String url = bestPort+"/researchmanager/services/researchmanager";
 		EventDetailResearchResponse response = new EventDetailResearchResponse();
 		ResearchManagerService researchManagerService = new ResearchManagerService();
 		ResearchManagerPT research = researchManagerService.getResearchManagerPort();
@@ -719,7 +719,7 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 
 		String bestPort = this.getBestPort("researchManager");
 		System.out.println("BEST PORT: " + bestPort);
-		String url = "http://localhost:"+bestPort+"/researchmanager/services/researchmanager";
+		String url = bestPort+"/researchmanager/services/researchmanager";
 		AttractionResearchResponse response = new AttractionResearchResponse();
 		ResearchManagerService researchManagerService = new ResearchManagerService();
 		ResearchManagerPT research = researchManagerService.getResearchManagerPort();
@@ -755,7 +755,7 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 
 		String bestPort = this.getBestPort("researchManager");
 		System.out.println("BEST PORT: " + bestPort);
-		String url = "http://localhost:"+bestPort+"/researchmanager/services/researchmanager";
+		String url = bestPort+"/researchmanager/services/researchmanager";
 		EventResearchResponse response = new EventResearchResponse();
 		ResearchManagerService researchManagerService = new ResearchManagerService();
 		ResearchManagerPT research = researchManagerService.getResearchManagerPort();
@@ -796,7 +796,7 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 
 		String bestPort = this.getBestPort("researchManager");
 		System.out.println("BEST PORT: " + bestPort);
-		String url = "http://localhost:"+bestPort+"/researchmanager/services/researchmanager";
+		String url = bestPort+"/researchmanager/services/researchmanager";
 		AttractionByCreatorResearchResponse response = new AttractionByCreatorResearchResponse();
 		ResearchManagerService researchManagerService = new ResearchManagerService();
 		ResearchManagerPT research = researchManagerService.getResearchManagerPort();
@@ -854,7 +854,7 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 
 		String bestPort = this.getBestPort("researchManager");
 		System.out.println("BEST PORT: " + bestPort);
-		String url = "http://localhost:"+bestPort+"/researchmanager/services/researchmanager";
+		String url = bestPort+"/researchmanager/services/researchmanager";
 		CategoryResearchResponse response = new CategoryResearchResponse();
 		ResearchManagerService researchManagerService = new ResearchManagerService();
 		ResearchManagerPT research = researchManagerService.getResearchManagerPort();

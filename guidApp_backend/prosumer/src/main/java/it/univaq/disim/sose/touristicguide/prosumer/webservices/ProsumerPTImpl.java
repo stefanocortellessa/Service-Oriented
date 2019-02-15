@@ -1,13 +1,9 @@
 package it.univaq.disim.sose.touristicguide.prosumer.webservices;
 
-import java.io.IOException;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import com.google.maps.errors.ApiException;
 
 import it.univaq.disim.sose.touristicguide.prosumer.AccountLoginFault_Exception;
 import it.univaq.disim.sose.touristicguide.prosumer.AccountLoginRequest;

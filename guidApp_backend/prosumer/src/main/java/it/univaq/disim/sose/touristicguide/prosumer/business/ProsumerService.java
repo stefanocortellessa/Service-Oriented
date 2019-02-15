@@ -1,9 +1,5 @@
 package it.univaq.disim.sose.touristicguide.prosumer.business;
 
-import java.io.IOException;
-
-import com.google.maps.errors.ApiException;
-
 import it.univaq.disim.sose.touristicguide.prosumer.AccountLoginFault_Exception;
 import it.univaq.disim.sose.touristicguide.prosumer.AccountLoginRequest;
 import it.univaq.disim.sose.touristicguide.prosumer.AccountLoginResponse;

@@ -1,10 +1,5 @@
 package it.univaq.disim.sose.touristicguide.loadbalancer.business.impl;
 
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -86,8 +81,8 @@ public class LoadBalancerServiceImpl implements LoadBalancerService {
 		
 		GetServerInfoResponse response = new GetServerInfoResponse();
 		response.setServerPort(getBestPort(this.getScoresMapGlobal().get(request.getServiceName())));
-		System.out.println("Best Server:"+response.getServerPort());
-		
+		LOGGER.info("Best server for service "+request.getServiceName()+" is "+response.getServerPort());
+		response.setMessage("Best server for service "+request.getServiceName()+" is "+response.getServerPort() );
 		return response;
 	}
 
@@ -98,7 +93,7 @@ public class LoadBalancerServiceImpl implements LoadBalancerService {
 		
 		for(Server server : this.servers) {
 
-			String url = "http://localhost:"+server.getPort()+"/balanceagent/services/balanceagent";
+			String url = server.getUrl()+":"+server.getPort()+"/balanceagent/services/balanceagent";
 			BalanceAgentService balanceAgentService = new BalanceAgentService();
 			BalanceAgentPT balanceAgent = balanceAgentService.getBalanceAgentPort();
 			GetServerScoreRequest getServerScoreRequest = new GetServerScoreRequest();
@@ -109,7 +104,7 @@ public class LoadBalancerServiceImpl implements LoadBalancerService {
 
 			try {
 				GetServerScoreResponse getServerScoreResponse = balanceAgent.getServerScore(getServerScoreRequest);
-				serverScoresMap.put(server.getPort(), getServerScoreResponse.getScore());
+				serverScoresMap.put(server.getUrl()+":"+server.getPort(), getServerScoreResponse.getScore());
 			} catch (GetServerScoreFault_Exception e) {
 				e.printStackTrace();
 				throw new GetServerInfoFault_Exception("Something went wrong with Get Server Info");
