@@ -1,33 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions name="AccountManagerService"
-	targetNamespace="http://it.univaq.disim.sose.touristicguide/accountManager" 
+	targetNamespace="http://it.univaq.disim.sose.touristicguide/accountManager"
 	xmlns:tns="http://it.univaq.disim.sose.touristicguide/accountManager"
 	xmlns="http://schemas.xmlsoap.org/wsdl/"
-	xmlns:wsp="http://www.w3.org/ns/ws-policy" 
+	xmlns:wsp="http://www.w3.org/ns/ws-policy"
 	xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy"
 	xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
 	xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata">
-	
+
 	<types>
 		<xsd:schema targetNamespace="http://it.univaq.disim.sose.touristicguide/accountManager">
-			<xsd:element name="userSignupRequest" type="tns:userSignupRequest" />
-			<xsd:element name="userSignupResponse" type="tns:userSignupResponse" />
-			<xsd:element name="userSignupFault" type="tns:userSignupFault" />
-			
-			<xsd:element name="userLoginRequest" type="tns:userLoginRequest" />
-			<xsd:element name="userLoginResponse" type="tns:userLoginResponse" />
-			<xsd:element name="userLoginFault" type="tns:userLoginFault" />
-			
-			<xsd:element name="userLogoutRequest" type="tns:userLogoutRequest" />
-			<xsd:element name="userLogoutResponse" type="tns:userLogoutResponse" />
-			<xsd:element name="userLogoutFault" type="tns:userLogoutFault" />
-			
-			<xsd:element name="checkSessionRequest" type="tns:checkSessionRequest" />
-			<xsd:element name="checkSessionResponse" type="tns:checkSessionResponse" />
-			<xsd:element name="checkSessionFault" type="tns:checkSessionFault" />
-			
+			<xsd:element name="userSignupRequest"
+				type="tns:userSignupRequest" />
+			<xsd:element name="userSignupResponse"
+				type="tns:userSignupResponse" />
+			<xsd:element name="userSignupFault"
+				type="tns:userSignupFault" />
+
+			<xsd:element name="userLoginRequest"
+				type="tns:userLoginRequest" />
+			<xsd:element name="userLoginResponse"
+				type="tns:userLoginResponse" />
+			<xsd:element name="userLoginFault"
+				type="tns:userLoginFault" />
+
+			<xsd:element name="userLogoutRequest"
+				type="tns:userLogoutRequest" />
+			<xsd:element name="userLogoutResponse"
+				type="tns:userLogoutResponse" />
+			<xsd:element name="userLogoutFault"
+				type="tns:userLogoutFault" />
+
+			<xsd:element name="checkSessionRequest"
+				type="tns:checkSessionRequest" />
+			<xsd:element name="checkSessionResponse"
+				type="tns:checkSessionResponse" />
+			<xsd:element name="checkSessionFault"
+				type="tns:checkSessionFault" />
+
 			<!-- User Signup -->
 			<!-- Request -->
 			<xsd:complexType name="userSignupRequest">
@@ -38,7 +50,7 @@
 					<xsd:element name="surname" type="xsd:string" />
 				</xsd:sequence>
 			</xsd:complexType>
-			
+
 			<!-- Response -->
 			<xsd:complexType name="userSignupResponse">
 				<xsd:sequence>
@@ -47,15 +59,15 @@
 					<xsd:element name="message" type="xsd:string" />
 				</xsd:sequence>
 			</xsd:complexType>
-					
+
 			<!-- Fault -->
 			<xsd:complexType name="userSignupFault">
 				<xsd:sequence>
-                        <xsd:element name="faultInfo" type="xsd:string" />
-                        <xsd:element name="message" type="xsd:string" />
+					<xsd:element name="faultInfo" type="xsd:string" />
+					<xsd:element name="message" type="xsd:string" />
 				</xsd:sequence>
 			</xsd:complexType>
-			
+
 			<!-- User Login -->
 			<!-- Request -->
 			<xsd:complexType name="userLoginRequest">
@@ -64,7 +76,7 @@
 					<xsd:element name="password" type="xsd:string" />
 				</xsd:sequence>
 			</xsd:complexType>
-			
+
 			<!-- Response -->
 			<xsd:complexType name="userLoginResponse">
 				<xsd:sequence>
@@ -72,15 +84,15 @@
 					<xsd:element name="id" type="xsd:long" />
 				</xsd:sequence>
 			</xsd:complexType>
-					
+
 			<!-- Fault -->
 			<xsd:complexType name="userLoginFault">
 				<xsd:sequence>
-                        <xsd:element name="faultInfo" type="xsd:string" />
-                        <xsd:element name="message" type="xsd:string" />
+					<xsd:element name="faultInfo" type="xsd:string" />
+					<xsd:element name="message" type="xsd:string" />
 				</xsd:sequence>
 			</xsd:complexType>
-			
+
 			<!-- User Logout -->
 			<!-- Request -->
 			<xsd:complexType name="userLogoutRequest">
@@ -88,22 +100,22 @@
 					<xsd:element name="token" type="xsd:string" />
 				</xsd:sequence>
 			</xsd:complexType>
-			
+
 			<!-- Response -->
 			<xsd:complexType name="userLogoutResponse">
 				<xsd:sequence>
 					<xsd:element name="response" type="xsd:string" />
 				</xsd:sequence>
 			</xsd:complexType>
-					
+
 			<!-- Fault -->
 			<xsd:complexType name="userLogoutFault">
 				<xsd:sequence>
-                        <xsd:element name="faultInfo" type="xsd:string" />
-                        <xsd:element name="message" type="xsd:string" />
+					<xsd:element name="faultInfo" type="xsd:string" />
+					<xsd:element name="message" type="xsd:string" />
 				</xsd:sequence>
 			</xsd:complexType>
-			
+
 			<!-- Check Session -->
 			<!-- Request -->
 			<xsd:complexType name="checkSessionRequest">
@@ -111,24 +123,24 @@
 					<xsd:element name="token" type="xsd:string" />
 				</xsd:sequence>
 			</xsd:complexType>
-			
+
 			<!-- Response -->
 			<xsd:complexType name="checkSessionResponse">
 				<xsd:sequence>
 					<xsd:element name="response" type="xsd:boolean" />
 				</xsd:sequence>
 			</xsd:complexType>
-					
+
 			<!-- Fault -->
 			<xsd:complexType name="checkSessionFault">
 				<xsd:sequence>
-                        <xsd:element name="faultInfo" type="xsd:string" />
-                        <xsd:element name="message" type="xsd:string" />
+					<xsd:element name="faultInfo" type="xsd:string" />
+					<xsd:element name="message" type="xsd:string" />
 				</xsd:sequence>
 			</xsd:complexType>
 		</xsd:schema>
 	</types>
-	
+
 	<!-- Message -->
 	<!-- User Signup -->
 	<message name="userSignupRequest">
@@ -143,7 +155,7 @@
 		<part name="parameters" element="tns:userSignupFault">
 		</part>
 	</message>
-	
+
 	<!-- Message -->
 	<!-- User Login -->
 	<message name="userLoginRequest">
@@ -158,7 +170,7 @@
 		<part name="parameters" element="tns:userLoginFault">
 		</part>
 	</message>
-	
+
 	<!-- User Logout -->
 	<message name="userLogoutRequest">
 		<part name="parameters" element="tns:userLogoutRequest">
@@ -172,7 +184,7 @@
 		<part name="parameters" element="tns:userLogoutFault">
 		</part>
 	</message>
-	
+
 	<!-- Check Session -->
 	<message name="checkSessionRequest">
 		<part name="parameters" element="tns:checkSessionRequest">
@@ -186,36 +198,42 @@
 		<part name="parameters" element="tns:checkSessionFault">
 		</part>
 	</message>
-	
+
 	<!-- Port -->
 	<portType name="accountManagerPT">
 		<operation name="userSignup">
 			<input name="userSignupRequest" message="tns:userSignupRequest" />
-			<output name="userSignupResponse" message="tns:userSignupResponse" />
+			<output name="userSignupResponse"
+				message="tns:userSignupResponse" />
 			<fault name="userSignupFault" message="tns:userSignupFault" />
 		</operation>
 		<operation name="userLogin">
 			<input name="userLoginRequest" message="tns:userLoginRequest" />
-			<output name="userLoginResponse" message="tns:userLoginResponse" />
+			<output name="userLoginResponse"
+				message="tns:userLoginResponse" />
 			<fault name="userLoginFault" message="tns:userLoginFault" />
 		</operation>
 		<operation name="userLogout">
 			<input name="userLogoutRequest" message="tns:userLogoutRequest" />
-			<output name="userLogoutResponse" message="tns:userLogoutResponse" />
+			<output name="userLogoutResponse"
+				message="tns:userLogoutResponse" />
 			<fault name="userLogoutFault" message="tns:userLogoutFault" />
 		</operation>
 		<operation name="checkSession">
-			<input name="checkSessionRequest" message="tns:checkSessionRequest" />
-			<output name="checkSessionResponse" message="tns:checkSessionResponse" />
+			<input name="checkSessionRequest"
+				message="tns:checkSessionRequest" />
+			<output name="checkSessionResponse"
+				message="tns:checkSessionResponse" />
 			<fault name="checkSessionFault" message="tns:checkSessionFault" />
 		</operation>
 	</portType>
-	
+
 	<!-- Binding -->
-	<binding name="accountManagerBinding" type="tns:accountManagerPT">
+	<binding name="accountManagerBinding"
+		type="tns:accountManagerPT">
 		<soap:binding style="document"
 			transport="http://schemas.xmlsoap.org/soap/http" />
-			<operation name="userSignup">
+		<operation name="userSignup">
 			<soap:operation soapAction="" />
 			<input>
 				<soap:body use="literal" />
@@ -252,11 +270,13 @@
 			</output>
 		</operation>
 	</binding>
-	
+
 	<!-- Service -->
 	<service name="AccountManagerService">
-		<port name="accountManagerPort" binding="tns:accountManagerBinding">
-			<soap:address location="http://localhost:8080/accountmanager/services/accountmanager" />
+		<port name="accountManagerPort"
+			binding="tns:accountManagerBinding">
+			<soap:address
+				location="http://localhost:8080/accountmanager/services/accountmanager" />
 		</port>
 	</service>
 </definitions>

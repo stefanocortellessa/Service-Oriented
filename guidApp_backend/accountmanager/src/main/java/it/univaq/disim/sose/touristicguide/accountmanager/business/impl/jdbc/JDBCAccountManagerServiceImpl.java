@@ -30,7 +30,6 @@ import it.univaq.disim.sose.touristicguide.accountmanager.business.AccountManage
 import it.univaq.disim.sose.touristicguide.accountmanager.business.Utility;
 import it.univaq.disim.sose.touristicguide.accountmanager.business.model.User;
 
-
 @Service
 public class JDBCAccountManagerServiceImpl implements AccountManagerService {
 
@@ -43,33 +42,34 @@ public class JDBCAccountManagerServiceImpl implements AccountManagerService {
 		Connection connection = null;
 		PreparedStatement user = null; 
 		PreparedStatement session = null;
-
-		UserSignupResponse responseUser = new UserSignupResponse();
-
+		UserSignupResponse response = new UserSignupResponse();
+		String sql = "SELECT * FROM users WHERE email = ?";
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
 		try {
+			
 			connection = dataSource.getConnection();
-
-			String sql = "SELECT * FROM users WHERE email = ?";
-
-			PreparedStatement par = null;
-
-			ResultSet rs = null;
-
-			par = connection.prepareStatement(sql);
-
-			par.setString(1, parameters.getEmail());
-			rs = par.executeQuery();
+			
+			ps = connection.prepareStatement(sql);
+			ps.setString(1, parameters.getEmail());
+			
+			rs = ps.executeQuery();
 			rs.last();
+			
 			int num_rows = rs.getRow();
+			
 			rs.first();
+			
 			if(num_rows > 0 ) {
-				responseUser.setToken(null);
-				responseUser.setMessage("email already registered");
+				
+				response.setToken(null);
+				response.setMessage("E-Mail already registered! Change it.");
+			
 			}else {
-
-				user = connection.prepareStatement(
-						"INSERT INTO users (name,surname,email,password) VALUES (?,?,?,?)",
-						Statement.RETURN_GENERATED_KEYS);
+				
+				user = connection.prepareStatement("INSERT INTO users (name,surname,email,password) VALUES (?,?,?,?)",
+													Statement.RETURN_GENERATED_KEYS);
 	
 				user.setString(1, parameters.getName());
 				user.setString(2, parameters.getSurname());
@@ -77,38 +77,42 @@ public class JDBCAccountManagerServiceImpl implements AccountManagerService {
 				user.setString(4, this.hashPwd(parameters.getPassword()));
 	
 				if(user.executeUpdate() == 1) {
+					
 					int idUtente = 0;
+					
 					try (ResultSet keys = user.getGeneratedKeys()) {
 						if (keys.next()) {
+							
 							idUtente = keys.getInt(1);
 						}
 	
 						session = connection.prepareStatement("INSERT INTO sessions (token,user) VALUES (?,?)");
-	
 						String token = Utility.generateToken();
 	
 						session.setString(1, token);
 						session.setInt(2, idUtente);
 	
 						if(session.executeUpdate() == 1) {
-							responseUser.setId(idUtente);
-							responseUser.setToken(token);
-							responseUser.setMessage("User correctly signed up");
-
+							
+							response.setId(idUtente);
+							response.setToken(token);
+							response.setMessage("User correctly signed up!");
 						}
 						else {
-							responseUser.setToken(null);
-							responseUser.setMessage("Something was wrong with User Signup");
+							
+							response.setToken(null);
+							response.setMessage("Something went wrong with User Signup");
 						}
 					}
 				} else {
-					responseUser.setToken(null);
-					responseUser.setMessage("Something was wrong with User Signup");
+					
+					response.setToken(null);
+					response.setMessage("Something went wrong with User Signup..");
 				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new UserSignupFault_Exception("Something was wrong with User Signup");
+			throw new UserSignupFault_Exception("Something went wrong with User Signup");
 		} finally {
 			if (user != null) {
 				try {
@@ -122,21 +126,19 @@ public class JDBCAccountManagerServiceImpl implements AccountManagerService {
 				} catch (SQLException e) {}
 			}
 		}
-		return responseUser;
+		return response;
 	}
 
 	@Override
 	public UserLoginResponse userLogin(UserLoginRequest parameters) throws UserLoginFault_Exception {
 
-		UserLoginResponse responseUser = new UserLoginResponse();
-
+		UserLoginResponse response = new UserLoginResponse();
 		String sql = "SELECT * FROM users WHERE email = ?";
 		String sqlSession = "INSERT into sessions(token, user) VALUES(?,?)";
 
 		Connection connection = null;
-		PreparedStatement par = null;
-		PreparedStatement par1 = null;
-
+		PreparedStatement ps = null;
+		PreparedStatement ps1 = null;
 		ResultSet rs = null;
 
 		try {
@@ -144,16 +146,20 @@ public class JDBCAccountManagerServiceImpl implements AccountManagerService {
 			User user = new User();
 
 			connection = dataSource.getConnection();
-			par = connection.prepareStatement(sql);
+			ps = connection.prepareStatement(sql);
 
-			par.setString(1, parameters.getEmail());
-			rs = par.executeQuery();
+			ps.setString(1, parameters.getEmail());
+			rs = ps.executeQuery();
 			rs.last();
+			
 			int num_rows = rs.getRow();
+			
 			rs.first();
+			
 			if(num_rows != 0 && this.hashPwd(parameters.getPassword()).equals(rs.getString("password"))) {
 
 				long idUtente = rs.getLong("user_id");
+				
 				user.setId(idUtente);
 				user.setEmail(rs.getString("email"));
 				user.setName(rs.getString("name"));
@@ -161,27 +167,30 @@ public class JDBCAccountManagerServiceImpl implements AccountManagerService {
 
 				String token = Utility.generateToken();
 
-				par1 = connection.prepareStatement(sqlSession);
-				par1.setString(1, token);
-				par1.setLong(2, user.getId());
+				ps1 = connection.prepareStatement(sqlSession);
+				ps1.setString(1, token);
+				ps1.setLong(2, user.getId());
 
-				if(par1.executeUpdate() == 1) {
-					responseUser.setId(idUtente);
-					responseUser.setToken(token);
+				if(ps1.executeUpdate() == 1) {
+					
+					response.setId(idUtente);
+					response.setToken(token);
 				} else {
-					responseUser.setToken(null);
+					
+					response.setToken(null);
 				}
 			} else {
-				responseUser.setToken(null);
+				
+				response.setToken(null);
 			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new UserLoginFault_Exception("Something was wrong with User Login");
 		} finally {
-			if (par != null) {
+			if (ps != null) {
 				try {
-					par.close();
+					ps.close();
 				} catch (SQLException e) {
 				}
 			}
@@ -191,41 +200,43 @@ public class JDBCAccountManagerServiceImpl implements AccountManagerService {
 				} catch (SQLException e) {}
 			}
 		}
-		return responseUser;
+		return response;
 	}
 
 	@Override
 	public CheckSessionResponse checkSession(CheckSessionRequest parameters) throws CheckSessionFault_Exception {
 
-		CheckSessionResponse responseSession = new CheckSessionResponse();
+		CheckSessionResponse response = new CheckSessionResponse();
 		String sql = "SELECT * FROM sessions WHERE token = ?";
-
 		Connection connection = null;
-		PreparedStatement par = null;
+		PreparedStatement ps = null;
 		ResultSet rs = null;
 
 		try {			
+			
 			connection = dataSource.getConnection();
-			par = connection.prepareStatement(sql);
-
-			par.setString(1, parameters.getToken());
-			rs = par.executeQuery();
-
+			
+			ps = connection.prepareStatement(sql);
+			ps.setString(1, parameters.getToken());
+			rs = ps.executeQuery();
 			rs.last();
+			
 			int num_rows = rs.getRow();
 
 			if(num_rows != 0) {
-				responseSession.setResponse(true);
+			
+				response.setResponse(true);
 			} else {
-				responseSession.setResponse(false);
+				
+				response.setResponse(false);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new CheckSessionFault_Exception("Something was wrong with Checking Session");
 		} finally {
-			if (par != null) {
+			if (ps != null) {
 				try {
-					par.close();
+					ps.close();
 				} catch (SQLException e) {
 				}
 			}
@@ -235,36 +246,37 @@ public class JDBCAccountManagerServiceImpl implements AccountManagerService {
 				} catch (SQLException e) {}
 			}
 		}
-		return responseSession;
+		return response;
 	}
 
 	@Override
 	public UserLogoutResponse userLogout(UserLogoutRequest parameters) throws UserLogoutFault_Exception {
 
-		UserLogoutResponse responseUser = new UserLogoutResponse();
+		UserLogoutResponse response = new UserLogoutResponse();
 		String sql = "DELETE FROM sessions WHERE token = ?";
-
 		Connection connection = null;
-		PreparedStatement par = null;
+		PreparedStatement ps = null;
 
 		try {			
 			connection = dataSource.getConnection();
-			par = connection.prepareStatement(sql);
-
-			par.setString(1, parameters.getToken());
-			if(par.executeUpdate() == 1) {
-				responseUser.setResponse("Logout Success");
+			
+			ps = connection.prepareStatement(sql);
+			ps.setString(1, parameters.getToken());
+			
+			if(ps.executeUpdate() == 1) {
+			
+				response.setResponse("Logout Success");
 			} else {
-				responseUser.setResponse("Logout went Wrong");
+				
+				response.setResponse("Logout went Wrong");
 			}
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new UserLogoutFault_Exception("Something was wrong with User Logout");
 		} finally {
-			if (par != null) {
+			if (ps != null) {
 				try {
-					par.close();
+					ps.close();
 				} catch (SQLException e) {
 				}
 			}
@@ -274,13 +286,16 @@ public class JDBCAccountManagerServiceImpl implements AccountManagerService {
 				} catch (SQLException e) {}
 			}
 		}
-		return responseUser;
+		return response;
 	}
-
+	
+	//Method to encode the password
 	public String hashPwd(String originalString) {
+		
 		String sha256hex = Hashing.sha256()
 				.hashString(originalString, StandardCharsets.UTF_8)
 				.toString();
+		
 		return sha256hex;
 	}
 

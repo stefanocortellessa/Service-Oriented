@@ -43,37 +43,41 @@ public class LoadBalancerServiceImpl implements LoadBalancerService {
 
 	private static Logger LOGGER = LoggerFactory.getLogger(LoadBalancerServiceImpl.class);
 	private ScheduledExecutorService executor;
-
 	private boolean threadStarted = false;
 	private HashMap<String,Double> serverScoresMap = new HashMap<String,Double>();
 	private HashMap<String, HashMap<String,Double>> scoresMap = new HashMap<String, HashMap<String,Double>>();
 	private List<String> ports = Arrays.asList("8100", "8110");
 	private List<String> providers = Arrays.asList("accountManager", "eventManager", "attractionManager", "researchManager");
 
+	//Method that select the list of providers from the Database
 	public List<String> selectProviders() {
 
-		Connection con = null;
+		Connection connection = null;
 		List<String> return_list = new ArrayList<String>();
 
 		try {
-			con = dataSource.getConnection();
-			con.setAutoCommit(false);
+			
+			connection = dataSource.getConnection();
+			connection.setAutoCommit(false);
 		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 
 		String query = "SELECT name FROM providers";
 		PreparedStatement sql = null;
+		
 		try {
 
-			sql = con.prepareStatement(query);
+			sql = connection.prepareStatement(query);
 
 			ResultSet rs = sql.executeQuery();
+			
 			while(rs.next()) {
+				
 				return_list.add(rs.getString("name"));
 			}
-			System.out.println(return_list.toString());
+			//System.out.println(return_list.toString());
+			
 			return return_list;
 		} catch (SQLException e) {
 			return return_list;
@@ -87,14 +91,16 @@ public class LoadBalancerServiceImpl implements LoadBalancerService {
 		}						
 	}
 
-
 	@Override
 	public GetServerInfoResponse getServerInfo(GetServerInfoRequest request) throws GetServerInfoFault_Exception {
 		
 		if(!threadStarted) {
+			
 			executor = Executors.newSingleThreadScheduledExecutor();
 			executor.scheduleAtFixedRate(new Runnable() {
+				
 				public void run() {
+					
 					LOGGER.info("Called 'run' method on checkServerScore");
 
 					try {
@@ -103,17 +109,17 @@ public class LoadBalancerServiceImpl implements LoadBalancerService {
 					} catch (GetServerInfoFault_Exception e) {
 						new GetServerInfoFault_Exception(e.getMessage());
 					}
-
 				}
-
 			}, 0, 500, TimeUnit.MILLISECONDS);
 		}
+		
 		threadStarted = true;
 		checkServerScore(request);
 		GetServerInfoResponse response = new GetServerInfoResponse();
 		scoresMap = checkServerScore(request);		
 
 		response.setServerPort(getBestPort(scoresMap.get(request.getServiceName())));
+
 		return response;
 	}
 
@@ -125,38 +131,38 @@ public class LoadBalancerServiceImpl implements LoadBalancerService {
 			String url = "http://localhost:"+port+"/balanceagent/services/balanceagent";
 			BalanceAgentService balanceAgentService = new BalanceAgentService();
 			BalanceAgentPT balanceAgent = balanceAgentService.getBalanceAgentPort();
+			GetServerScoreRequest getServerScoreRequest = new GetServerScoreRequest();
 
 			BindingProvider bp = (BindingProvider)balanceAgent;
 
 			bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
 
-			GetServerScoreRequest getServerScoreRequest = new GetServerScoreRequest();
-
 			try {
+				
 				GetServerScoreResponse getServerScoreResponse = balanceAgent.getServerScore(getServerScoreRequest);
+				
 				serverScoresMap.put(port, getServerScoreResponse.getScore());
 			} catch (GetServerScoreFault_Exception e) {
 				e.printStackTrace();
-				throw new GetServerInfoFault_Exception("Something was wrong with Get Server Info");
+				throw new GetServerInfoFault_Exception("Something went wrong with Get Server Info");
 			}
-
 		}
 		for(String provider : providers) {
 			scoresMap.put(provider, serverScoresMap);
 		}
-
 		return scoresMap;
 	}
 
-
+	//Method that returns the Server's port with higher score
 	public String getBestPort(HashMap<String,Double> map) {
 
 		Entry<String, Double> min = Collections.min(map.entrySet(), new Comparator<Entry<String, Double>>() {
 			public int compare(Entry<String, Double> entry1, Entry<String, Double> entry2) {
+				
 				return entry1.getValue().compareTo(entry2.getValue());
 			}
 		});
+		
 		return min.getKey();
-
 	}
 }

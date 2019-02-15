@@ -24,11 +24,13 @@ public class BalanceAgentPTImpl implements BalanceAgentPT {
 	@Override
 	public GetServerScoreResponse getServerScore(GetServerScoreRequest parameters)
 			throws GetServerScoreFault_Exception, MalformedObjectNameException {
+		
 		LOGGER.info("called Check Session in Insert Service");
+		
 		GetServerScoreResponse response = new GetServerScoreResponse();
 		response = service.getServerScore(parameters);
+		
 		return response;
 	}
-
 }
 

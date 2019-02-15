@@ -41,21 +41,27 @@ public class ResearchManagerPTImpl implements ResearchManagerPT {
 	@Override
 	public ResearchAttractionResponse researchAttraction(ResearchAttractionRequest parameters) throws ResearchAttractionFault_Exception {
 		
-		LOGGER.info("called Research Attraction in Research Manager Service");
+		LOGGER.info("called Research Attraction in Research Manager");
+		
 		ResearchAttractionResponse response = new ResearchAttractionResponse();
 		response = service.researchAttraction(parameters);
+		
 		LOGGER.info(response.getMessage());
+		
 		return response;
 	}
 	
 	@Override
 	public ResearchAttractionByCreatorResponse researchAttractionByCreator(ResearchAttractionByCreatorRequest parameters) throws ResearchAttractionByCreatorFault_Exception {
 		
-		LOGGER.info("called Research Attraction By Creator in Research Manager Service");
+		LOGGER.info("called Research Attraction By Creator in Research Manager");
+		
 		ResearchAttractionByCreatorResponse response = new ResearchAttractionByCreatorResponse();
 		response = service.researchAttractionByCreator(parameters);
+		
 		LOGGER.info(response.getMessage());
 		LOGGER.info(response.getAttractionsList().getAttractionElement().toString());
+		
 		return response;
 	}
 
@@ -63,20 +69,26 @@ public class ResearchManagerPTImpl implements ResearchManagerPT {
 	public ResearchAttractionDetailResponse researchAttractionDetail(ResearchAttractionDetailRequest parameters)
 			throws ResearchAttractionDetailFault_Exception {
 		
-		LOGGER.info("called Research Attraction Detail in Research Manager Service");
+		LOGGER.info("called Research Attraction Detail in Research Manager");
+		
 		ResearchAttractionDetailResponse response = new ResearchAttractionDetailResponse();
 		response = service.researchAttractionDetail(parameters);
+		
 		LOGGER.info(response.getMessage());
+		
 		return response;
 	}
 	
 	@Override
 	public ResearchEventResponse researchEvent(ResearchEventRequest parameters) throws ResearchEventFault_Exception {
 		
-		LOGGER.info("called Research Event in Research Manager Service");
+		LOGGER.info("called Research Event in Research Manager");
+		
 		ResearchEventResponse response = new ResearchEventResponse();
 		response = service.researchEvent(parameters);
+		
 		LOGGER.info(response.getMessage());
+		
 		return response;
 	}
 
@@ -85,10 +97,13 @@ public class ResearchManagerPTImpl implements ResearchManagerPT {
 	public ResearchEventByCreatorResponse researchEventByCreator(ResearchEventByCreatorRequest parameters)
 			throws ResearchEventByCreatorFault_Exception {
 		
-		LOGGER.info("called Research Event By Creator in Research Manager Service");
+		LOGGER.info("called Research Event By Creator in Research Manager");
+		
 		ResearchEventByCreatorResponse response = new ResearchEventByCreatorResponse();
 		response = service.researchEventByCreator(parameters);
+		
 		LOGGER.info(response.getMessage());
+		
 		return response;
 	}
 
@@ -96,22 +111,28 @@ public class ResearchManagerPTImpl implements ResearchManagerPT {
 	@Override
 	public ResearchEventDetailResponse researchEventDetail(ResearchEventDetailRequest parameters)
 			throws ResearchEventDetailFault_Exception {
-		LOGGER.info("called Research Event Details in Research Manager Service");
+		
+		LOGGER.info("called Research Event Details in Research Manager");
+		
 		ResearchEventDetailResponse response = new ResearchEventDetailResponse();
 		response = service.researchEventDetail(parameters);
+		
 		LOGGER.info(response.getMessage());
+		
 		return response;
 	}
 
 	@Override
 	public ResearchCategoryResponse researchCategory(ResearchCategoryRequest parameters)
 			throws ResearchCategoryFault_Exception {
-		LOGGER.info("called Research Category in Research Manager Service");
+		
+		LOGGER.info("called Research Category in Research Manager");
+		
 		ResearchCategoryResponse response = new ResearchCategoryResponse();
 		response = service.researchCategory(parameters);
+		
 		LOGGER.info(response.getMessage());
+		
 		return response;
 	}
-
-
 }

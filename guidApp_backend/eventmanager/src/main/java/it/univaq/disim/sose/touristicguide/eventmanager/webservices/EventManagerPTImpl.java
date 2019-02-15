@@ -31,40 +31,47 @@ public class EventManagerPTImpl implements EventManagerPT {
 	@Override
 	public InsertEventResponse insertEvent(InsertEventRequest parameters) throws InsertEventFault_Exception {
 		
-		LOGGER.info("called Insert Event in Event Manager Service");
+		LOGGER.info("called Insert Event in Event Manager");
+		
 		InsertEventResponse response = new InsertEventResponse();
 		response = service.insertEvent(parameters);
 		LOGGER.info(response.getMessage());
+		
 		return response;
 	}
 
 	@Override
 	public DeleteEventResponse deleteEvent(DeleteEventRequest parameters) throws DeleteEventFault_Exception {
 		
-		LOGGER.info("called Delete Event in Event Manager Service");
+		LOGGER.info("called Delete Event in Event Manager");
+		
 		DeleteEventResponse response = new DeleteEventResponse();
 		response = service.deleteEvent(parameters);
 		LOGGER.info(response.getMessage());
+		
 		return response;
 	}
 	
 	@Override
 	public UpdateEventResponse updateEvent(UpdateEventRequest parameters) throws UpdateEventFault_Exception {
 		
-		LOGGER.info("called Update Event in Event Manager Service");
+		LOGGER.info("called Update Event in Event Manager");
+		
 		UpdateEventResponse response = new UpdateEventResponse();
 		response = service.updateEvent(parameters);
 		LOGGER.info(response.getMessage());
+		
 		return response;
 	}
 
 	@Override
 	public CheckSessionResponse checkSession(CheckSessionRequest parameters) throws CheckSessionFault_Exception {
 		
-		LOGGER.info("called Check Session in Insert Service");
+		LOGGER.info("called Check Session in Event Manager");
+		
 		CheckSessionResponse response = new CheckSessionResponse();
 		response = service.checkSession(parameters);
+		
 		return response;
 	}
-
 }

@@ -31,40 +31,44 @@ public class AttractionManagerPTImpl implements AttractionManagerPT {
 	@Override
 	public InsertAttractionResponse insertAttraction(InsertAttractionRequest parameters) throws InsertAttractionFault_Exception {
 		
-		LOGGER.info("called Insert Attraction in Attraction Manager Service");
+		LOGGER.info("called Insert Attraction in Attraction Manager");
+		
 		InsertAttractionResponse response = new InsertAttractionResponse();
 		response = service.insertAttraction(parameters);
-		LOGGER.info(response.getMessage());
+		
 		return response;
 	}
 
 	@Override
 	public DeleteAttractionResponse deleteAttraction(DeleteAttractionRequest parameters) throws DeleteAttractionFault_Exception {
 		
-		LOGGER.info("called Delete Attraction in Attraction Manager Service");
+		LOGGER.info("called Delete Attraction in Attraction Manager");
+		
 		DeleteAttractionResponse response = new DeleteAttractionResponse();
 		response = service.deleteAttraction(parameters);
-		LOGGER.info(response.getMessage());
+		
 		return response;
 	}
 	
 	@Override
 	public UpdateAttractionResponse updateAttraction(UpdateAttractionRequest parameters) throws UpdateAttractionFault_Exception {
 		
-		LOGGER.info("called Update Attraction in Attraction Manager Service");
+		LOGGER.info("called Update Attraction in Attraction Manager");
+		
 		UpdateAttractionResponse response = new UpdateAttractionResponse();
 		response = service.updateAttraction(parameters);
-		LOGGER.info(response.getMessage());
+		
 		return response;
 	}
 
 	@Override
 	public CheckSessionResponse checkSession(CheckSessionRequest parameters) throws CheckSessionFault_Exception {
 		
-		LOGGER.info("called Check Session in Attraction Manager Service");
+		LOGGER.info("called Check Session in Attraction Manager");
+		
 		CheckSessionResponse response = new CheckSessionResponse();
 		response = service.checkSession(parameters);
+		
 		return response;
 	}
-
 }

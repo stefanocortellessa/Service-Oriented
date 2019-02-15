@@ -40,9 +40,9 @@ public class EventController {
 		ProsumerPT prosumer = prosumerService.getProsumerPort();
 		EventInsertResponse response = new EventInsertResponse();
 		EventInsertRequest request = new EventInsertRequest();
-		
 		GoogleGeocodingResponse geocoding_response = new GoogleGeocodingResponse();
 		GoogleGeocodingRequest geocoding_request = new GoogleGeocodingRequest();
+		
 		geocoding_request.setLocality(event.getLocality());
 		geocoding_response = prosumer.googleGeocoding(geocoding_request);
 		
@@ -50,11 +50,9 @@ public class EventController {
 		request.setLocality(event.getLocality());
 		request.setCategoryId(event.getCategory().getId());
 		request.setCategoryName(event.getCategory().getName());
-
 		request.setCreatorId(event.getCreator().getId());
 		request.setStartDate(utility.convertToXML(event.getStartDate()));
-		request.setEndDate(utility.convertToXML(event.getEndDate()));
-		
+		request.setEndDate(utility.convertToXML(event.getEndDate()));		
 		request.setLat(geocoding_response.getLat());
 		request.setLng(geocoding_response.getLng());
 		
@@ -87,9 +85,9 @@ public class EventController {
 		ProsumerPT prosumer = prosumerService.getProsumerPort();
 		EventUpdateResponse response = new EventUpdateResponse();
 		EventUpdateRequest request = new EventUpdateRequest();
-	
 		GoogleGeocodingResponse geocoding_response = new GoogleGeocodingResponse();
 		GoogleGeocodingRequest geocoding_request = new GoogleGeocodingRequest();
+		
 		geocoding_request.setLocality(event.getLocality());
 		geocoding_response = prosumer.googleGeocoding(geocoding_request);
 		
@@ -101,7 +99,6 @@ public class EventController {
 		request.setCategoryName(event.getCategory().getName());
 		request.setCategoryId(event.getCategory().getId());
 		request.setCreatorId(event.getCreator().getId());
-
 		request.setLat(geocoding_response.getLat());
 		request.setLng(geocoding_response.getLng());
 		

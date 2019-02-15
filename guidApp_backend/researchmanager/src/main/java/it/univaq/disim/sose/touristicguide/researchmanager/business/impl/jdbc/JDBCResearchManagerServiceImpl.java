@@ -58,21 +58,19 @@ public class JDBCResearchManagerServiceImpl implements ResearchManagerService {
 		Connection connection = null;
 		AttractionsList return_list = new AttractionsList();
 		User creator = new User();
+		ResearchAttractionByCreatorResponse responseAttractionByCreator = new ResearchAttractionByCreatorResponse();
 
 		creator.setId(parameters.getCreatorId());
 
-		/*-------------------------------------------------------------------------*/
-		ResearchAttractionByCreatorResponse responseAttractionByCreator = new ResearchAttractionByCreatorResponse();
 		try {
 
 			connection = dataSource.getConnection();
 			connection.setAutoCommit(false);
 			return_list = selectAttractionByCreator(connection, creator.getId());
-
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
-			throw new ResearchAttractionByCreatorFault_Exception("Something was wrong with Research Attraction for this user..");
+			throw new ResearchAttractionByCreatorFault_Exception("Something was wrong with Research Attraction By Creator");
 		}
 		finally {
 			if (connection != null) {
@@ -86,26 +84,30 @@ public class JDBCResearchManagerServiceImpl implements ResearchManagerService {
 		}
 
 		responseAttractionByCreator.setAttractionsList(return_list);
-		responseAttractionByCreator.setMessage("Returned Attraction List for this user");	
+		responseAttractionByCreator.setMessage("Returned Attraction List By Creator");	
+
 		return responseAttractionByCreator;
 	}
 
-
+	//Method that returns a list of Attractions
 	public AttractionsList selectAttractionByCreator(Connection con, Long idCreator) {
 
 		AttractionsList return_list = new AttractionsList();
 		String query = "SELECT * FROM attractions WHERE id_creator=?";
 		PreparedStatement sql = null;
+		
 		try {
 
 			sql = con.prepareStatement(query);
 
 			sql.setLong(1, idCreator);
 
-
 			ResultSet rs = sql.executeQuery();
+			
 			while(rs.next()) {
+				
 				AttractionElement attraction = new AttractionElement();
+				
 				attraction.setId(rs.getLong("id"));
 				attraction.setName(rs.getString("name"));
 				attraction.setLocality(rs.getString("locality"));
@@ -113,10 +115,10 @@ public class JDBCResearchManagerServiceImpl implements ResearchManagerService {
 				attraction.setCreatorId(rs.getLong("id_creator"));
 				attraction.setLat(rs.getString("lat"));
 				attraction.setLng(rs.getString("lng"));
+				
 				return_list.getAttractionElement().add(attraction);
 			}
 			return return_list;
-
 		} catch (SQLException e) {
 			return return_list;
 		}finally {
@@ -127,30 +129,24 @@ public class JDBCResearchManagerServiceImpl implements ResearchManagerService {
 				}
 			}
 		}
-
 	}
 
 
 	@Override
 	public ResearchAttractionResponse researchAttraction(ResearchAttractionRequest parameters)
 			throws ResearchAttractionFault_Exception {
-		/* per filtrare le attrazioni in base a : 
-		 * - name
-		 * - località
-		 * - categoria
-		 */
+		
 		Connection connection = null;
 		AttractionsList return_list = new AttractionsList();
 		Attraction attraction = new Attraction();
 		Category category = new Category();
+		ResearchAttractionResponse responseAttractionByFilter = new ResearchAttractionResponse();
 
 		attraction.setLocality(parameters.getLocality());
 		attraction.setName(parameters.getName());
 		category.setId(parameters.getCategoryId());
 		attraction.setCategory(category);
 
-		/*-------------------------------------------------------------------------*/
-		ResearchAttractionResponse responseAttractionByFilter = new ResearchAttractionResponse();
 		try {
 
 			connection = dataSource.getConnection();
@@ -160,7 +156,7 @@ public class JDBCResearchManagerServiceImpl implements ResearchManagerService {
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
-			throw new ResearchAttractionFault_Exception("Something was wrong with Research Attraction for this filters..");
+			throw new ResearchAttractionFault_Exception("Something went wrong with Research Attraction");
 		}
 		finally {
 			if (connection != null) {
@@ -174,54 +170,66 @@ public class JDBCResearchManagerServiceImpl implements ResearchManagerService {
 		}
 
 		responseAttractionByFilter.setAttractionsList(return_list);
-		responseAttractionByFilter.setMessage("Returned Attraction List for this filter");	
+		responseAttractionByFilter.setMessage("Returned Attraction List Researched");	
+		
 		return responseAttractionByFilter;
-
 	}
-
-
+	
+	//Method that return a List of Attractions filtered by Name, Locality & Category
 	public AttractionsList selectAttractionByFilter(Connection con, String name, String locality, Long categoryId) {
 
 		AttractionsList return_list = new AttractionsList();
 		String query = "SELECT * FROM attractions WHERE ";
 		PreparedStatement sql = null;
-
 		int counter = 0; 
 		int name_pos = 0; 
 		int locality_pos = 0;
 		int category_pos = 0;
+		
 		if(name != null) {
+			
 			query = query + "name LIKE ? AND ";
 			counter += 1;
 			name_pos = counter;
 		}
 		if(locality != null) {
+			
 			query = query + "locality LIKE ? AND ";
 			counter += 1;
 			locality_pos = counter;
 		}
 		if(categoryId != null) {
+			
 			query = query + "id_category=? AND ";
 			counter += 1;
 			category_pos = counter;
 		}
+		
 		query = query + "id=id";
 
 		try {
+			
 			sql = con.prepareStatement(query);
 
 			if(name_pos != 0) {
+				
 				sql.setString(name_pos, "%"+name+"%");
 			}
 			if(locality_pos != 0) {
+				
 				sql.setString(locality_pos, "%"+locality+"%");
 			}
 			if(category_pos != 0) {
+				
 				sql.setLong(category_pos, categoryId);
 			}
+			
 			ResultSet rs = sql.executeQuery();
+			
 			while(rs.next()) {
+			
 				AttractionElement attraction = new AttractionElement();
+				
 				attraction.setId(rs.getLong("id"));
 				attraction.setName(rs.getString("name"));
 				attraction.setLocality(rs.getString("locality"));
@@ -232,7 +240,6 @@ public class JDBCResearchManagerServiceImpl implements ResearchManagerService {
 				return_list.getAttractionElement().add(attraction);
 			}
 			return return_list;
-
 		} catch (SQLException e) {
 			return return_list;
 		}finally {
@@ -243,29 +250,25 @@ public class JDBCResearchManagerServiceImpl implements ResearchManagerService {
 				}
 			}
 		}
-
 	}
-
 
 	@Override
 	public ResearchAttractionDetailResponse researchAttractionDetail(ResearchAttractionDetailRequest parameters)
 			throws ResearchAttractionDetailFault_Exception {
+		
 		Connection connection = null;
 		AttractionElement attraction_detail = new AttractionElement();
-
-
-		/*-------------------------------------------------------------------------*/
 		ResearchAttractionDetailResponse responseAttractionDetail = new ResearchAttractionDetailResponse();
+
 		try {
 
 			connection = dataSource.getConnection();
 			connection.setAutoCommit(false);
 			attraction_detail = selectAttractionDetail(connection, parameters.getId());
-
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
-			throw new ResearchAttractionDetailFault_Exception("Something was wrong with Research Attraction Detail for this attraction..");
+			throw new ResearchAttractionDetailFault_Exception("Something went wrong with Research Attraction Detail");
 		}
 		finally {
 			if (connection != null) {
@@ -278,16 +281,18 @@ public class JDBCResearchManagerServiceImpl implements ResearchManagerService {
 			}
 		}
 		if(attraction_detail.getId() != 0) {
+			
 			responseAttractionDetail.setAttractionElement(attraction_detail);
 
-			responseAttractionDetail.setMessage("Returned Attraction Detail for this Attraction");	
+			responseAttractionDetail.setMessage("Returned Attraction Detail Research");	
 		}else {
-			responseAttractionDetail.setMessage("Attraction Detail Not Found for this Attraction");	
-
+			
+			responseAttractionDetail.setMessage("Attraction Detail Research NOT Found");	
 		}
 		return responseAttractionDetail;
 	}
 
+	//Method that returns Attraction Detail
 	public AttractionElement selectAttractionDetail(Connection con, Long idCreator) {
 
 		AttractionElement attraction_detail = new AttractionElement();
@@ -297,12 +302,13 @@ public class JDBCResearchManagerServiceImpl implements ResearchManagerService {
 		try {
 
 			sql = con.prepareStatement(query);
-
+			
 			sql.setLong(1, idCreator);
 
-
 			ResultSet rs = sql.executeQuery();
+			
 			while(rs.next()) {
+			
 				attraction_detail.setId(rs.getLong("id"));
 				attraction_detail.setName(rs.getString("name"));
 				attraction_detail.setLocality(rs.getString("locality"));
@@ -312,7 +318,6 @@ public class JDBCResearchManagerServiceImpl implements ResearchManagerService {
 				attraction_detail.setLng(rs.getString("lng"));
 			}
 			return attraction_detail;
-
 		} catch (SQLException e) {
 			return attraction_detail;
 		}finally {
@@ -323,43 +328,36 @@ public class JDBCResearchManagerServiceImpl implements ResearchManagerService {
 				}
 			}
 		}
-
 	}
 
 	@Override
 	public ResearchEventResponse researchEvent(ResearchEventRequest parameters) throws ResearchEventFault_Exception {
-		/* per filtrare gli eventi in base a : 
-		 * - titolo
-		 * - località
-		 * - data
-		 * - categoria
-		 */
+		
 		Connection connection = null;
 		EventsList return_list = new EventsList();
 		Event event = new Event();
 		Category category = new Category();
 		Utility utility = new Utility();
+		ResearchEventResponse responseEventByFilter = new ResearchEventResponse();
 
 		event.setLocality(parameters.getLocality());
 		event.setTitle(parameters.getTitle());
 		category.setId(parameters.getCategoryId());
+		event.setCategory(category);
+		
 		if(parameters.getDate() != null) {
+			
 			event.setStartDate(utility.convertDate(parameters.getDate()));
 		}
-		event.setCategory(category);
-
-		/*-------------------------------------------------------------------------*/
-		ResearchEventResponse responseEventByFilter = new ResearchEventResponse();
 		try {
 
 			connection = dataSource.getConnection();
 			connection.setAutoCommit(false);
 			return_list = selectEventByFilter(connection, event.getTitle(), event.getLocality(), event.getCategory().getId(), event.getStartDate());
-
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
-			throw new ResearchEventFault_Exception("Something was wrong with Research Event for this filters..");
+			throw new ResearchEventFault_Exception("Something went wrong with Research Event");
 		}
 		finally {
 			if (connection != null) {
@@ -371,14 +369,13 @@ public class JDBCResearchManagerServiceImpl implements ResearchManagerService {
 				}
 			}
 		}
-
 		responseEventByFilter.setEventsList(return_list);
-		responseEventByFilter.setMessage("Returned Event List for this filter");	
+		responseEventByFilter.setMessage("Returned Event List Research");	
+		
 		return responseEventByFilter;
-
 	}
 
-
+	//Method that return a List of Event filtered by Title, Locality, Date & Category
 	public EventsList selectEventByFilter(Connection con, String name, String locality, Long categoryId, Timestamp date) {
 
 		EventsList return_list = new EventsList();
@@ -460,28 +457,23 @@ public class JDBCResearchManagerServiceImpl implements ResearchManagerService {
 
 	}
 
-
-
-
 	@Override
 	public ResearchEventDetailResponse researchEventDetail(ResearchEventDetailRequest parameters)
 			throws ResearchEventDetailFault_Exception {
+		
 		Connection connection = null;
 		EventElement event_detail = new EventElement();
-
-
-		/*-------------------------------------------------------------------------*/
 		ResearchEventDetailResponse responseEventDetail = new ResearchEventDetailResponse();
+
 		try {
 
 			connection = dataSource.getConnection();
 			connection.setAutoCommit(false);
 			event_detail = selectEventDetail(connection, parameters.getId());
-
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
-			throw new ResearchEventDetailFault_Exception("Something was wrong with Research Event Detail for this event..");
+			throw new ResearchEventDetailFault_Exception("Something went wrong with Research Event Detail");
 		}
 		finally {
 			if (connection != null) {
@@ -493,13 +485,13 @@ public class JDBCResearchManagerServiceImpl implements ResearchManagerService {
 				}
 			}
 		}
-
 		if(event_detail.getId() != 0) {
+			
 			responseEventDetail.setEventElement(event_detail);
 
-			responseEventDetail.setMessage("Returned Event Detail for this Attraction");	
+			responseEventDetail.setMessage("Returned Event Detail Research");	
 		}else {
-			responseEventDetail.setMessage("Event Detail Not Found for this Attraction");	
+			responseEventDetail.setMessage("Event Detail Research NOT Found");	
 
 		}
 		return responseEventDetail;
@@ -519,7 +511,9 @@ public class JDBCResearchManagerServiceImpl implements ResearchManagerService {
 			sql.setLong(1, id);
 
 			ResultSet rs = sql.executeQuery();
+			
 			while(rs.next()) {
+			
 				event_detail.setId(rs.getLong("id"));
 				event_detail.setTitle(rs.getString("title"));
 				event_detail.setLocality(rs.getString("locality"));
@@ -533,7 +527,6 @@ public class JDBCResearchManagerServiceImpl implements ResearchManagerService {
 				event_detail.setLng(rs.getString("lng"));
 			}
 			return event_detail;
-
 		} catch (SQLException e) {
 			return event_detail;
 		}finally {
@@ -544,20 +537,19 @@ public class JDBCResearchManagerServiceImpl implements ResearchManagerService {
 				}
 			}
 		}
-
 	}
 
 	@Override
 	public ResearchEventByCreatorResponse researchEventByCreator(ResearchEventByCreatorRequest parameters)
 			throws ResearchEventByCreatorFault_Exception {
+		
 		Connection connection = null;
 		EventsList return_list = new EventsList();
 		User creator = new User();
-
+		ResearchEventByCreatorResponse responseEventByCreator = new ResearchEventByCreatorResponse();
+		
 		creator.setId(parameters.getCreatorId());
 
-		/*-------------------------------------------------------------------------*/
-		ResearchEventByCreatorResponse responseEventByCreator = new ResearchEventByCreatorResponse();
 		try {
 
 			connection = dataSource.getConnection();
@@ -567,7 +559,7 @@ public class JDBCResearchManagerServiceImpl implements ResearchManagerService {
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
-			throw new ResearchEventByCreatorFault_Exception("Something was wrong with Research Events for this user..");
+			throw new ResearchEventByCreatorFault_Exception("Something went wrong with Research Events By Creator");
 		}
 		finally {
 			if (connection != null) {
@@ -581,11 +573,12 @@ public class JDBCResearchManagerServiceImpl implements ResearchManagerService {
 		}
 
 		responseEventByCreator.setEventsList(return_list);
-		responseEventByCreator.setMessage("Returned Event List for this user");	
+		responseEventByCreator.setMessage("Returned Event List Research By Creator");	
 
 		return responseEventByCreator;
 	}
 
+	//Method that returns a List of Events filtered by Creator
 	public EventsList selectEventByCreator(Connection con, Long idCreator) {
 
 		EventsList return_list = new EventsList();
@@ -601,8 +594,11 @@ public class JDBCResearchManagerServiceImpl implements ResearchManagerService {
 
 
 			ResultSet rs = sql.executeQuery();
+			
 			while(rs.next()) {
+			
 				EventElement event = new EventElement();
+				
 				event.setId(rs.getLong("id"));
 				event.setTitle(rs.getString("title"));
 				event.setLocality(rs.getString("locality"));
@@ -614,12 +610,9 @@ public class JDBCResearchManagerServiceImpl implements ResearchManagerService {
 				event.setEndDate(utility.convertToXML(endDate));
 				event.setLat(rs.getString("lat"));
 				event.setLng(rs.getString("lng"));
-
 				return_list.getEventElement().add(event);
-
 			}
 			return return_list;
-
 		} catch (SQLException e) {
 			return return_list;
 		}finally {
@@ -630,9 +623,7 @@ public class JDBCResearchManagerServiceImpl implements ResearchManagerService {
 				}
 			}
 		}
-
 	}
-
 
 	@Override
 	public ResearchCategoryResponse researchCategory(ResearchCategoryRequest parameters) throws ResearchCategoryFault_Exception {
@@ -640,20 +631,19 @@ public class JDBCResearchManagerServiceImpl implements ResearchManagerService {
 		Connection connection = null;
 		CategoryList return_list = new CategoryList();
 		Category category = new Category();
+		ResearchCategoryResponse responseCategory = new ResearchCategoryResponse();
+		
 		category.setId(parameters.getId());
 
-		/*-------------------------------------------------------------------------*/
-		ResearchCategoryResponse responseCategory = new ResearchCategoryResponse();
 		try {
 
 			connection = dataSource.getConnection();
 			connection.setAutoCommit(false);
 			return_list = selectCategory(connection, category.getId());
-
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
-			throw new ResearchCategoryFault_Exception("Something was wrong with Research Category for this filters..");
+			throw new ResearchCategoryFault_Exception("Something went wrong with Research Category");
 		}
 		finally {
 			if (connection != null) {
@@ -665,13 +655,13 @@ public class JDBCResearchManagerServiceImpl implements ResearchManagerService {
 				}
 			}
 		}
-
 		responseCategory.setCategoryList(return_list);
-		responseCategory.setMessage("Returned Category List for this filter");	
+		responseCategory.setMessage("Returned Category Research List");	
+		
 		return responseCategory;
-
 	}
 
+	//Method that returns a List of Categories
 	public CategoryList selectCategory(Connection con, Long id) {
 
 		CategoryList return_list = new CategoryList();
@@ -679,25 +669,32 @@ public class JDBCResearchManagerServiceImpl implements ResearchManagerService {
 		PreparedStatement sql = null;
 
 		if(id != null) {
+		
 			query = query + "id=?";
 		}else {
+			
 			query = query + "id=id";
 		}
 
 		try {
+			
 			sql = con.prepareStatement(query);
+			
 			if(id != null) {
+			
 				sql.setLong(1, id);
 			}
 			ResultSet rs = sql.executeQuery();
+			
 			while(rs.next()) {
+			
 				CategoryElement category = new CategoryElement();
+				
 				category.setId(rs.getLong("id"));
 				category.setName(rs.getString("name"));
 				return_list.getCategoryElement().add(category);
 			}
 			return return_list;
-
 		} catch (SQLException e) {
 			return return_list;
 		}finally {
@@ -708,10 +705,5 @@ public class JDBCResearchManagerServiceImpl implements ResearchManagerService {
 				}
 			}
 		}
-
 	}
-
-
-
-
 }

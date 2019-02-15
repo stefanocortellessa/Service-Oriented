@@ -24,15 +24,18 @@ public class BalanceAgentServiceImpl implements BalanceAgentService {
 	@Override
 	public GetServerScoreResponse getServerScore(GetServerScoreRequest parameters)
 			throws GetServerScoreFault_Exception, MalformedObjectNameException {
-		//LOGGER.info("Called GetServerInfo method on LoadBalancerServiceImpl");
+		
 		GetServerScoreResponse response = new GetServerScoreResponse();
+		
 		response.setScore(getServersInfo());
 		response.setMessage("Server score returned correctly");
+		
 		return response;
 	}
 	
+	//Method that return infos about Servers
 	private double getServersInfo() throws MalformedObjectNameException {
-		//LOGGER.info("Called getServersInfo method on LoadBalancerServiceImpl");
+		
 		MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
 	    ObjectName mbeanNameMem = new ObjectName("java.lang:type=Memory");
 	    ObjectName mbeanNameThread = new ObjectName("java.lang:type=Threading");
@@ -45,12 +48,13 @@ public class BalanceAgentServiceImpl implements BalanceAgentService {
 	    MemoryUsage memUsage = mxbeanMemory.getHeapMemoryUsage();
 	    int threadCount = mxbeanThread.getThreadCount();
 	    double load = mxbeanOS.getSystemLoadAverage();   
+
 	    System.out.println("\nMemory Utilization: " + (memUsage.getUsed()/(double)memUsage.getMax()) * 100 +  "%");
 	    System.out.println("\nThread Count: " + threadCount);
 	    System.out.println("\nServer load: " + load);
 	    System.out.println("Server Score: " + ((load*1) + ((memUsage.getUsed()/(double)memUsage.getMax())*1) + ((threadCount/100)*1)));
-		return ((load*0.1) + ((memUsage.getUsed()/(double)memUsage.getMax())*0.5) + ((threadCount/100)*0.4));
+		
+	    return ((load*0.1) + ((memUsage.getUsed()/(double)memUsage.getMax())*0.5) + ((threadCount/100)*0.4));
 	    //return ((memUsage.getUsed()/(double)memUsage.getMax()) + threadCount);
 	}
-
 }

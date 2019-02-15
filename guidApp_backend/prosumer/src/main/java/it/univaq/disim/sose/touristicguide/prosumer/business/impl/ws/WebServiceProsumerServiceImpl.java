@@ -3,8 +3,6 @@ package it.univaq.disim.sose.touristicguide.prosumer.business.impl.ws;
 
 import java.io.IOException;
 
-import javax.xml.ws.BindingProvider;
-
 import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
@@ -147,38 +145,37 @@ import it.univaq.disim.sose.touristicguide.prosumer.business.ProsumerService;
 @Service
 public class WebServiceProsumerServiceImpl implements ProsumerService {
 	
+	//Method that returns the Server's port with higher score
 	public String getBestPort (String serviceName) {
 		
 		GetBestServerRequest loadRequest = new GetBestServerRequest();
 		GetBestServerResponse loadResponse = new GetBestServerResponse();
+		
 		loadRequest.setServiceName(serviceName);
+		
 		try {
+			
 			loadResponse = this.getBestServer(loadRequest);
 		} catch (GetBestServerFault_Exception e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		return loadResponse.getServerPort();
-		
 	}
 	
 	@Override
 	public AccountSignupResponse userSignup(AccountSignupRequest request) throws AccountSignupFault_Exception {
 		
-		String bestPort = this.getBestPort("accountManager");
-		System.out.println("BEST PORT: " + bestPort);
-		String url = "http://localhost:"+bestPort+"/accountmanager/services/accountmanager";
-		
+		//String bestPort = this.getBestPort("accountManager");
+		//System.out.println("BEST PORT: " + bestPort);
+		//String url = "http://localhost:"+bestPort+"/accountmanager/services/accountmanager";
 		AccountSignupResponse response = new AccountSignupResponse();
 		AccountManagerService accountManagerService = new AccountManagerService();
 		AccountManagerPT accountManager = accountManagerService.getAccountManagerPort();
-		
-		BindingProvider bp = (BindingProvider)accountManager;
-
-		bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
-		
-		
 		UserSignupRequest userSignupRequest = new UserSignupRequest();
+		
+		//BindingProvider bp = (BindingProvider)accountManager;
+
+		//bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
 		
 		userSignupRequest.setEmail(request.getEmail());
 		userSignupRequest.setName(request.getName());
@@ -186,37 +183,32 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 		userSignupRequest.setSurname(request.getSurname());
 		
 		try {
+			
 			UserSignupResponse userSignupResponse = accountManager.userSignup(userSignupRequest);
 			
 			response.setId(userSignupResponse.getId());
 			response.setToken(userSignupResponse.getToken());
-			response.setMessage(userSignupResponse.getMessage());
-
-			
+			response.setMessage(userSignupResponse.getMessage());			
 		} catch (UserSignupFault_Exception e) {
 			e.printStackTrace();
-			throw new AccountSignupFault_Exception("Something was wrong with Account Signup");
+			throw new AccountSignupFault_Exception("Something went wrong with User Signup Prosumer");
 		}
-		
 		return response;
 	}
 	
 	@Override
 	public AccountLoginResponse userLogin(AccountLoginRequest request) throws AccountLoginFault_Exception {
 		
-		String bestPort = this.getBestPort("accountManager");
-		System.out.println("BEST PORT: " + bestPort);
-		String url = "http://localhost:"+bestPort+"/accountmanager/services/accountmanager";
-		
+		//String bestPort = this.getBestPort("accountManager");
+		//System.out.println("BEST PORT: " + bestPort);
+		//String url = "http://localhost:"+bestPort+"/accountmanager/services/accountmanager";
 		AccountLoginResponse response = new AccountLoginResponse();
 		AccountManagerService accountManagerService = new AccountManagerService();
 		AccountManagerPT accountManager = accountManagerService.getAccountManagerPort();
-		
-		BindingProvider bp = (BindingProvider)accountManager;
-
-		bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
-
 		UserLoginRequest userLoginRequest = new UserLoginRequest();
+		//BindingProvider bp = (BindingProvider)accountManager;
+
+		//bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
 		
 		userLoginRequest.setEmail(request.getEmail());
 		userLoginRequest.setPassword(request.getPassword());
@@ -229,7 +221,7 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 			
 		} catch (UserLoginFault_Exception e) {
 			e.printStackTrace();
-			throw new AccountLoginFault_Exception("Something was wrong with Account Login");
+			throw new AccountLoginFault_Exception("Something was wrong with Account Login Prosumer");
 		}
 		
 		return response;
@@ -238,84 +230,76 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 	@Override
 	public AccountLogoutResponse userLogout(AccountLogoutRequest request) throws AccountLogoutFault_Exception {
 		
-		String bestPort = this.getBestPort("accountManager");
-		System.out.println("BEST PORT: " + bestPort);
-		String url = "http://localhost:"+bestPort+"/accountmanager/services/accountmanager";
-		
+		//String bestPort = this.getBestPort("accountManager");
+		//System.out.println("BEST PORT: " + bestPort);
+		//String url = "http://localhost:"+bestPort+"/accountmanager/services/accountmanager";
 		AccountLogoutResponse response = new AccountLogoutResponse();
 		AccountManagerService accountManagerService = new AccountManagerService();
 		AccountManagerPT accountManager = accountManagerService.getAccountManagerPort();
-		
-		BindingProvider bp = (BindingProvider)accountManager;
-
-		bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
-
 		UserLogoutRequest userLogoutRequest = new UserLogoutRequest();
-		
+
+		//BindingProvider bp = (BindingProvider)accountManager;
+
+		//bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+
 		userLogoutRequest.setToken(request.getToken());
 		
 		try {
+			
 			UserLogoutResponse userLogoutResponse = accountManager.userLogout(userLogoutRequest);
 			
 			response.setResponse(userLogoutResponse.getResponse());
-			
 		} catch (UserLogoutFault_Exception e) {
 			e.printStackTrace();
-			throw new AccountLogoutFault_Exception("Something was wrong with Account Logout");
+			throw new AccountLogoutFault_Exception("Something was wrong with Account Logout Prosumer");
 		}
-		
 		return response;
 	}
 
 	@Override
 	public AccountSessionResponse accountSession(AccountSessionRequest request) throws AccountSessionFault_Exception {
 		
-		String bestPort = this.getBestPort("accountManager");
-		System.out.println("BEST PORT: " + bestPort);
-		String url = "http://localhost:"+bestPort+"/accountmanager/services/accountmanager";
-		
+		//String bestPort = this.getBestPort("accountManager");
+		//System.out.println("BEST PORT: " + bestPort);
+		//String url = "http://localhost:"+bestPort+"/accountmanager/services/accountmanager";
 		AccountSessionResponse response = new AccountSessionResponse();
 		AccountManagerService accountManagerService = new AccountManagerService();
 		AccountManagerPT accountManager = accountManagerService.getAccountManagerPort();
-		
-		BindingProvider bp = (BindingProvider)accountManager;
-
-		bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
-
-		
 		CheckSessionRequest checkSessionRequest = new CheckSessionRequest();
 		
+		//BindingProvider bp = (BindingProvider)accountManager;
+
+		//bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+
 		checkSessionRequest.setToken(request.getToken());
 		
 		try {
+		
 			CheckSessionResponse checkSessionResponse = accountManager.checkSession(checkSessionRequest);
 			
 			response.setResponse(checkSessionResponse.isResponse());
-			
 		} catch (CheckSessionFault_Exception e) {
 			e.printStackTrace();
-			throw new AccountSessionFault_Exception("Something was wrong with Account Session");
+			throw new AccountSessionFault_Exception("Something was wrong with Account Session Prosumer");
 		}
-		
 		return response;
 	}
 
 	@Override
 	public EventInsertResponse eventInsert(EventInsertRequest request) throws EventInsertFault_Exception {
 		
-		String bestPort = this.getBestPort("eventManager");
-		System.out.println("BEST PORT: " + bestPort);
-		String url = "http://localhost:"+bestPort+"/eventmanager/services/eventmanager";
+		//String bestPort = this.getBestPort("eventManager");
+		//System.out.println("BEST PORT: " + bestPort);
+		//String url = "http://localhost:"+bestPort+"/eventmanager/services/eventmanager";
 		
 		EventInsertResponse response = new EventInsertResponse();
 		EventManagerService insertEventService = new EventManagerService();
 		EventManagerPT insertEvent = insertEventService.getEventManagerPort();
-		
-		BindingProvider bp = (BindingProvider)insertEvent;
-
-		bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
-
 		InsertEventRequest insertEventRequest = new InsertEventRequest();
+		
+		//BindingProvider bp = (BindingProvider)insertEvent;
+
+		//bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
 
 		insertEventRequest.setTitle(request.getTitle());
 		insertEventRequest.setLocality(request.getLocality());
@@ -328,78 +312,68 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 		insertEventRequest.setLng(request.getLng());
 		
 		try { 
+			
 			InsertEventResponse insertEventResponse = insertEvent.insertEvent(insertEventRequest);
 			
 			response.setMessage(insertEventResponse.getMessage());
-			
 		} catch (InsertEventFault_Exception e) {
 			e.printStackTrace();
 			try {
-				throw new InsertEventFault_Exception("Something was wrong with Insert Event");
+				throw new InsertEventFault_Exception("Something was wrong with Insert Event Prosumer");
 			} catch (InsertEventFault_Exception e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		}
-		
 		return response;
 	}
 
 	@Override
 	public EventDeleteResponse eventDelete(EventDeleteRequest request) throws EventDeleteFault_Exception {
 		
-		String bestPort = this.getBestPort("eventManager");
-		System.out.println("BEST PORT: " + bestPort);
-		String url = "http://localhost:"+bestPort+"/eventmanager/services/eventmanager";
-		
+		//String bestPort = this.getBestPort("eventManager");
+		//System.out.println("BEST PORT: " + bestPort);
+		//String url = "http://localhost:"+bestPort+"/eventmanager/services/eventmanager";
 		EventDeleteResponse response = new EventDeleteResponse();
 		EventManagerService insertEventService = new EventManagerService();
 		EventManagerPT deleteEvent = insertEventService.getEventManagerPort();
-		
-		BindingProvider bp = (BindingProvider)deleteEvent;
-
-		bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
-		
 		DeleteEventRequest deleteEventRequest = new DeleteEventRequest();
+		//BindingProvider bp = (BindingProvider)deleteEvent;
+
+		//bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
 		
 		deleteEventRequest.setId(request.getId());    
 		deleteEventRequest.setUserId(request.getUserId());
 		
 		try {
+			
 			DeleteEventResponse deleteEventResponse = deleteEvent.deleteEvent(deleteEventRequest);
 			
 			response.setMessage(deleteEventResponse.getMessage());
-			
 		} catch (DeleteEventFault_Exception e) {
 			e.printStackTrace();
 			try {
-				throw new DeleteEventFault_Exception("Something was wrong with Delete Event");
+				throw new DeleteEventFault_Exception("Something was wrong with Delete Event Prosumer");
 			} catch (DeleteEventFault_Exception e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		}
-		
 		return response;
 	}	
 	
 	@Override
 	public EventUpdateResponse eventUpdate(EventUpdateRequest request) throws EventUpdateFault_Exception {
 		
-		String bestPort = this.getBestPort("eventManager");
-		System.out.println("BEST PORT: " + bestPort);
-		String url = "http://localhost:"+bestPort+"/eventmanager/services/eventmanager";
-		
+		//String bestPort = this.getBestPort("eventManager");
+		//System.out.println("BEST PORT: " + bestPort);
+		//String url = "http://localhost:"+bestPort+"/eventmanager/services/eventmanager";
 		EventUpdateResponse response = new EventUpdateResponse();
 		EventManagerService updateEventService = new EventManagerService();
 		EventManagerPT updateEvent = updateEventService.getEventManagerPort();
-		
-		
-		BindingProvider bp = (BindingProvider)updateEvent;
-
-		bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
-		
 		UpdateEventRequest updateEventRequest = new UpdateEventRequest();
+		
+		//BindingProvider bp = (BindingProvider)updateEvent;
+
+		//bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
 		
 		updateEventRequest.setId(request.getId());
 		updateEventRequest.setTitle(request.getTitle());
@@ -413,40 +387,36 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 		updateEventRequest.setLng(request.getLng());
 		
 		try {
+			
 			UpdateEventResponse updateEventResponse = updateEvent.updateEvent(updateEventRequest);
 			
 			response.setMessage(updateEventResponse.getMessage());
-			
 		} catch (UpdateEventFault_Exception e) {
 			e.printStackTrace();
 			try {
-				throw new DeleteEventFault_Exception("Something was wrong with Delete Event");
+				throw new DeleteEventFault_Exception("Something was wrong with Update Event Prosumer");
 			} catch (DeleteEventFault_Exception e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		}
-		
 		return response;
 	}
+	
 	@Override
 	public AttractionInsertResponse attractionInsert(AttractionInsertRequest request) throws AttractionInsertFault_Exception {
 		
-		String bestPort = this.getBestPort("attractionManager");
-		System.out.println("BEST PORT: " + bestPort);
-		String url = "http://localhost:"+bestPort+"/attractionmanager/services/attractionmanager";
-		
+		//String bestPort = this.getBestPort("attractionManager");
+		//System.out.println("BEST PORT: " + bestPort);
+		//String url = "http://localhost:"+bestPort+"/attractionmanager/services/attractionmanager";
 		AttractionInsertResponse response = new AttractionInsertResponse();
 		AttractionManagerService insertAttractionService = new AttractionManagerService();
 		AttractionManagerPT insertAttr = insertAttractionService.getAttractionManagerPort();
-		
-		
-		BindingProvider bp = (BindingProvider)insertAttr;
-
-		bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
-		
 		InsertAttractionRequest insertAttractionRequest = new InsertAttractionRequest();
+	
+		//BindingProvider bp = (BindingProvider)insertAttr;
 
+		//bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+	
 		insertAttractionRequest.setName(request.getName());
 		insertAttractionRequest.setLocality(request.getLocality());
 		insertAttractionRequest.setCategoryId(request.getCategoryId());
@@ -455,81 +425,74 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 		insertAttractionRequest.setLat(request.getLat());
 		insertAttractionRequest.setLng(request.getLng());
 		
-		
 		try { 
+			
 			InsertAttractionResponse insertEventResponse = insertAttr.insertAttraction(insertAttractionRequest);
 			
 			response.setMessage(insertEventResponse.getMessage());
-			
 		} catch (InsertAttractionFault_Exception e) {
 			e.printStackTrace();
 			try {
-				throw new InsertEventFault_Exception("Something was wrong with Insert Event");
+				throw new InsertEventFault_Exception("Something was wrong with Insert Attraction Prosumer");
 			} catch (InsertEventFault_Exception e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		}
 		
 		return response;
 	}
+	
 	@Override
 	public AttractionDeleteResponse attractionDelete(AttractionDeleteRequest request) throws AttractionDeleteFault_Exception {
 		
 
-		String bestPort = this.getBestPort("attractionManager");
-		System.out.println("BEST PORT: " + bestPort);
-		String url = "http://localhost:"+bestPort+"/attractionmanager/services/attractionmanager";
-		
+		//String bestPort = this.getBestPort("attractionManager");
+		//System.out.println("BEST PORT: " + bestPort);
+		//String url = "http://localhost:"+bestPort+"/attractionmanager/services/attractionmanager";
 		AttractionDeleteResponse response = new AttractionDeleteResponse();
 		AttractionManagerService deleteAttractionService = new AttractionManagerService();
 		AttractionManagerPT deleteAttr = deleteAttractionService.getAttractionManagerPort();
-		
-		
-		BindingProvider bp = (BindingProvider)deleteAttr;
-
-		bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
-		
 		DeleteAttractionRequest deleteAttractionRequest = new DeleteAttractionRequest();
+		
+		//BindingProvider bp = (BindingProvider)deleteAttr;
+
+		//bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
 
 		deleteAttractionRequest.setId(request.getId());
 		deleteAttractionRequest.setUserId(request.getUserId());
 		
 		try { 
+			
 			DeleteAttractionResponse deleteEventResponse = deleteAttr.deleteAttraction(deleteAttractionRequest);
 			
 			response.setMessage(deleteEventResponse.getMessage());
-			
 		} catch (DeleteAttractionFault_Exception e) {
 			e.printStackTrace();
 			try {
-				throw new DeleteEventFault_Exception("Something was wrong with Insert Event");
+				throw new DeleteEventFault_Exception("Something was wrong with Attraction Delete Prosumer");
 			} catch (DeleteEventFault_Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		}
-		
 		return response;
 	}
+	
 	@Override
 	public AttractionUpdateResponse attractionUpdate(AttractionUpdateRequest request) throws AttractionUpdateFault_Exception {
 		
-		String bestPort = this.getBestPort("attractionManager");
-		System.out.println("BEST PORT: " + bestPort);
-		String url = "http://localhost:"+bestPort+"/attractionmanager/services/attractionmanager";
-		
+		//String bestPort = this.getBestPort("attractionManager");
+		//System.out.println("BEST PORT: " + bestPort);
+		//String url = "http://localhost:"+bestPort+"/attractionmanager/services/attractionmanager";
 		AttractionUpdateResponse response = new AttractionUpdateResponse();
 		AttractionManagerService updateAttractionService = new AttractionManagerService();
 		AttractionManagerPT updateAttr = updateAttractionService.getAttractionManagerPort();
-		
-		
-		BindingProvider bp = (BindingProvider)updateAttr;
-
-		bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
-		
 		UpdateAttractionRequest updateAttractionRequest = new UpdateAttractionRequest();
+		
+		//BindingProvider bp = (BindingProvider)updateAttr;
 
+		//bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+		
 		updateAttractionRequest.setId(request.getId());
 		updateAttractionRequest.setName(request.getName());
 		updateAttractionRequest.setLocality(request.getLocality());
@@ -540,23 +503,22 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 		updateAttractionRequest.setLng(request.getLng());
 		
 		try { 
+			
 			UpdateAttractionResponse updateEventResponse = updateAttr.updateAttraction(updateAttractionRequest);
 			
 			response.setMessage(updateEventResponse.getMessage());
-			
 		} catch (UpdateAttractionFault_Exception e) {
 			e.printStackTrace();
 			try {
-				throw new UpdateAttractionFault_Exception("Something was wrong with Insert Event");
+				throw new UpdateAttractionFault_Exception("Something was wrong with Attraction Update Prosumer");
 			} catch (UpdateAttractionFault_Exception e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		}
-		
 		return response;
 	}
 	
+	//Method that build the Element Event
 	public EventElement buildEventElement(it.univaq.disim.sose.touristicguide.researchmanager.EventElement response_element) {
 		EventElement event = new EventElement();
 		
@@ -570,10 +532,13 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 		event.setTitle(response_element.getTitle());
 		event.setLat(response_element.getLat());
 		event.setLng(response_element.getLng());
+		
 		return event;
 	}
 	
+	//Method that build the Element Attraction
 	public AttractionElement buildAttractionElement(it.univaq.disim.sose.touristicguide.researchmanager.AttractionElement response_element) {
+		
 		AttractionElement attraction = new AttractionElement();
 		
 		attraction.setId(response_element.getId());
@@ -582,42 +547,47 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 		attraction.setCategoryName(response_element.getCategoryName());
 		attraction.setCreatorId(response_element.getCreatorId());
 		attraction.setName(response_element.getName());
-
 		attraction.setLat(response_element.getLat());
 		attraction.setLng(response_element.getLng());
 	
 		return attraction;
 	}
 	
+	//Method that build the Element Category
 	public CategoryElement buildCategoryElement(it.univaq.disim.sose.touristicguide.researchmanager.CategoryElement response_element) {
 		CategoryElement category = new CategoryElement();
 		
 		category.setId(response_element.getId());
 		category.setName(response_element.getName());
+		
 		return category;
 	}
 	
-	
+	//Method that build the List Event
 	public EventsList buildEventsList(it.univaq.disim.sose.touristicguide.researchmanager.EventsList response_list) {
+		
 		EventsList l = new EventsList();
 		
 		for (int i = 0; i<response_list.getEventElement().size(); i++ ) {
+		
 			l.getEventElement().add(buildEventElement(response_list.getEventElement().get(i)));
 		}
 		return l;
 	}
-	
 
+	//Method that build the List Attraction
 	public AttractionsList buildAttractionsList(it.univaq.disim.sose.touristicguide.researchmanager.AttractionsList response_list) {
+		
 		AttractionsList l = new AttractionsList();
 		
 		for (int i = 0; i<response_list.getAttractionElement().size(); i++ ) {
+		
 			l.getAttractionElement().add(buildAttractionElement(response_list.getAttractionElement().get(i)));
 		}
 		return l;
 	}
-	
 
+	//Method that build the List Category
 	public CategoryList buildCategoryList(it.univaq.disim.sose.touristicguide.researchmanager.CategoryList response_list) {
 		CategoryList l = new CategoryList();
 		
@@ -631,38 +601,34 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 	public EventByCreatorResearchResponse eventByCreatorResearch(EventByCreatorResearchRequest request)
 			throws EventByCreatorResearchFault_Exception {		
 
-		String bestPort = this.getBestPort("researchManager");
-		System.out.println("BEST PORT: " + bestPort);
-		String url = "http://localhost:"+bestPort+"/researchmanager/services/researchmanager";
-		
+		//String bestPort = this.getBestPort("researchManager");
+		//System.out.println("BEST PORT: " + bestPort);
+		//String url = "http://localhost:"+bestPort+"/researchmanager/services/researchmanager";
 		EventByCreatorResearchResponse response = new EventByCreatorResearchResponse();
 		ResearchManagerService researchManagerService = new ResearchManagerService();
 		ResearchManagerPT research = researchManagerService.getResearchManagerPort();
-		
-		BindingProvider bp = (BindingProvider)research;
-
-		bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
-		
 		ResearchEventByCreatorRequest researchRequest = new ResearchEventByCreatorRequest();
+		
+		//BindingProvider bp = (BindingProvider)research;
 
+		//bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+	
 		researchRequest.setCreatorId(request.getCreatorId());
 		
 		try { 
+			
 			ResearchEventByCreatorResponse researchResponse = research.researchEventByCreator(researchRequest);
 			
 			response.setMessage(researchResponse.getMessage());
 			response.setEventsList(buildEventsList(researchResponse.getEventsList()));
-			
 		} catch (ResearchEventByCreatorFault_Exception e) {
 			e.printStackTrace();
 			try {
-				throw new ResearchEventByCreatorFault_Exception("Something was wrong with Research Event for this user");
+				throw new ResearchEventByCreatorFault_Exception("Something was wrong with Research Event By Creator Prosumer");
 			} catch (ResearchEventByCreatorFault_Exception e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		}
-		
 		return response;
 	}
 
@@ -670,39 +636,38 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 	public AttractionDetailResearchResponse attractionDetailResearch(AttractionDetailResearchRequest request)
 			throws AttractionDetailResearchFault_Exception {
 		
-		String bestPort = this.getBestPort("researchManager");
-		System.out.println("BEST PORT: " + bestPort);
-		String url = "http://localhost:"+bestPort+"/researchmanager/services/researchmanager";
-		
+		//String bestPort = this.getBestPort("researchManager");
+		//System.out.println("BEST PORT: " + bestPort);
+		//String url = "http://localhost:"+bestPort+"/researchmanager/services/researchmanager";
 		AttractionDetailResearchResponse response = new AttractionDetailResearchResponse();
 		ResearchManagerService researchManagerService = new ResearchManagerService();
 		ResearchManagerPT research = researchManagerService.getResearchManagerPort();
-		
-		BindingProvider bp = (BindingProvider)research;
-
-		bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
-		
 		ResearchAttractionDetailRequest researchRequest = new ResearchAttractionDetailRequest();
+		
+		//BindingProvider bp = (BindingProvider)research;
+
+		//bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
 
 		researchRequest.setId(request.getId());
 		
 		try { 
+			
 			ResearchAttractionDetailResponse researchResponse = research.researchAttractionDetail(researchRequest);
 			
 			response.setMessage(researchResponse.getMessage());
+			
 			if(researchResponse.getAttractionElement() != null) {
+			
 				response.setAttractionElement(buildAttractionElement(researchResponse.getAttractionElement()));
 			}
 		} catch (ResearchAttractionDetailFault_Exception e) {
 			e.printStackTrace();
 			try {
-				throw new ResearchAttractionDetailFault_Exception("Something was wrong with Research Attraction");
+				throw new ResearchAttractionDetailFault_Exception("Something was wrong with Research Attraction Detail Prosumer");
 			} catch (ResearchAttractionDetailFault_Exception e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		}
-		
 		return response;
 	}
 
@@ -710,39 +675,39 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 	public EventDetailResearchResponse eventDetailResearch(EventDetailResearchRequest request)
 			throws EventDetailResearchFault_Exception {
 
-		String bestPort = this.getBestPort("researchManager");
-		System.out.println("BEST PORT: " + bestPort);
-		String url = "http://localhost:"+bestPort+"/researchmanager/services/researchmanager";
-		
+		//String bestPort = this.getBestPort("researchManager");
+		//System.out.println("BEST PORT: " + bestPort);
+		//String url = "http://localhost:"+bestPort+"/researchmanager/services/researchmanager";
 		EventDetailResearchResponse response = new EventDetailResearchResponse();
 		ResearchManagerService researchManagerService = new ResearchManagerService();
 		ResearchManagerPT research = researchManagerService.getResearchManagerPort();
-		
-		BindingProvider bp = (BindingProvider)research;
-
-		bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
 		ResearchEventDetailRequest researchRequest = new ResearchEventDetailRequest();
+		
+		//BindingProvider bp = (BindingProvider)research;
 
+		//bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+	
 		researchRequest.setId(request.getId());
 		
 		try { 
+			
 			ResearchEventDetailResponse researchResponse = research.researchEventDetail(researchRequest);
 			
 			response.setMessage(researchResponse.getMessage());
+			
 			if(researchResponse.getEventElement() != null) {
+			
 				response.setEventElement(buildEventElement(researchResponse.getEventElement()));
 
 			}
 		} catch (ResearchEventDetailFault_Exception e) {
 			e.printStackTrace();
 			try {
-				throw new ResearchEventDetailFault_Exception("Something was wrong with Research Event");
+				throw new ResearchEventDetailFault_Exception("Something was wrong with Research Event Detail Prosumer");
 			} catch (ResearchEventDetailFault_Exception e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		}
-		
 		return response;
 	}
 
@@ -750,85 +715,76 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 	public AttractionResearchResponse attractionResearch(AttractionResearchRequest request)
 			throws AttractionResearchFault_Exception {
 
-		String bestPort = this.getBestPort("researchManager");
-		System.out.println("BEST PORT: " + bestPort);
-		String url = "http://localhost:"+bestPort+"/researchmanager/services/researchmanager";
-		
+		//String bestPort = this.getBestPort("researchManager");
+		//System.out.println("BEST PORT: " + bestPort);
+		//String url = "http://localhost:"+bestPort+"/researchmanager/services/researchmanager";
 		AttractionResearchResponse response = new AttractionResearchResponse();
 		ResearchManagerService researchManagerService = new ResearchManagerService();
 		ResearchManagerPT research = researchManagerService.getResearchManagerPort();
-
-		BindingProvider bp = (BindingProvider)research;
-
-		bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
-		
 		ResearchAttractionRequest researchRequest = new ResearchAttractionRequest();
+		
+		//BindingProvider bp = (BindingProvider)research;
+
+		//bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
 
 		researchRequest.setLocality(request.getLocality());
 		researchRequest.setName(request.getName());
 		researchRequest.setCategoryId(request.getCategoryId());
 		
 		try { 
+			
 			ResearchAttractionResponse researchResponse = research.researchAttraction(researchRequest);
 			
 			response.setMessage(researchResponse.getMessage());
 			response.setAttractionsList(buildAttractionsList(researchResponse.getAttractionsList()));
-
-			
 		} catch (ResearchAttractionFault_Exception e) {
 			e.printStackTrace();
 			try {
-				throw new ResearchAttractionFault_Exception("Something was wrong with Research Attraction");
+				throw new ResearchAttractionFault_Exception("Something was wrong with Research Attraction Prosumer");
 			} catch (ResearchAttractionFault_Exception e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		}
-		
 		return response;
 	}
 
 	@Override
 	public EventResearchResponse eventResearch(EventResearchRequest request) throws EventResearchFault_Exception {
 
-		String bestPort = this.getBestPort("researchManager");
-		System.out.println("BEST PORT: " + bestPort);
-		String url = "http://localhost:"+bestPort+"/researchmanager/services/researchmanager";
-		
+		//String bestPort = this.getBestPort("researchManager");
+		//System.out.println("BEST PORT: " + bestPort);
+		//String url = "http://localhost:"+bestPort+"/researchmanager/services/researchmanager";
 		EventResearchResponse response = new EventResearchResponse();
 		ResearchManagerService researchManagerService = new ResearchManagerService();
 		ResearchManagerPT research = researchManagerService.getResearchManagerPort();
-		
-		BindingProvider bp = (BindingProvider)research;
-
-		bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
-		
 		ResearchEventRequest researchRequest = new ResearchEventRequest();
+		
+		//BindingProvider bp = (BindingProvider)research;
+
+		//bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
 
 		researchRequest.setLocality(request.getLocality());
 		researchRequest.setTitle(request.getTitle());
 		researchRequest.setCategoryId(request.getCategoryId());
+		
 		if(request.getDate() != null) {
+		
 			researchRequest.setDate(request.getDate());
 		}
-		
 		try { 
+		
 			ResearchEventResponse researchResponse = research.researchEvent(researchRequest);
 			
 			response.setMessage(researchResponse.getMessage());
 			response.setEventsList(buildEventsList(researchResponse.getEventsList()));
-
-			
 		} catch (ResearchEventFault_Exception e) {
 			e.printStackTrace();
 			try {
-				throw new ResearchEventFault_Exception("Something was wrong with Research Event");
+				throw new ResearchEventFault_Exception("Something was wrong with Research Event Prosumer");
 			} catch (ResearchEventFault_Exception e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		}
-		
 		return response;
 	}
 
@@ -836,88 +792,83 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 	public AttractionByCreatorResearchResponse attractionByCreatorResearch(
 			AttractionByCreatorResearchRequest request) throws AttractionByCreatorResearchFault_Exception {
 
-		String bestPort = this.getBestPort("researchManager");
-		System.out.println("BEST PORT: " + bestPort);
-		String url = "http://localhost:"+bestPort+"/researchmanager/services/researchmanager";
-		
+		//String bestPort = this.getBestPort("researchManager");
+		//System.out.println("BEST PORT: " + bestPort);
+		//String url = "http://localhost:"+bestPort+"/researchmanager/services/researchmanager";
 		AttractionByCreatorResearchResponse response = new AttractionByCreatorResearchResponse();
 		ResearchManagerService researchManagerService = new ResearchManagerService();
 		ResearchManagerPT research = researchManagerService.getResearchManagerPort();
-		
-		BindingProvider bp = (BindingProvider)research;
-
-		bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
 		ResearchAttractionByCreatorRequest researchRequest = new ResearchAttractionByCreatorRequest();
+		
+		//BindingProvider bp = (BindingProvider)research;
+
+		//bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
 
 		researchRequest.setCreatorId(request.getCreatorId());
 		
 		try { 
+			
 			ResearchAttractionByCreatorResponse researchResponse = research.researchAttractionByCreator(researchRequest);
 			
 			response.setMessage(researchResponse.getMessage());
 			response.setAttractionsList(buildAttractionsList(researchResponse.getAttractionsList()));
-
-			
 		} catch (ResearchAttractionByCreatorFault_Exception e) {
 			e.printStackTrace();
 			try {
-				throw new ResearchAttractionByCreatorFault_Exception("Something was wrong with Research Attraction for this user");
+				throw new ResearchAttractionByCreatorFault_Exception("Something was wrong with Research Attraction By Creator Prosumer");
 			} catch (ResearchAttractionByCreatorFault_Exception e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		}
-		
 		return response;
 	}
  
 	@Override
 	public GoogleGeocodingResponse googleGeocoding(GoogleGeocodingRequest parameters)
 			throws GoogleGeocodingFault_Exception, ApiException, InterruptedException, IOException {
-		GeoApiContext context = new GeoApiContext.Builder().apiKey("AIzaSyBa5iuW05l3hyHLGDr1fnumGssMI-Yombw").build();
-			GeocodingResult[] results;
-			results = GeocodingApi.geocode(context, parameters.getLocality()).await();
-			Gson gson = new GsonBuilder().setPrettyPrinting().create();
-			GoogleGeocodingResponse response = new GoogleGeocodingResponse();
-			response.setLat(gson.toJson(results[0].geometry.location.lat));
-			response.setLng(gson.toJson(results[0].geometry.location.lng));
-			
-			return response;
 		
+		GeoApiContext context = new GeoApiContext.Builder().apiKey("AIzaSyBa5iuW05l3hyHLGDr1fnumGssMI-Yombw").build();	
+		GeocodingResult[] results;
+		
+		results = GeocodingApi.geocode(context, parameters.getLocality()).await();
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		GoogleGeocodingResponse response = new GoogleGeocodingResponse();
+		
+		response.setLat(gson.toJson(results[0].geometry.location.lat));
+		response.setLng(gson.toJson(results[0].geometry.location.lng));
+		
+		return response;
 	}
 
 	@Override
 	public CategoryResearchResponse categoryResearch(CategoryResearchRequest request)
 			throws CategoryResearchFault_Exception{
 
-		String bestPort = this.getBestPort("researchManager");
-		System.out.println("BEST PORT: " + bestPort);
-		String url = "http://localhost:"+bestPort+"/researchmanager/services/researchmanager";
-		
+		//String bestPort = this.getBestPort("researchManager");
+		//System.out.println("BEST PORT: " + bestPort);
+		//String url = "http://localhost:"+bestPort+"/researchmanager/services/researchmanager";
 		CategoryResearchResponse response = new CategoryResearchResponse();
 		ResearchManagerService researchManagerService = new ResearchManagerService();
 		ResearchManagerPT research = researchManagerService.getResearchManagerPort();
-		
-		BindingProvider bp = (BindingProvider)research;
-
-		bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
 		ResearchCategoryRequest researchRequest = new ResearchCategoryRequest();
+		
+		//BindingProvider bp = (BindingProvider)research;
+
+		//bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
 
 		researchRequest.setId(request.getId());
 		
 		try { 
+			
 			ResearchCategoryResponse researchResponse = research.researchCategory(researchRequest);
 			
 			response.setMessage(researchResponse.getMessage());
 			response.setCategoryList(buildCategoryList(researchResponse.getCategoryList()));
-
-			
 		} catch (ResearchCategoryFault_Exception e) {
 			e.printStackTrace();
 			try {
-				throw new ResearchCategoryFault_Exception("Something was wrong with Research Category");
+				throw new ResearchCategoryFault_Exception("Something was wrong with Research Category Prosumer");
 			} catch (ResearchCategoryFault_Exception e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		}
@@ -927,6 +878,7 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 
 	@Override
 	public GetBestServerResponse getBestServer(GetBestServerRequest request) throws GetBestServerFault_Exception {
+		
 		GetBestServerResponse response = new GetBestServerResponse();
 		LoadBalancerService LoadBalancerService = new LoadBalancerService();
 		LoadBalancerPT balancer = LoadBalancerService.getLoadBalancerPort();
@@ -935,21 +887,19 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 		balancerRequest.setServiceName(request.getServiceName());
 		
 		try { 
+		
 			GetServerInfoResponse balancerResponse = balancer.getServerInfo(balancerRequest);
 			
 			response.setMessage(balancerResponse.getMessage());
 			response.setServerPort(balancerResponse.getServerPort());
-			
 		} catch (GetServerInfoFault_Exception e) {
 			e.printStackTrace();
 			try {
-				throw new GetServerInfoFault_Exception("Something was wrong with Research Category");
+				throw new GetServerInfoFault_Exception("Something was wrong with Get Best Server Prosumer");
 			} catch (GetServerInfoFault_Exception e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		}
-		
 		return response;
 	}
 }

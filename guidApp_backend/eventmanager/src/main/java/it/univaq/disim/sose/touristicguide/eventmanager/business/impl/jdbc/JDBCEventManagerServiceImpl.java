@@ -40,10 +40,10 @@ public class JDBCEventManagerServiceImpl implements EventManagerService {
 	public InsertEventResponse insertEvent(InsertEventRequest parameters) throws InsertEventFault_Exception {
 
 		Connection connection = null;
+		InsertEventResponse response = new InsertEventResponse();
 		String result = "Event not inserted";
-
-		Event event = new Event();
 		Utility utility = new Utility();
+		Event event = new Event();
 		Category category = new Category();
 		User creator = new User();
 
@@ -51,37 +51,45 @@ public class JDBCEventManagerServiceImpl implements EventManagerService {
 		event.setLocality(parameters.getLocality());
 		event.setStartDate(utility.convertDate(parameters.getStartDate()));
 		event.setEndDate(utility.convertDate(parameters.getEndDate()));
-		/*----SI DEVE CONTROLLARE CHE ID E NAME CORRISPONDONO PRIMA DI INSERIRE----*/
+		
 		category.setId(parameters.getCategoryId());
 		category.setName(parameters.getCategoryName());
+
 		creator.setId(parameters.getCreatorId());
+
 		event.setCategory(category);
 		event.setCreator(creator);
 		event.setLat(parameters.getLat());
 		event.setLng(parameters.getLng());
-		/*-------------------------------------------------------------------------*/
-		InsertEventResponse responseEvent = new InsertEventResponse();
+
 		try {
 
 			connection = dataSource.getConnection();
 			connection.setAutoCommit(false);
 
-			if(insert(connection, event.getTitle(), event.getLocality(), event.getStartDate(), event.getEndDate(), event.getCategory().getId(),
-					event.getCreator().getId(), event.getLat(), event.getLng())) {
+			if (insert(connection, 
+					   event.getTitle(), 
+					   event.getLocality(), 
+					   event.getStartDate(), 
+					   event.getEndDate(),
+					   event.getCategory().getId(), 
+					   event.getCreator().getId(), 
+					   event.getLat(), 
+					   event.getLng())) {
 
-				result = "Event inserted";
+				result = "Event Inserted";
 
-			}else {
-				result = "Event not inserted";
+			} else {
+				
+				result = "Event NOT Inserted";
 			}
-		}
-		catch (SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new InsertEventFault_Exception("Something was wrong with Insert an Event..");
-		}
-		finally {
+			throw new InsertEventFault_Exception("Something went wrong with Insert Event..");
+		} finally {
 			if (connection != null) {
 				try {
+					
 					connection.setAutoCommit(true);
 					connection.close();
 				} catch (SQLException e) {
@@ -89,91 +97,96 @@ public class JDBCEventManagerServiceImpl implements EventManagerService {
 				}
 			}
 		}
+		response.setMessage(result);
 
-		responseEvent.setMessage(result);
-
-		return responseEvent;
+		return response;
 	}
 
 	@Override
 	public CheckSessionResponse checkSession(CheckSessionRequest parameters) throws CheckSessionFault_Exception {
 
-		CheckSessionResponse responseSession = new CheckSessionResponse();
-
-		String sql = "SELECT * FROM sessions WHERE token = ?";
-
 		Connection connection = null;
-		PreparedStatement par = null;
+		PreparedStatement ps = null;
 		ResultSet rs = null;
+		CheckSessionResponse response = new CheckSessionResponse();
+		String sql = "SELECT * FROM sessions WHERE token = ?";
+		
 
-		try {			
+		try {
 			connection = dataSource.getConnection();
-			par = connection.prepareStatement(sql);
+			ps = connection.prepareStatement(sql);
 
-			par.setString(1, parameters.getToken());
-			rs = par.executeQuery();
+			ps.setString(1, parameters.getToken());
+			rs = ps.executeQuery();
 
 			rs.last();
 			int num_rows = rs.getRow();
 
-			if(num_rows != 0) {
-				responseSession.setResponse(true);
+			if (num_rows != 0) {
+				
+				response.setResponse(true);
 			} else {
-				responseSession.setResponse(false);
+				
+				response.setResponse(false);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new CheckSessionFault_Exception("Something was wrong with Checking Session..");
+			throw new CheckSessionFault_Exception("Something went wrong with Checking Session..");
 		} finally {
-			if (par != null) {
+			if (ps != null) {
 				try {
-					par.close();
+					ps.close();
 				} catch (SQLException e) {
 				}
 			}
 			if (connection != null) {
 				try {
+					
 					connection.close();
-				} catch (SQLException e) {}
+				} catch (SQLException e) {
+				}
 			}
 		}
-		return responseSession;
+		return response;
 	}
 
 	@Override
 	public DeleteEventResponse deleteEvent(DeleteEventRequest parameters) throws DeleteEventFault_Exception {
 
 		Connection connection = null;
-		String result = "Event not Deleted";
-
+		DeleteEventResponse response = new DeleteEventResponse();
+		String result = "Event NOT Deleted";
 		Event event = new Event();
 		User user = new User();
-		// PRENDERE ANCHE ID UTENTE CHE VUOLE CANCELLARE E VEDERE SE È LUI IL CREATORE!
+		
 		event.setId(parameters.getId());
+		
 		user.setId(parameters.getUserId());
+		
 		event.setCreator(user);
-		DeleteEventResponse responseEvent = new DeleteEventResponse();
 
 		try {
 
 			connection = dataSource.getConnection();
 			connection.setAutoCommit(false);
 
-			if(check_creator(connection, event.getId(), event.getCreator().getId())) {
-				if(delete(connection, event.getId())) {
+			if (check_creator(connection, 
+							  event.getId(), 
+						   	  event.getCreator().getId())) {
+				if (delete(connection, 
+						   event.getId())) {
+					
 					result = "Event Deleted!";
-				}else {
-					result = "Event not Deleted!";
+				} else {
+					result = "Event NOT Deleted!";
 				}
-			}else {
-				result = "Event not Deleted : user is not its creator";
+			} else {
+				result = "Event NOT Deleted: user is NOT its creator";
 			}
-		}
-		catch (SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new DeleteEventFault_Exception("Something was wrong with Deleting an Event..");
-		}
-		finally {
+			throw new DeleteEventFault_Exception("Something went wrong with Deleting an Event..");
+		} finally {
 			if (connection != null) {
 				try {
 					connection.setAutoCommit(true);
@@ -183,18 +196,17 @@ public class JDBCEventManagerServiceImpl implements EventManagerService {
 				}
 			}
 		}
+		response.setMessage(result);
 
-		responseEvent.setMessage(result);
-
-		return responseEvent;
+		return response;
 	}
 
 	@Override
 	public UpdateEventResponse updateEvent(UpdateEventRequest parameters) throws UpdateEventFault_Exception {
 
 		Connection connection = null;
-		String result = "Event not updated";
-
+		UpdateEventResponse response = new UpdateEventResponse();
+		String result = "Event NOT Updated";
 		Event event = new Event();
 		Utility utility = new Utility();
 		Category category = new Category();
@@ -205,51 +217,53 @@ public class JDBCEventManagerServiceImpl implements EventManagerService {
 		event.setLocality(parameters.getLocality());
 		event.setStartDate(utility.convertDate(parameters.getStartDate()));
 		event.setEndDate(utility.convertDate(parameters.getEndDate()));
-		
-		/*----SI DEVE CONTROLLARE CHE ID E NAME CORRISPONDONO PRIMA DI INSERIRE----*/
+
 		category.setId(parameters.getCategoryId());
 		category.setName(parameters.getCategoryName());
-		
+
 		creator.setId(parameters.getCreatorId());
-		
+
 		event.setCategory(category);
 		event.setCreator(creator);
-		
 		event.setLat(parameters.getLat());
 		event.setLng(parameters.getLng());
-		
-		/*-------------------------------------------------------------------------*/
-		UpdateEventResponse responseEvent = new UpdateEventResponse();
 
 		try {
 
 			connection = dataSource.getConnection();
 			connection.setAutoCommit(false);
 
-			if(check_creator(connection, event.getId(), event.getCreator().getId())) {
-				
-				
-				if(update(connection, event.getId(), event.getTitle(), event.getLocality(), event.getStartDate(), event.getEndDate(), event.getCategory().getId(),
-						event.getCreator().getId(), event.getLat(), event.getLng())) {
+			if (check_creator(connection, 
+							  event.getId(), 
+							  event.getCreator().getId())) {
 
-					result = "Event updated";
+				if (update(connection, 
+						   event.getId(), 
+						   event.getTitle(), 
+						   event.getLocality(), 
+						   event.getStartDate(),
+						   event.getEndDate(), 
+						   event.getCategory().getId(), 
+						   event.getCreator().getId(), 
+						   event.getLat(),
+						   event.getLng())) {
 
-				}else {
-					result = "Event not updated";
+					result = "Event Updated";
+
+				} else {
+					result = "Event NOT Updated";
 				}
-			}else {
-				System.out.println("EVENT_ID: " + event.getId());
-				System.out.println("CREATOR_ID: " + event.getCreator().getId());
-				result = "Event not updated: user is not its creator";
+			} else {
+				
+				result = "Event NOT updated: user is NOT its creator";
 			}
-		}
-		catch (SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new UpdateEventFault_Exception("Something was wrong with Update an Event..");
-		}
-		finally {
+			throw new UpdateEventFault_Exception("Something went wrong with Update Event..");
+		} finally {
 			if (connection != null) {
 				try {
+					
 					connection.setAutoCommit(true);
 					connection.close();
 				} catch (SQLException e) {
@@ -257,17 +271,18 @@ public class JDBCEventManagerServiceImpl implements EventManagerService {
 				}
 			}
 		}
+		response.setMessage(result);
 
-		responseEvent.setMessage(result);
-
-		return responseEvent;
+		return response;
 	}
 
-
-	public boolean insert(Connection con, String title, String locality, Timestamp startDate, Timestamp endDate, Long idCategory, Long idCreator, String lat, String lng) {
+	//Method that queries the database inserting an event in it
+	public boolean insert(Connection con, String title, String locality, Timestamp startDate, Timestamp endDate,
+			Long idCategory, Long idCreator, String lat, String lng) {
 
 		String query = "INSERT INTO events (title, locality, startDate, endDate, id_category, id_creator, lat, lng) VALUES (?,?,?,?,?,?,?,?)";
 		PreparedStatement sql = null;
+		
 		try {
 
 			sql = con.prepareStatement(query);
@@ -280,7 +295,7 @@ public class JDBCEventManagerServiceImpl implements EventManagerService {
 			sql.setLong(6, idCreator);
 			sql.setString(7, lat);
 			sql.setString(8, lng);
-			
+
 			System.out.println(sql.toString());
 			if (sql.executeUpdate() == 1) {
 				return true;
@@ -290,7 +305,7 @@ public class JDBCEventManagerServiceImpl implements EventManagerService {
 
 		} catch (SQLException e) {
 			return false;
-		}finally {
+		} finally {
 			if (sql != null) {
 				try {
 					sql.close();
@@ -299,11 +314,13 @@ public class JDBCEventManagerServiceImpl implements EventManagerService {
 			}
 		}
 	}
-
+	
+	//Method that queries the database deleting an event in it
 	public boolean delete(Connection con, Long id) {
 
 		String query = "DELETE FROM events WHERE id = ?";
 		PreparedStatement sql = null;
+		
 		try {
 
 			sql = con.prepareStatement(query);
@@ -317,7 +334,7 @@ public class JDBCEventManagerServiceImpl implements EventManagerService {
 			}
 		} catch (SQLException e) {
 			return false;
-		}finally {
+		} finally {
 			if (sql != null) {
 				try {
 					sql.close();
@@ -327,14 +344,16 @@ public class JDBCEventManagerServiceImpl implements EventManagerService {
 		}
 	}
 
-	public boolean update(Connection con, Long id, String title, String locality, Timestamp startDate, Timestamp endDate, Long idCategory, Long idCreator, String lat, String lng) {
+	//Method that queries the database updating an event in it
+	public boolean update(Connection con, Long id, String title, String locality, Timestamp startDate,
+			Timestamp endDate, Long idCategory, Long idCreator, String lat, String lng) {
 
 		String query = "UPDATE events SET title=?, locality=?, startDate=?, endDate=?, id_category=?, id_creator=?, lat=?, lng=? WHERE id=?";
 		PreparedStatement sql = null;
 		try {
 
 			sql = con.prepareStatement(query);
-			
+
 			sql.setString(1, title);
 			sql.setString(2, locality);
 			sql.setTimestamp(3, startDate);
@@ -344,7 +363,7 @@ public class JDBCEventManagerServiceImpl implements EventManagerService {
 			sql.setString(7, lat);
 			sql.setString(8, lng);
 			sql.setLong(9, id);
-			
+
 			if (sql.executeUpdate() == 1) {
 				return true;
 			} else {
@@ -353,7 +372,7 @@ public class JDBCEventManagerServiceImpl implements EventManagerService {
 
 		} catch (SQLException e) {
 			return false;
-		}finally {
+		} finally {
 			if (sql != null) {
 				try {
 					sql.close();
@@ -363,26 +382,35 @@ public class JDBCEventManagerServiceImpl implements EventManagerService {
 		}
 	}
 
+	//Method that queries the database checking if the user 
+	//that want to do something on an event is its creator
 	public boolean check_creator(Connection con, Long id, Long userId) {
+		
 		String query = "SELECT id_creator FROM events WHERE id = ?";
 		PreparedStatement sql = null;
+		
 		try {
 			sql = con.prepareStatement(query);
 
 			sql.setLong(1, id);
 
 			ResultSet rs = sql.executeQuery();
-			while(rs.next()) {
+			
+			while (rs.next()) {
 				if (rs.getLong("id_creator") == userId) {
-					System.out.println("event creator identified");
+					
+					System.out.println("Event Creator Identified");
+					
 					return true;
 				} else {
+					
 					return false;
 				}
-			} return false;
+			}
+			return false;
 		} catch (SQLException e) {
 			return false;
-		}finally {
+		} finally {
 			if (sql != null) {
 				try {
 					sql.close();
@@ -391,5 +419,4 @@ public class JDBCEventManagerServiceImpl implements EventManagerService {
 			}
 		}
 	}
-
 }

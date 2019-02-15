@@ -21,10 +21,11 @@ public class LoadBalancerPTImpl implements LoadBalancerPT {
 
 	@Override
 	public GetServerInfoResponse getServerInfo(GetServerInfoRequest parameters) throws GetServerInfoFault_Exception {
-		LOGGER.info("CALLED userSignup ON prosumer");
+		
+		LOGGER.info("CALLED getServerInfo ON Load Balancer");
+		
 		GetServerInfoResponse response = service.getServerInfo(parameters);
+		
 		return response;
 	}
-
-	
 }

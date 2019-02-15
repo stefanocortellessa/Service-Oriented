@@ -1,30 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions name="AttractionManagerService"
-	targetNamespace="http://it.univaq.disim.sose.touristicguide/attractionManager" 
+	targetNamespace="http://it.univaq.disim.sose.touristicguide/attractionManager"
 	xmlns:tns="http://it.univaq.disim.sose.touristicguide/attractionManager"
 	xmlns="http://schemas.xmlsoap.org/wsdl/"
-	xmlns:wsp="http://www.w3.org/ns/ws-policy" 
+	xmlns:wsp="http://www.w3.org/ns/ws-policy"
 	xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy"
 	xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
 	xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata">
-	
+
 	<types>
-		<xsd:schema targetNamespace="http://it.univaq.disim.sose.touristicguide/attractionManager">
-			<xsd:element name="insertAttractionRequest" type="tns:insertAttractionRequest" />
-			<xsd:element name="insertAttractionResponse" type="tns:insertAttractionResponse" />
-			<xsd:element name="insertAttractionFault" type="tns:insertAttractionFault" />
-			<xsd:element name="deleteAttractionRequest" type="tns:deleteAttractionRequest" />
-			<xsd:element name="deleteAttractionResponse" type="tns:deleteAttractionResponse" />
-			<xsd:element name="deleteAttractionFault" type="tns:deleteAttractionFault" />
-			<xsd:element name="updateAttractionRequest" type="tns:updateAttractionRequest" />
-			<xsd:element name="updateAttractionResponse" type="tns:updateAttractionResponse" />
-			<xsd:element name="updateAttractionFault" type="tns:updateAttractionFault" />
-			<xsd:element name="checkSessionRequest" type="tns:checkSessionRequest" />
-			<xsd:element name="checkSessionResponse" type="tns:checkSessionResponse" />
-			<xsd:element name="checkSessionFault" type="tns:checkSessionFault" /> 
-			
+		<xsd:schema	targetNamespace="http://it.univaq.disim.sose.touristicguide/attractionManager">
+			<xsd:element name="insertAttractionRequest"
+				type="tns:insertAttractionRequest" />
+			<xsd:element name="insertAttractionResponse"
+				type="tns:insertAttractionResponse" />
+			<xsd:element name="insertAttractionFault"
+				type="tns:insertAttractionFault" />
+			<xsd:element name="deleteAttractionRequest"
+				type="tns:deleteAttractionRequest" />
+			<xsd:element name="deleteAttractionResponse"
+				type="tns:deleteAttractionResponse" />
+			<xsd:element name="deleteAttractionFault"
+				type="tns:deleteAttractionFault" />
+			<xsd:element name="updateAttractionRequest"
+				type="tns:updateAttractionRequest" />
+			<xsd:element name="updateAttractionResponse"
+				type="tns:updateAttractionResponse" />
+			<xsd:element name="updateAttractionFault"
+				type="tns:updateAttractionFault" />
+			<xsd:element name="checkSessionRequest"
+				type="tns:checkSessionRequest" />
+			<xsd:element name="checkSessionResponse"
+				type="tns:checkSessionResponse" />
+			<xsd:element name="checkSessionFault"
+				type="tns:checkSessionFault" />
+
 			<!-- Insert Attraction -->
 			<!-- Request -->
 			<xsd:complexType name="insertAttractionRequest">
@@ -34,26 +46,28 @@
 					<xsd:element name="categoryName" type="xsd:string" />
 					<xsd:element name="categoryId" type="xsd:long" />
 					<xsd:element name="creatorId" type="xsd:long" />
-					<xsd:element name="lat" type="xsd:string" minOccurs="0" maxOccurs="1"/>
-					<xsd:element name="lng" type="xsd:string" minOccurs="0" maxOccurs="1" />
+					<xsd:element name="lat" type="xsd:string" minOccurs="0"
+						maxOccurs="1" />
+					<xsd:element name="lng" type="xsd:string" minOccurs="0"
+						maxOccurs="1" />
 				</xsd:sequence>
 			</xsd:complexType>
-			
+
 			<!-- Response -->
 			<xsd:complexType name="insertAttractionResponse">
 				<xsd:sequence>
-					<xsd:element name="message" type="xsd:string" />					
+					<xsd:element name="message" type="xsd:string" />
 				</xsd:sequence>
 			</xsd:complexType>
-					
+
 			<!-- Fault -->
 			<xsd:complexType name="insertAttractionFault">
 				<xsd:sequence>
-                        <xsd:element name="faultInfo" type="xsd:string" />
-                        <xsd:element name="message" type="xsd:string" />
+					<xsd:element name="faultInfo" type="xsd:string" />
+					<xsd:element name="message" type="xsd:string" />
 				</xsd:sequence>
 			</xsd:complexType>
-			
+
 			<!-- Delete Attraction -->
 			<!-- Request -->
 			<xsd:complexType name="deleteAttractionRequest">
@@ -62,22 +76,22 @@
 					<xsd:element name="userId" type="xsd:long" />
 				</xsd:sequence>
 			</xsd:complexType>
-			
+
 			<!-- Response -->
 			<xsd:complexType name="deleteAttractionResponse">
 				<xsd:sequence>
 					<xsd:element name="message" type="xsd:string" />
 				</xsd:sequence>
 			</xsd:complexType>
-					
+
 			<!-- Fault -->
 			<xsd:complexType name="deleteAttractionFault">
 				<xsd:sequence>
-                        <xsd:element name="faultInfo" type="xsd:string" />
-                        <xsd:element name="message" type="xsd:string" />
+					<xsd:element name="faultInfo" type="xsd:string" />
+					<xsd:element name="message" type="xsd:string" />
 				</xsd:sequence>
 			</xsd:complexType>
-			
+
 			<!-- Update Attraction -->
 			<!-- Request -->
 			<xsd:complexType name="updateAttractionRequest">
@@ -88,26 +102,28 @@
 					<xsd:element name="categoryName" type="xsd:string" />
 					<xsd:element name="categoryId" type="xsd:long" />
 					<xsd:element name="creatorId" type="xsd:long" />
-					<xsd:element name="lat" type="xsd:string" minOccurs="0" maxOccurs="1" />
-					<xsd:element name="lng" type="xsd:string" minOccurs="0" maxOccurs="1" />
+					<xsd:element name="lat" type="xsd:string" minOccurs="0"
+						maxOccurs="1" />
+					<xsd:element name="lng" type="xsd:string" minOccurs="0"
+						maxOccurs="1" />
 				</xsd:sequence>
 			</xsd:complexType>
-			 
+
 			<!-- Response -->
 			<xsd:complexType name="updateAttractionResponse">
 				<xsd:sequence>
-					<xsd:element name="message" type="xsd:string" />					
+					<xsd:element name="message" type="xsd:string" />
 				</xsd:sequence>
 			</xsd:complexType>
-					
+
 			<!-- Fault -->
 			<xsd:complexType name="updateAttractionFault">
 				<xsd:sequence>
-                        <xsd:element name="faultInfo" type="xsd:string" />
-                        <xsd:element name="message" type="xsd:string" />
+					<xsd:element name="faultInfo" type="xsd:string" />
+					<xsd:element name="message" type="xsd:string" />
 				</xsd:sequence>
 			</xsd:complexType>
-			
+
 			<!-- Check Session -->
 			<!-- Request -->
 			<xsd:complexType name="checkSessionRequest">
@@ -115,24 +131,24 @@
 					<xsd:element name="token" type="xsd:string" />
 				</xsd:sequence>
 			</xsd:complexType>
-			
+
 			<!-- Response -->
 			<xsd:complexType name="checkSessionResponse">
 				<xsd:sequence>
 					<xsd:element name="response" type="xsd:boolean" />
 				</xsd:sequence>
 			</xsd:complexType>
-					
+
 			<!-- Fault -->
 			<xsd:complexType name="checkSessionFault">
 				<xsd:sequence>
-                        <xsd:element name="faultInfo" type="xsd:string" />
-                        <xsd:element name="message" type="xsd:string" />
+					<xsd:element name="faultInfo" type="xsd:string" />
+					<xsd:element name="message" type="xsd:string" />
 				</xsd:sequence>
 			</xsd:complexType>
 		</xsd:schema>
 	</types>
-	
+
 	<!-- Messages -->
 	<!-- Insert Attraction -->
 	<message name="insertAttractionRequest">
@@ -147,7 +163,7 @@
 		<part name="parameters" element="tns:insertAttractionFault">
 		</part>
 	</message>
-	
+
 	<!-- Message -->
 	<!-- Delete Attraction -->
 	<message name="deleteAttractionRequest">
@@ -162,7 +178,7 @@
 		<part name="parameters" element="tns:deleteAttractionFault">
 		</part>
 	</message>
-	
+
 	<!-- Message -->
 	<!-- Update Attraction -->
 	<message name="updateAttractionRequest">
@@ -177,7 +193,7 @@
 		<part name="parameters" element="tns:updateAttractionFault">
 		</part>
 	</message>
-	
+
 	<!-- Check Session -->
 	<message name="checkSessionRequest">
 		<part name="parameters" element="tns:checkSessionRequest">
@@ -191,49 +207,60 @@
 		<part name="parameters" element="tns:checkSessionFault">
 		</part>
 	</message>
-	
+
 	<!-- Port -->
 	<portType name="attractionManagerPT">
 		<operation name="insertAttraction">
-			<input name="insertAttractionRequest" message="tns:insertAttractionRequest" />
-			<output name="insertAttractionResponse" message="tns:insertAttractionResponse" />
-			<fault name="insertAttractionFault" message="tns:insertAttractionFault" />
+			<input name="insertAttractionRequest"
+				message="tns:insertAttractionRequest" />
+			<output name="insertAttractionResponse"
+				message="tns:insertAttractionResponse" />
+			<fault name="insertAttractionFault"
+				message="tns:insertAttractionFault" />
 		</operation>
 		<operation name="deleteAttraction">
-			<input name="deleteAttractionRequest" message="tns:deleteAttractionRequest" />
-			<output name="deleteAttractionResponse" message="tns:deleteAttractionResponse" />
-			<fault name="deleteAttractionFault" message="tns:deleteAttractionFault" />
+			<input name="deleteAttractionRequest"
+				message="tns:deleteAttractionRequest" />
+			<output name="deleteAttractionResponse"
+				message="tns:deleteAttractionResponse" />
+			<fault name="deleteAttractionFault"
+				message="tns:deleteAttractionFault" />
 		</operation>
 		<operation name="updateAttraction">
-			<input name="updateAttractionRequest" message="tns:updateAttractionRequest" />
-			<output name="updateAttractionResponse" message="tns:updateAttractionResponse" />
-			<fault name="updateAttractionFault" message="tns:updateAttractionFault" />
+			<input name="updateAttractionRequest"
+				message="tns:updateAttractionRequest" />
+			<output name="updateAttractionResponse"
+				message="tns:updateAttractionResponse" />
+			<fault name="updateAttractionFault"
+				message="tns:updateAttractionFault" />
 		</operation>
 		<operation name="checkSession">
-			<input name="checkSessionRequest" message="tns:checkSessionRequest" />
-			<output name="checkSessionResponse" message="tns:checkSessionResponse" />
+			<input name="checkSessionRequest"
+				message="tns:checkSessionRequest" />
+			<output name="checkSessionResponse"
+				message="tns:checkSessionResponse" />
 			<fault name="checkSessionFault" message="tns:checkSessionFault" />
 		</operation>
 	</portType>
-	
+
 	<!-- Binding -->
-	<binding name="attractionManagerBinding" type="tns:attractionManagerPT">
+	<binding name="attractionManagerBinding"
+		type="tns:attractionManagerPT">
 		<soap:binding style="document"
 			transport="http://schemas.xmlsoap.org/soap/http" />
-			<operation name="insertAttraction">
+		<operation name="insertAttraction">
 			<soap:operation soapAction="" />
 			<input>
 				<soap:body use="literal" />
 			</input>
 			<output>
 				<soap:body use="literal" />
-			</output> 
+			</output>
 		</operation>
 		<operation name="deleteAttraction">
 			<soap:operation soapAction="" />
 			<input>
 				<soap:body use="literal" />
-				
 			</input>
 			<output>
 				<soap:body use="literal" />
@@ -243,18 +270,19 @@
 			<soap:operation soapAction="" />
 			<input>
 				<soap:body use="literal" />
-				
 			</input>
 			<output>
 				<soap:body use="literal" />
 			</output>
 		</operation>
 	</binding>
-	 
+
 	<!-- Service -->
 	<service name="AttractionManagerService">
-		<port name="attractionManagerPort" binding="tns:attractionManagerBinding">
-			<soap:address location="http://localhost:8080/attractionmanager/services/attractionmanager" />
+		<port name="attractionManagerPort"
+			binding="tns:attractionManagerBinding">
+			<soap:address
+				location="http://localhost:8080/attractionmanager/services/attractionmanager" />
 		</port>
 	</service>
 </definitions>

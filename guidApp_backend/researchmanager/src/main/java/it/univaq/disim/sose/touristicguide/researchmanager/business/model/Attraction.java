@@ -1,8 +1,5 @@
 package it.univaq.disim.sose.touristicguide.researchmanager.business.model;
 
-import java.sql.Timestamp;
-import java.util.Date;
-
 public class Attraction implements java.io.Serializable {
 
 	private Long id;

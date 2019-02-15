@@ -37,6 +37,4 @@ public interface ResearchManagerService {
 	ResearchEventByCreatorResponse researchEventByCreator(ResearchEventByCreatorRequest parameters) throws ResearchEventByCreatorFault_Exception;
 	
 	ResearchCategoryResponse researchCategory(ResearchCategoryRequest parameters) throws ResearchCategoryFault_Exception;
-
-
 }

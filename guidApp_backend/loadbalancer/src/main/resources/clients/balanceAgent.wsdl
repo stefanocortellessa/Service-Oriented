@@ -10,17 +10,16 @@
 	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
 	xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata">
 
-	<types> 
-		<xsd:schema
-			targetNamespace="http://it.univaq.disim.sose.touristicguide/balanceAgent">
+	<types>
+		<xsd:schema	targetNamespace="http://it.univaq.disim.sose.touristicguide/balanceAgent">
 			<xsd:element name="getServerScoreRequest"
 				type="tns:getServerScoreRequest" />
 			<xsd:element name="getServerScoreResponse"
 				type="tns:getServerScoreResponse" />
 			<xsd:element name="getServerScoreFault"
 				type="tns:getServerScoreFault" />
-			
-			<!-- get server Score-->
+
+			<!-- get server Score -->
 			<!-- Request -->
 			<xsd:complexType name="getServerScoreRequest">
 				<xsd:sequence>
@@ -64,10 +63,12 @@
 	<!-- Port -->
 	<portType name="balanceAgentPT">
 		<operation name="getServerScore">
-			<input name="getServerScoreRequest" message="tns:getServerScoreRequest" />
+			<input name="getServerScoreRequest"
+				message="tns:getServerScoreRequest" />
 			<output name="getServerScoreResponse"
 				message="tns:getServerScoreResponse" />
-			<fault name="getServerScoreFault" message="tns:getServerScoreFault" />
+			<fault name="getServerScoreFault"
+				message="tns:getServerScoreFault" />
 		</operation>
 	</portType>
 
@@ -83,7 +84,7 @@
 			<output>
 				<soap:body use="literal" />
 			</output>
-		</operation> 
+		</operation>
 	</binding>
 
 	<!-- Service -->

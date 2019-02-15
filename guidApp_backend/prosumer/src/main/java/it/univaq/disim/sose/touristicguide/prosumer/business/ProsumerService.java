@@ -101,5 +101,4 @@ public interface ProsumerService {
 	CategoryResearchResponse categoryResearch(CategoryResearchRequest parameters) throws CategoryResearchFault_Exception, ApiException, InterruptedException, IOException;
 
 	GetBestServerResponse getBestServer(GetBestServerRequest parameters) throws GetBestServerFault_Exception;
-
 }

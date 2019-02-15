@@ -11,8 +11,7 @@
 	xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata">
 
 	<types>
-		<xsd:schema
-			targetNamespace="http://it.univaq.disim.sose.touristicguide/balanceAgent">
+		<xsd:schema targetNamespace="http://it.univaq.disim.sose.touristicguide/balanceAgent">
 			<xsd:element name="getServerScoreRequest"
 				type="tns:getServerScoreRequest" />
 			<xsd:element name="getServerScoreResponse"
@@ -20,11 +19,12 @@
 			<xsd:element name="getServerScoreFault"
 				type="tns:getServerScoreFault" />
 
-			<!-- get server Score -->
+			<!-- Get Server Score -->
 			<!-- Request -->
 			<xsd:complexType name="getServerScoreRequest">
 				<xsd:sequence>
-					<xsd:element name="serverUrl" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+					<xsd:element name="serverUrl" type="xsd:string"
+						minOccurs="0" maxOccurs="1" />
 				</xsd:sequence>
 			</xsd:complexType>
 
@@ -47,7 +47,7 @@
 	</types>
 
 	<!-- Message -->
-	<!-- get server -->
+	<!-- Get Server -->
 	<message name="getServerScoreRequest">
 		<part name="parameters" element="tns:getServerScoreRequest">
 		</part>

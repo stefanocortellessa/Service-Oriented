@@ -32,34 +32,44 @@ public class AccountManagerPTImpl implements AccountManagerPT {
 
 	@Override
 	public UserLoginResponse userLogin(UserLoginRequest parameters) throws UserLoginFault_Exception {
-		LOGGER.info("called User Login in Account Service");
+		
+		LOGGER.info("called User Login in Account Manager");
+		
 		UserLoginResponse response = new UserLoginResponse();
 		response = service.userLogin(parameters);
+		
 		return response;
 	}
 
 	@Override
 	public UserLogoutResponse userLogout(UserLogoutRequest parameters) throws UserLogoutFault_Exception {
-		LOGGER.info("called User Logout in Account Service");
+		
+		LOGGER.info("called User Logout in Account Manager");
 		UserLogoutResponse response = new UserLogoutResponse();
 		response = service.userLogout(parameters);
-		return response;
-	}
-
-	@Override
-	public CheckSessionResponse checkSession(CheckSessionRequest parameters) throws CheckSessionFault_Exception {
-		LOGGER.info("called Check Session in Account Service");
-		CheckSessionResponse response = new CheckSessionResponse();
-		response = service.checkSession(parameters);
+		
 		return response;
 	}
 
 	@Override
 	public UserSignupResponse userSignup(UserSignupRequest parameters) throws UserSignupFault_Exception {
-		LOGGER.info("called User Signup in Account Service");
+		
+		LOGGER.info("called User Signup in Account Manager");
+		
 		UserSignupResponse response = new UserSignupResponse();
 		response = service.userSignup(parameters);
+		
 		return response;
 	}
-
+	
+	@Override
+	public CheckSessionResponse checkSession(CheckSessionRequest parameters) throws CheckSessionFault_Exception {
+		
+		LOGGER.info("called Check Session in Account Manager");
+		
+		CheckSessionResponse response = new CheckSessionResponse();
+		response = service.checkSession(parameters);
+		
+		return response;
+	}
 }

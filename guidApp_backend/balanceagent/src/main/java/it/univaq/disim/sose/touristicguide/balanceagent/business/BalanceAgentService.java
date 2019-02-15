@@ -9,5 +9,4 @@ import it.univaq.disim.sose.touristicguide.balanceagent.GetServerScoreResponse;
 public interface BalanceAgentService {
 	
 	GetServerScoreResponse getServerScore(GetServerScoreRequest parameters) throws GetServerScoreFault_Exception, MalformedObjectNameException;
-
 }

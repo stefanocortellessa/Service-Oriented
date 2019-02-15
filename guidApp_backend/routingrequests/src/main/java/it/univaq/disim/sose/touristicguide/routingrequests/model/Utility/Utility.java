@@ -9,15 +9,18 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 public class Utility {
 
-public XMLGregorianCalendar convertToXML(Date date){
-		
-        GregorianCalendar gCalendar = new GregorianCalendar();
+	//Method that converts Date to XMLGregorianCalendar
+	public XMLGregorianCalendar convertToXML(Date date){
+			
+		GregorianCalendar gCalendar = new GregorianCalendar();
         gCalendar.setTime(date);
         XMLGregorianCalendar xmlCalendar = null;
+        
         try {
-            xmlCalendar = DatatypeFactory.newInstance().newXMLGregorianCalendar(gCalendar);
+        
+        	xmlCalendar = DatatypeFactory.newInstance().newXMLGregorianCalendar(gCalendar);
         } catch (DatatypeConfigurationException ex) {
         }
         return xmlCalendar;
-    }
+	}
 }

@@ -36,9 +36,9 @@ public class AttractionController {
 		ProsumerPT prosumer = prosumerService.getProsumerPort();
 		AttractionInsertResponse response = new AttractionInsertResponse();
 		AttractionInsertRequest request = new AttractionInsertRequest();
-		
 		GoogleGeocodingResponse geocoding_response = new GoogleGeocodingResponse();
 		GoogleGeocodingRequest geocoding_request = new GoogleGeocodingRequest();
+		
 		geocoding_request.setLocality(attraction.getLocality());
 		geocoding_response = prosumer.googleGeocoding(geocoding_request);
 		
@@ -47,7 +47,6 @@ public class AttractionController {
 		request.setCategoryName(attraction.getCategory().getName());
 		request.setCategoryId(attraction.getCategory().getId());
 		request.setCreatorId(attraction.getCreator().getId());
-		
 		request.setLat(geocoding_response.getLat());
 		request.setLng(geocoding_response.getLng());
 		
@@ -78,9 +77,9 @@ public class AttractionController {
 		ProsumerPT prosumer = prosumerService.getProsumerPort();
 		AttractionUpdateResponse response = new AttractionUpdateResponse();
 		AttractionUpdateRequest request = new AttractionUpdateRequest();
-		
 		GoogleGeocodingResponse geocoding_response = new GoogleGeocodingResponse();
 		GoogleGeocodingRequest geocoding_request = new GoogleGeocodingRequest();
+		
 		geocoding_request.setLocality(attraction.getLocality());
 		geocoding_response = prosumer.googleGeocoding(geocoding_request);
 		
@@ -89,8 +88,7 @@ public class AttractionController {
 		request.setLocality(attraction.getLocality());
 		request.setCategoryId(attraction.getCategory().getId());
 		request.setCategoryName(attraction.getCategory().getName());
-		request.setCreatorId(attraction.getCreator().getId());
-		
+		request.setCreatorId(attraction.getCreator().getId());	
 		request.setLat(geocoding_response.getLat());
 		request.setLng(geocoding_response.getLng());
 		

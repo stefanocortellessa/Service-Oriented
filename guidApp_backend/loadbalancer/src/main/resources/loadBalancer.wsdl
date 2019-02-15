@@ -11,8 +11,7 @@
 	xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata">
 
 	<types>
-		<xsd:schema
-			targetNamespace="http://it.univaq.disim.sose.touristicguide/loadBalancer">
+		<xsd:schema	targetNamespace="http://it.univaq.disim.sose.touristicguide/loadBalancer">
 			<xsd:element name="getServerInfoRequest"
 				type="tns:getServerInfoRequest" />
 			<xsd:element name="getServerInfoResponse"
@@ -64,10 +63,12 @@
 	<!-- Port -->
 	<portType name="loadBalancerPT">
 		<operation name="getServerInfo">
-			<input name="getServerInfoRequest" message="tns:getServerInfoRequest" />
+			<input name="getServerInfoRequest"
+				message="tns:getServerInfoRequest" />
 			<output name="getServerInfoResponse"
 				message="tns:getServerInfoResponse" />
-			<fault name="getServerInfoFault" message="tns:getServerInfoFault" />
+			<fault name="getServerInfoFault"
+				message="tns:getServerInfoFault" />
 		</operation>
 	</portType>
 

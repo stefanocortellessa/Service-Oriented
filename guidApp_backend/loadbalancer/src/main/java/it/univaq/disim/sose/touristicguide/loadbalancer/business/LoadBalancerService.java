@@ -7,5 +7,4 @@ import it.univaq.disim.sose.touristicguide.loadbalancer.GetServerInfoResponse;
 public interface LoadBalancerService {
 	
 	GetServerInfoResponse getServerInfo(GetServerInfoRequest parameters) throws GetServerInfoFault_Exception;
-
 }

@@ -109,12 +109,13 @@ public class ResearchController {
 		ProsumerPT prosumer = prosumerService.getProsumerPort();
 		EventResearchResponse response = new EventResearchResponse();
 		EventResearchRequest request = new EventResearchRequest();
+		DateFormat format = new SimpleDateFormat("yyyy-MM-dd:hh:mm:ss");
+		Date dateString;
 		
 		request.setTitle(title);
 		request.setLocality(locality);
 		request.setCategoryId(categoryId);
-		DateFormat format = new SimpleDateFormat("yyyy-MM-dd:hh:mm:ss");
-		Date dateString;
+		
 		try {
 			if(date != null) {
 				dateString = format.parse(date);
@@ -127,10 +128,8 @@ public class ResearchController {
 				request.setDate(xmlGregCal);
 			}
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-				
 		response = prosumer.eventResearch(request);
 		
 		return response;
@@ -184,5 +183,4 @@ public class ResearchController {
 		
 		return response;
 	}
-	
 }
