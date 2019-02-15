@@ -6,7 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -16,6 +15,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 import javax.xml.ws.BindingProvider;
 
@@ -33,102 +33,72 @@ import it.univaq.disim.sose.touristicguide.loadbalancer.GetServerInfoFault_Excep
 import it.univaq.disim.sose.touristicguide.loadbalancer.GetServerInfoRequest;
 import it.univaq.disim.sose.touristicguide.loadbalancer.GetServerInfoResponse;
 import it.univaq.disim.sose.touristicguide.loadbalancer.business.LoadBalancerService;
+import it.univaq.disim.sose.touristicguide.loadbalancer.business.UtilityJDBC;
+import it.univaq.disim.sose.touristicguide.loadbalancer.business.model.Provider;
+import it.univaq.disim.sose.touristicguide.loadbalancer.business.model.Server;
 
 
 @Service
 public class LoadBalancerServiceImpl implements LoadBalancerService {
-
+	
 	@Autowired
-	private DataSource dataSource;
-
+	DataSource dataSource;
+	
 	private static Logger LOGGER = LoggerFactory.getLogger(LoadBalancerServiceImpl.class);
 	private ScheduledExecutorService executor;
-	private boolean threadStarted = false;
-	private HashMap<String,Double> serverScoresMap = new HashMap<String,Double>();
-	private HashMap<String, HashMap<String,Double>> scoresMap = new HashMap<String, HashMap<String,Double>>();
-	private List<String> ports = Arrays.asList("8100", "8110");
-	private List<String> providers = Arrays.asList("accountManager", "eventManager", "attractionManager", "researchManager");
-
-	//Method that select the list of providers from the Database
-	public List<String> selectProviders() {
-
-		Connection connection = null;
-		List<String> return_list = new ArrayList<String>();
-
-		try {
-			
-			connection = dataSource.getConnection();
-			connection.setAutoCommit(false);
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-		}
-
-		String query = "SELECT name FROM providers";
-		PreparedStatement sql = null;
-		
-		try {
-
-			sql = connection.prepareStatement(query);
-
-			ResultSet rs = sql.executeQuery();
-			
-			while(rs.next()) {
-				
-				return_list.add(rs.getString("name"));
-			}
-			//System.out.println(return_list.toString());
-			
-			return return_list;
-		} catch (SQLException e) {
-			return return_list;
-		}finally {
-			if (sql != null) {
-				try {
-					sql.close();
-				} catch (SQLException e) {
-				}
-			}
-		}						
+	private List<Server> servers = new ArrayList<Server>();
+	private List<Provider> providers = new ArrayList<Provider>();
+	public  HashMap<String, HashMap<String,Double>> scoresMapGlobal = new HashMap<String, HashMap<String,Double>>();
+	
+	public HashMap<String, HashMap<String, Double>> getScoresMapGlobal() {
+		return scoresMapGlobal;
 	}
 
+	public void setScoresMapGlobal(HashMap<String, HashMap<String, Double>> scoresMapGlobal) {
+		this.scoresMapGlobal = scoresMapGlobal;
+	}
+
+	//Starts after service startup and runs a thread which builds an HashMap with server scores for each service
+	@PostConstruct
+	public void startThread() {
+		UtilityJDBC utility = new UtilityJDBC();
+		this.servers = utility.selectServers(dataSource);
+		this.providers = utility.selectProviders(dataSource);
+		executor = Executors.newSingleThreadScheduledExecutor();
+		executor.scheduleAtFixedRate(new Runnable() {
+			
+			public void run() {
+				
+				try {
+					// for each instance of the service calculates the response time, then "return" the better.
+					LOGGER.info("Called 'run' method on checkServerScore");
+					checkServerScore();
+				} catch (GetServerInfoFault_Exception e) {
+					new GetServerInfoFault_Exception(e.getMessage());
+				}
+			}
+		}, 0, 500, TimeUnit.MILLISECONDS);
+	
+	}
+	
 	@Override
 	public GetServerInfoResponse getServerInfo(GetServerInfoRequest request) throws GetServerInfoFault_Exception {
 		
-		if(!threadStarted) {
-			
-			executor = Executors.newSingleThreadScheduledExecutor();
-			executor.scheduleAtFixedRate(new Runnable() {
-				
-				public void run() {
-					
-					LOGGER.info("Called 'run' method on checkServerScore");
-
-					try {
-						// for each instance of the service calculates the response time, then "return" the better.
-						checkServerScore(request);
-					} catch (GetServerInfoFault_Exception e) {
-						new GetServerInfoFault_Exception(e.getMessage());
-					}
-				}
-			}, 0, 500, TimeUnit.MILLISECONDS);
-		}
-		
-		threadStarted = true;
-		checkServerScore(request);
 		GetServerInfoResponse response = new GetServerInfoResponse();
-		scoresMap = checkServerScore(request);		
-
-		response.setServerPort(getBestPort(scoresMap.get(request.getServiceName())));
-
+		response.setServerPort(getBestPort(this.getScoresMapGlobal().get(request.getServiceName())));
+		System.out.println("Best Server:"+response.getServerPort());
+		
 		return response;
 	}
 
 
-	private HashMap<String, HashMap<String,Double>> checkServerScore(GetServerInfoRequest request) throws GetServerInfoFault_Exception  {
+	private void checkServerScore() throws GetServerInfoFault_Exception  {
+		HashMap<String,Double> serverScoresMap = new HashMap<String,Double>();
+		HashMap<String, HashMap<String,Double>> scoresMap = new HashMap<String, HashMap<String,Double>>();
+		
+		for(Server server : this.servers) {
 
-		for(String port : ports) {
-
-			String url = "http://localhost:"+port+"/balanceagent/services/balanceagent";
+			String url = "http://localhost:"+server.getPort()+"/balanceagent/services/balanceagent";
 			BalanceAgentService balanceAgentService = new BalanceAgentService();
 			BalanceAgentPT balanceAgent = balanceAgentService.getBalanceAgentPort();
 			GetServerScoreRequest getServerScoreRequest = new GetServerScoreRequest();
@@ -138,19 +108,18 @@ public class LoadBalancerServiceImpl implements LoadBalancerService {
 			bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
 
 			try {
-				
 				GetServerScoreResponse getServerScoreResponse = balanceAgent.getServerScore(getServerScoreRequest);
-				
-				serverScoresMap.put(port, getServerScoreResponse.getScore());
+				serverScoresMap.put(server.getPort(), getServerScoreResponse.getScore());
 			} catch (GetServerScoreFault_Exception e) {
 				e.printStackTrace();
 				throw new GetServerInfoFault_Exception("Something went wrong with Get Server Info");
 			}
 		}
-		for(String provider : providers) {
-			scoresMap.put(provider, serverScoresMap);
+		for(Provider provider : this.providers) {
+			scoresMap.put(provider.getName(), serverScoresMap);
 		}
-		return scoresMap;
+		this.setScoresMapGlobal(scoresMap);
+		return;
 	}
 
 	//Method that returns the Server's port with higher score
