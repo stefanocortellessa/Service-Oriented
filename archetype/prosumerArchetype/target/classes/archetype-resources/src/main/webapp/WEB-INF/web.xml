@@ -3,7 +3,7 @@
 		 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" 
 		 id="WebApp_ID" 
 		 version="3.1">
-  <display-name>prosumer</display-name>
+  <display-name>${artifactId}</display-name>
   <context-param>
     <param-name>contextConfigLocation</param-name>
     <param-value>
@@ -11,8 +11,8 @@
         </param-value>
   </context-param>
   <servlet>
-    <display-name>prosumer</display-name>
-    <servlet-name>prosumer</servlet-name>
+    <display-name>${artifactId}</display-name>
+    <servlet-name>${artifactId}</servlet-name>
     <servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
     <init-param>
       <param-name>config-location</param-name>
@@ -21,7 +21,7 @@
     <load-on-startup>1</load-on-startup>
   </servlet>
   <servlet-mapping>
-    <servlet-name>prosumer</servlet-name>
+    <servlet-name>${artifactId}</servlet-name>
     <url-pattern>/services/*</url-pattern>
   </servlet-mapping>
   <listener>

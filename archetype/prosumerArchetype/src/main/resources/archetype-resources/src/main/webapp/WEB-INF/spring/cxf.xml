@@ -7,10 +7,10 @@
                            http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd 
                            http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
                            
-    <jaxws:endpoint id="ProsumerHTTP" 
-			xmlns:prosumer="http://it.univaq.disim.sose.touristicguide/prosumer"
-		    address="/prosumer" 
-		    serviceName="prosumer:ProsumerService"
-		    implementor="#ProsumerPTImpl">
+    <jaxws:endpoint id="${artifactId}HTTP" 
+			xmlns:${artifactId}="http://${groupId}/${artifactId}"
+		    address="/${artifactId}" 
+		    serviceName="${artifactId}:${artifactId}Service"
+		    implementor="#${artifactId}PTImpl">
 	</jaxws:endpoint>
 </beans>

@@ -16,7 +16,7 @@
 
 
     <!-- Scans for application @Component and @Service to deploy -->
-    <context:component-scan base-package="it.univaq.disim.sose.touristicguide.prosumer.business.impl.ws" />
+    <context:component-scan base-package="${groupId}.${artifactId}.business.impl.ws" />
     
-    <jee:jndi-lookup id="dataSource" jndi-name="jdbc/guidApp"/>
+    <jee:jndi-lookup id="dataSource" jndi-name="jdbc/${dbName}"/>
 </beans>
