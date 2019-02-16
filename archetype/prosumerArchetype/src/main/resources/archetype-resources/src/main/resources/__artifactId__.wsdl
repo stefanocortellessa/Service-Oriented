@@ -3,7 +3,7 @@
 	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
 	xmlns:tns="http://${groupId}/${artifactId}"
 	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
-	xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="${artifactId}"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="${artifactIdClass}"
 	targetNamespace="http://${groupId}/${artifactId}">
 	<wsdl:types> 
 		<xsd:schema
@@ -54,7 +54,7 @@
 	</wsdl:message>
 
 	<!-- Port -->
-	<wsdl:portType name="${artifactId}PT">
+	<wsdl:portType name="${artifactIdClass}PT">
 		<wsdl:operation name="operationName">
 			<wsdl:input name="request"
 				message="tns:request" />
@@ -66,7 +66,7 @@
 	</wsdl:portType>
 
 	<!-- Binding -->
-	<wsdl:binding name="${artifactId}Binding" type="tns:${artifactId}PT">
+	<wsdl:binding name="${artifactIdClass}Binding" type="tns:${artifactIdClass}PT">
 		<soap:binding style="document"
 			transport="http://schemas.xmlsoap.org/soap/http" />
 
@@ -82,8 +82,8 @@
 	</wsdl:binding>
 
 	<!-- Service -->
-	<wsdl:service name="${artifactId}Service">
-		<wsdl:port name="${artifactId}Port" binding="tns:${artifactId}Binding">
+	<wsdl:service name="${artifactIdClass}Service">
+		<wsdl:port name="${artifactIdClass}Port" binding="tns:${artifactIdClass}Binding">
 			<soap:address
 				location="http://localhost:8080/${artifactId}/services/${artifactId}" />
 		</wsdl:port>

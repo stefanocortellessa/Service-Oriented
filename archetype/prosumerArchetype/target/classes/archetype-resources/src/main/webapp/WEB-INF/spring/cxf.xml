@@ -7,10 +7,10 @@
                            http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd 
                            http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
                            
-    <jaxws:endpoint id="${artifactId}HTTP" 
+    <jaxws:endpoint id="${artifactIdClass}HTTP" 
 			xmlns:${artifactId}="http://${groupId}/${artifactId}"
 		    address="/${artifactId}" 
-		    serviceName="${artifactId}:${artifactId}Service"
-		    implementor="#${artifactId}PTImpl">
+		    serviceName="${artifactId}:${artifactIdClass}Service"
+		    implementor="#${artifactIdClass}PTImpl">
 	</jaxws:endpoint>
 </beans>

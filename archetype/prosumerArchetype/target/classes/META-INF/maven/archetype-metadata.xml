@@ -6,7 +6,44 @@
          http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0
          http://maven.apache.org/xsd/archetype-descriptor-1.0.0.xsd"
 
-   name="provider" partial="true">
+   name="guidApp_archetype" partial="true">
+
+  <requiredProperties>
+	<requiredProperty key="dbName"/>
+
+	<requiredProperty key="artifactIdClass">
+		<defaultValue>${artifactId.substring(0,1).toUpperCase()}${artifactId.replaceAll("-","").substring(1)}</defaultValue>	
+	</requiredProperty>
+
+	<requiredProperty key="slf4j-version">
+		<defaultValue>1.7.25</defaultValue>	
+	</requiredProperty>
+
+	<requiredProperty key="jaxws-version">
+		<defaultValue>2.2.8</defaultValue>	
+	</requiredProperty>
+
+	<requiredProperty key="bind-version">
+		<defaultValue>2.2.11</defaultValue>	
+	</requiredProperty>
+
+	<requiredProperty key="cxf-version">
+		<defaultValue>3.2.7</defaultValue>	
+	</requiredProperty>
+
+	<requiredProperty key="spring-version">
+		<defaultValue>4.3.20.RELEASE</defaultValue>	
+	</requiredProperty>
+	
+	<requiredProperty key="cxf-xjc-utils-version">
+		<defaultValue>3.2.3</defaultValue>	
+	</requiredProperty>
+	
+	<requiredProperty key="log4j-version">
+		<defaultValue>1.2.17</defaultValue>	
+	</requiredProperty>
+
+  </requiredProperties>
 
    <fileSets>
       <!-- Create root directory -->
@@ -42,10 +79,6 @@
          </includes>
       </fileSet>
   </fileSets> 
-
-  <requiredProperties>
-	<requiredProperty key="dbName"/>
-  </requiredProperties>
 
 </archetype-descriptor>
 

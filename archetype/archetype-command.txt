@@ -1,3 +1,4 @@
 1) [mvn install] in prosumerArchetype
 
-2) [mvn archetype:generate -DgroupId=it.univaq.disim.sose.archetypetest -DartifactId=ProvaArchetype -DarchetypeArtifactId=prosumer -DarchetypeVersion=1.0.0-SNAPSHOT -DarchetypeGroupId=it.univaq.disim.sose.touristicguide -DinteractiveMode=false -DarchetypeCatalog=local -DdbName=archetypetest -X] in new directory (prosumer)
+2) [mvn archetype:generate -DgroupId=it.univaq.disim.sose.newprovider -DartifactId=archetypetest -DarchetypeArtifactId=guidApp_archetype -DarchetypeVersion=1.0.0-SNAPSHOT  -DarchetypeGroupId=it.univaq.disim.sose.touristicguide -DinteractiveMode=false -DarchetypeCatalog=local -DdbName=projectName -DartifactIdClass=ArchetypeTest -X
+] in new directory (prosumer)

@@ -12,10 +12,10 @@ import org.springframework.stereotype.Service;
 import ${package}.${artifactId}.Fault_Exception;
 import ${package}.${artifactId}.Request;
 import ${package}.${artifactId}.Response;
-import ${package}.${artifactId}.business.${artifactId}Service;
+import ${package}.${artifactId}.business.${artifactIdClass}Service;
 
 @Service
-public class JDBCWebService${artifactId}ServiceImpl implements ${artifactId}Service {
+public class JDBCWebService${artifactIdClass}ServiceImpl implements ${artifactIdClass}Service {
 
 	@Autowired
 	private DataSource dataSource;

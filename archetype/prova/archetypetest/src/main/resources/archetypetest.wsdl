@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <wsdl:definitions
 	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
-	xmlns:tns="http://${groupId}/${artifactId}"
+	xmlns:tns="http://it.univaq.disim.sose.newprovider/archetypetest"
 	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
-	xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="${artifactIdClass}"
-	targetNamespace="http://${groupId}/${artifactId}">
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ArchetypeTest"
+	targetNamespace="http://it.univaq.disim.sose.newprovider/archetypetest">
 	<wsdl:types> 
 		<xsd:schema
-			targetNamespace="http://${groupId}/${artifactId}">
+			targetNamespace="http://it.univaq.disim.sose.newprovider/archetypetest">
 			<xsd:element name="request"
 				type="tns:request" />
 	
@@ -54,7 +54,7 @@
 	</wsdl:message>
 
 	<!-- Port -->
-	<wsdl:portType name="${artifactIdClass}PT">
+	<wsdl:portType name="ArchetypeTestPT">
 		<wsdl:operation name="operationName">
 			<wsdl:input name="request"
 				message="tns:request" />
@@ -66,7 +66,7 @@
 	</wsdl:portType>
 
 	<!-- Binding -->
-	<wsdl:binding name="${artifactIdClass}Binding" type="tns:${artifactIdClass}PT">
+	<wsdl:binding name="ArchetypeTestBinding" type="tns:ArchetypeTestPT">
 		<soap:binding style="document"
 			transport="http://schemas.xmlsoap.org/soap/http" />
 
@@ -82,10 +82,10 @@
 	</wsdl:binding>
 
 	<!-- Service -->
-	<wsdl:service name="${artifactIdClass}Service">
-		<wsdl:port name="${artifactIdClass}Port" binding="tns:${artifactIdClass}Binding">
+	<wsdl:service name="ArchetypeTestService">
+		<wsdl:port name="ArchetypeTestPort" binding="tns:ArchetypeTestBinding">
 			<soap:address
-				location="http://localhost:8080/${artifactId}/services/${artifactId}" />
+				location="http://localhost:8080/archetypetest/services/archetypetest" />
 		</wsdl:port>
 	</wsdl:service>
 </wsdl:definitions>

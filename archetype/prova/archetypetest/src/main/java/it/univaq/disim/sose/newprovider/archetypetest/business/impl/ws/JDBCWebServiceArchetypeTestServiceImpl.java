@@ -1,4 +1,4 @@
-package ${package}.${artifactId}.business.impl.ws;
+package it.univaq.disim.sose.newprovider.archetypetest.business.impl.ws;
 
 
 import java.sql.Connection;
@@ -9,13 +9,13 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ${package}.${artifactId}.Fault_Exception;
-import ${package}.${artifactId}.Request;
-import ${package}.${artifactId}.Response;
-import ${package}.${artifactId}.business.${artifactId}Service;
+import it.univaq.disim.sose.newprovider.archetypetest.Fault_Exception;
+import it.univaq.disim.sose.newprovider.archetypetest.Request;
+import it.univaq.disim.sose.newprovider.archetypetest.Response;
+import it.univaq.disim.sose.newprovider.archetypetest.business.ArchetypeTestService;
 
 @Service
-public class JDBCWebService${artifactId}ServiceImpl implements ${artifactId}Service {
+public class JDBCWebServiceArchetypeTestServiceImpl implements ArchetypeTestService {
 
 	@Autowired
 	private DataSource dataSource;
