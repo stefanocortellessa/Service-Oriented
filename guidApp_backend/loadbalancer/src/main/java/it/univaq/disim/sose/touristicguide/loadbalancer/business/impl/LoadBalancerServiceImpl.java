@@ -44,6 +44,7 @@ public class LoadBalancerServiceImpl implements LoadBalancerService {
 	private List<Server> servers = new ArrayList<Server>();
 	private List<Provider> providers = new ArrayList<Provider>();
 	public  HashMap<String, HashMap<String,Double>> scoresMapGlobal = new HashMap<String, HashMap<String,Double>>();
+	public HashMap<String, Integer> counters = new HashMap<String, Integer>();
 	
 	public HashMap<String, HashMap<String, Double>> getScoresMapGlobal() {
 		return scoresMapGlobal;
@@ -52,6 +53,14 @@ public class LoadBalancerServiceImpl implements LoadBalancerService {
 	public void setScoresMapGlobal(HashMap<String, HashMap<String, Double>> scoresMapGlobal) {
 		this.scoresMapGlobal = scoresMapGlobal;
 	}
+	
+	public HashMap<String, Integer> getCounters() {
+		return counters;
+	}
+
+	public void setCounters(HashMap<String, Integer> counters) {
+		this.counters = counters;
+	}
 
 	//Starts after service startup and runs a thread which builds an HashMap with server scores for each service
 	@PostConstruct
@@ -59,6 +68,11 @@ public class LoadBalancerServiceImpl implements LoadBalancerService {
 		UtilityJDBC utility = new UtilityJDBC();
 		this.servers = utility.selectServers(dataSource);
 		this.providers = utility.selectProviders(dataSource);
+		HashMap<String, Integer> counters = new HashMap<String, Integer>();
+		for(Server server : this.servers) {
+			counters.put(server.getUrl()+":"+server.getPort(), 0);
+			this.setCounters(counters);
+		}
 		executor = Executors.newSingleThreadScheduledExecutor();
 		executor.scheduleAtFixedRate(new Runnable() {
 			
@@ -83,9 +97,12 @@ public class LoadBalancerServiceImpl implements LoadBalancerService {
 		response.setServerPort(getBestPort(this.getScoresMapGlobal().get(request.getServiceName())));
 		LOGGER.info("Best server for service "+request.getServiceName()+" is "+response.getServerPort());
 		response.setMessage("Best server for service "+request.getServiceName()+" is "+response.getServerPort() );
+		HashMap<String, Integer> newCounter = this.getCounters();
+		newCounter.put(response.getServerPort(), newCounter.get(response.getServerPort())+1);
+		this.setCounters(newCounter);
+		System.out.println("Request processed by each server until now"+newCounter.toString());
 		return response;
 	}
-
 
 	private void checkServerScore() throws GetServerInfoFault_Exception  {
 		HashMap<String,Double> serverScoresMap = new HashMap<String,Double>();
