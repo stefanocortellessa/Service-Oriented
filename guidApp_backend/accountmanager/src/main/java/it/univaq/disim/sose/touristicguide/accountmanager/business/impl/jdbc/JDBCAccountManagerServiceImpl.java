@@ -78,19 +78,19 @@ public class JDBCAccountManagerServiceImpl implements AccountManagerService {
 	
 				if(user.executeUpdate() == 1) {
 					
-					int idUtente = 0;
+					long idUtente = 0;
 					
 					try (ResultSet keys = user.getGeneratedKeys()) {
 						if (keys.next()) {
 							
-							idUtente = keys.getInt(1);
+							idUtente = keys.getLong(1);
 						}
 	
-						session = connection.prepareStatement("INSERT INTO sessions (token,user) VALUES (?,?)");
+						session = connection.prepareStatement("INSERT INTO sessions (token,id_user) VALUES (?,?)");
 						String token = Utility.generateToken();
 	
 						session.setString(1, token);
-						session.setInt(2, idUtente);
+						session.setLong(2, idUtente);
 	
 						if(session.executeUpdate() == 1) {
 							
@@ -134,7 +134,7 @@ public class JDBCAccountManagerServiceImpl implements AccountManagerService {
 
 		UserLoginResponse response = new UserLoginResponse();
 		String sql = "SELECT * FROM users WHERE email = ?";
-		String sqlSession = "INSERT into sessions(token, user) VALUES(?,?)";
+		String sqlSession = "INSERT into sessions(token, id_user) VALUES(?,?)";
 
 		Connection connection = null;
 		PreparedStatement ps = null;
@@ -158,7 +158,7 @@ public class JDBCAccountManagerServiceImpl implements AccountManagerService {
 			
 			if(num_rows != 0 && this.hashPwd(parameters.getPassword()).equals(rs.getString("password"))) {
 
-				long idUtente = rs.getLong("user_id");
+				long idUtente = rs.getLong("id");
 				
 				user.setId(idUtente);
 				user.setEmail(rs.getString("email"));

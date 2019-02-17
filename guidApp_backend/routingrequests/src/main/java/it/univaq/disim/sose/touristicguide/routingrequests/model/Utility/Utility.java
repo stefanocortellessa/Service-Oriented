@@ -1,5 +1,6 @@
 package it.univaq.disim.sose.touristicguide.routingrequests.model.Utility;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -11,9 +12,10 @@ public class Utility {
 
 	//Method that converts Date to XMLGregorianCalendar
 	public XMLGregorianCalendar convertToXML(Date date){
-			
+		
 		GregorianCalendar gCalendar = new GregorianCalendar();
         gCalendar.setTime(date);
+
         XMLGregorianCalendar xmlCalendar = null;
         
         try {

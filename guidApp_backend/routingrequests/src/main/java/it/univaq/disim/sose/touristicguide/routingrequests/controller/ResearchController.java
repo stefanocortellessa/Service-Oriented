@@ -2,6 +2,7 @@ package it.univaq.disim.sose.touristicguide.routingrequests.controller;
 
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -164,7 +165,6 @@ public class ResearchController {
 		request.setId(id);
 				
 		response = prosumer.eventDetailResearch(request);
-		
 		return response;
 	}
 	
