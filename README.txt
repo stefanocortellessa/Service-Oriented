@@ -15,14 +15,14 @@ APPLICATION BACKEND SETUP:
 7) deploy projects on servers in the following way:
 
 	- Tomcat 8.5.3 port 8080 -> prosumer; loadBalancer
-	- Tomcat 8.5.3 port 8100, port 8110, port 8120 -> accountManager; researchManager; eventManager; attractionManager; balanceAgent;
+	- Tomcat 8.5.3 port 8100, port 8110, port 8120 -> accountManager; researchManager; eventManager; 			  attractionManager; balanceAgent;
 
 8) run servers in the following order:
 
 	- Tomcat 8.5.3 port 8100, port 8110, port 8120
 	- Tomcat 8.5.3 port 8080;
 
-   NOTE: run firt each server with providers (port 8100, 8110, 8120) and only after that run the server with the prosumer and the loadBalancer (port 8080).
+   NOTE: run firt each server with providers (port 8100, 8110, 8120) and only after that run the server with the prosumer      	  and the loadBalancer (port 8080).
 
 9) run researchManager as Java Application (port 8090)
 
