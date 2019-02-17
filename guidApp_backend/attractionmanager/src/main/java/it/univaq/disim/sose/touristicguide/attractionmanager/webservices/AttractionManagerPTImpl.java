@@ -5,9 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import it.univaq.disim.sose.touristicguide.attractionmanager.CheckSessionFault_Exception;
-import it.univaq.disim.sose.touristicguide.attractionmanager.CheckSessionRequest;
-import it.univaq.disim.sose.touristicguide.attractionmanager.CheckSessionResponse;
 import it.univaq.disim.sose.touristicguide.attractionmanager.DeleteAttractionFault_Exception;
 import it.univaq.disim.sose.touristicguide.attractionmanager.DeleteAttractionRequest;
 import it.univaq.disim.sose.touristicguide.attractionmanager.DeleteAttractionResponse;
@@ -61,14 +58,4 @@ public class AttractionManagerPTImpl implements AttractionManagerPT {
 		return response;
 	}
 
-	@Override
-	public CheckSessionResponse checkSession(CheckSessionRequest parameters) throws CheckSessionFault_Exception {
-		
-		LOGGER.info("called Check Session in Attraction Manager");
-		
-		CheckSessionResponse response = new CheckSessionResponse();
-		response = service.checkSession(parameters);
-		
-		return response;
-	}
 }

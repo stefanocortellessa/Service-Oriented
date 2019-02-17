@@ -36,13 +36,15 @@ public class JDBCAccountManagerServiceImpl implements AccountManagerService {
 	@Autowired
 	private DataSource dataSource;
 
+	// signup and store user on db
 	@Override
 	public UserSignupResponse userSignup(UserSignupRequest parameters) throws UserSignupFault_Exception {
-
+		
 		Connection connection = null;
 		PreparedStatement user = null; 
 		PreparedStatement session = null;
 		UserSignupResponse response = new UserSignupResponse();
+		// first of all check if inserted email already exists
 		String sql = "SELECT * FROM users WHERE email = ?";
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -61,11 +63,13 @@ public class JDBCAccountManagerServiceImpl implements AccountManagerService {
 			
 			rs.first();
 			
+			// if inserted email already exists -> null token and fault message
 			if(num_rows > 0 ) {
 				
 				response.setToken(null);
 				response.setMessage("E-Mail already registered! Change it.");
 			
+			// else insert user on db and execute the login returning the session token
 			}else {
 				
 				user = connection.prepareStatement("INSERT INTO users (name,surname,email,password) VALUES (?,?,?,?)",
@@ -74,6 +78,7 @@ public class JDBCAccountManagerServiceImpl implements AccountManagerService {
 				user.setString(1, parameters.getName());
 				user.setString(2, parameters.getSurname());
 				user.setString(3, parameters.getEmail());
+				// password hashed using google.common.hash fucntions
 				user.setString(4, this.hashPwd(parameters.getPassword()));
 	
 				if(user.executeUpdate() == 1) {
@@ -85,7 +90,7 @@ public class JDBCAccountManagerServiceImpl implements AccountManagerService {
 							
 							idUtente = keys.getLong(1);
 						}
-	
+						// login the user inserting the session token in the db
 						session = connection.prepareStatement("INSERT INTO sessions (token,id_user) VALUES (?,?)");
 						String token = Utility.generateToken();
 	
@@ -128,11 +133,13 @@ public class JDBCAccountManagerServiceImpl implements AccountManagerService {
 		}
 		return response;
 	}
-
+	
+	// user login and store session token on db
 	@Override
 	public UserLoginResponse userLogin(UserLoginRequest parameters) throws UserLoginFault_Exception {
-
+		
 		UserLoginResponse response = new UserLoginResponse();
+		// get user by email
 		String sql = "SELECT * FROM users WHERE email = ?";
 		String sqlSession = "INSERT into sessions(token, id_user) VALUES(?,?)";
 
@@ -156,6 +163,7 @@ public class JDBCAccountManagerServiceImpl implements AccountManagerService {
 			
 			rs.first();
 			
+			// if the user email exists on the db and the inserted password is correct (hashed)
 			if(num_rows != 0 && this.hashPwd(parameters.getPassword()).equals(rs.getString("password"))) {
 
 				long idUtente = rs.getLong("id");
@@ -164,7 +172,8 @@ public class JDBCAccountManagerServiceImpl implements AccountManagerService {
 				user.setEmail(rs.getString("email"));
 				user.setName(rs.getString("name"));
 				user.setSurname(rs.getString("surname"));
-
+				
+				// generate session token
 				String token = Utility.generateToken();
 
 				ps1 = connection.prepareStatement(sqlSession);

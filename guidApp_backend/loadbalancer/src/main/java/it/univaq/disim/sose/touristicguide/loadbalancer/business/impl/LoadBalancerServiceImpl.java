@@ -43,7 +43,9 @@ public class LoadBalancerServiceImpl implements LoadBalancerService {
 	private ScheduledExecutorService executor;
 	private List<Server> servers = new ArrayList<Server>();
 	private List<Provider> providers = new ArrayList<Provider>();
+	//hash map containing server url:server score
 	public  HashMap<String, HashMap<String,Double>> scoresMapGlobal = new HashMap<String, HashMap<String,Double>>();
+	// has map containing server url:total requests addressed to the server
 	public HashMap<String, Integer> counters = new HashMap<String, Integer>();
 	
 	public HashMap<String, HashMap<String, Double>> getScoresMapGlobal() {
@@ -66,20 +68,24 @@ public class LoadBalancerServiceImpl implements LoadBalancerService {
 	@PostConstruct
 	public void startThread() {
 		UtilityJDBC utility = new UtilityJDBC();
+		// first of all get used servers info from the db
 		this.servers = utility.selectServers(dataSource);
+		// get providers info from db
 		this.providers = utility.selectProviders(dataSource);
 		HashMap<String, Integer> counters = new HashMap<String, Integer>();
+		// initialize the counter for each server
 		for(Server server : this.servers) {
 			counters.put(server.getUrl()+":"+server.getPort(), 0);
 			this.setCounters(counters);
 		}
+		// run a thread which every 5s updates the HashMap with server scores by requiring them to the balanceAgent throught SOAP call
 		executor = Executors.newSingleThreadScheduledExecutor();
 		executor.scheduleAtFixedRate(new Runnable() {
 			
 			public void run() {
 				
 				try {
-					// for each instance of the service calculates the response time, then "return" the better.
+					// for each instance of the service requires the score for each server
 					LOGGER.info("Called 'run' method on checkServerScore");
 					checkServerScore();
 				} catch (GetServerInfoFault_Exception e) {
@@ -90,6 +96,8 @@ public class LoadBalancerServiceImpl implements LoadBalancerService {
 	
 	}
 	
+	// set response containing the best server url, based on the the HashMap updated by the thread
+	// the server with lowest score is the best one
 	@Override
 	public GetServerInfoResponse getServerInfo(GetServerInfoRequest request) throws GetServerInfoFault_Exception {
 		
@@ -103,7 +111,8 @@ public class LoadBalancerServiceImpl implements LoadBalancerService {
 		System.out.println("Request processed by each server until now"+newCounter.toString());
 		return response;
 	}
-
+	
+	// updates the hashmap requiring the server score to the balanceAgent (for each service)
 	private void checkServerScore() throws GetServerInfoFault_Exception  {
 		HashMap<String,Double> serverScoresMap = new HashMap<String,Double>();
 		HashMap<String, HashMap<String,Double>> scoresMap = new HashMap<String, HashMap<String,Double>>();
@@ -134,7 +143,7 @@ public class LoadBalancerServiceImpl implements LoadBalancerService {
 		return;
 	}
 
-	//Method that returns the Server's port with higher score
+	//Method that returns the Servers port with lowest score (best one)
 	public String getBestPort(HashMap<String,Double> map) {
 
 		Entry<String, Double> min = Collections.min(map.entrySet(), new Comparator<Entry<String, Double>>() {

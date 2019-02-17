@@ -1,8 +1,5 @@
 package it.univaq.disim.sose.touristicguide.eventmanager.business;
 
-import it.univaq.disim.sose.touristicguide.eventmanager.CheckSessionFault_Exception;
-import it.univaq.disim.sose.touristicguide.eventmanager.CheckSessionRequest;
-import it.univaq.disim.sose.touristicguide.eventmanager.CheckSessionResponse;
 import it.univaq.disim.sose.touristicguide.eventmanager.DeleteEventFault_Exception;
 import it.univaq.disim.sose.touristicguide.eventmanager.DeleteEventRequest;
 import it.univaq.disim.sose.touristicguide.eventmanager.DeleteEventResponse;
@@ -21,5 +18,4 @@ public interface EventManagerService {
 	
 	UpdateEventResponse updateEvent(UpdateEventRequest parameters) throws UpdateEventFault_Exception;
 
-	CheckSessionResponse checkSession(CheckSessionRequest parameters) throws CheckSessionFault_Exception;
 }

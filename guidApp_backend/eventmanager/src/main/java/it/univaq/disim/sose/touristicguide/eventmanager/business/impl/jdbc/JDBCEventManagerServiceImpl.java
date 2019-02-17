@@ -17,9 +17,6 @@ import it.univaq.disim.sose.touristicguide.eventmanager.business.Utility;
 import it.univaq.disim.sose.touristicguide.eventmanager.business.model.Category;
 import it.univaq.disim.sose.touristicguide.eventmanager.business.model.Event;
 import it.univaq.disim.sose.touristicguide.eventmanager.business.model.User;
-import it.univaq.disim.sose.touristicguide.eventmanager.CheckSessionFault_Exception;
-import it.univaq.disim.sose.touristicguide.eventmanager.CheckSessionRequest;
-import it.univaq.disim.sose.touristicguide.eventmanager.CheckSessionResponse;
 import it.univaq.disim.sose.touristicguide.eventmanager.DeleteEventFault_Exception;
 import it.univaq.disim.sose.touristicguide.eventmanager.DeleteEventRequest;
 import it.univaq.disim.sose.touristicguide.eventmanager.DeleteEventResponse;
@@ -36,9 +33,10 @@ public class JDBCEventManagerServiceImpl implements EventManagerService {
 	@Autowired
 	private DataSource dataSource;
 
+	// store event on db
 	@Override
 	public InsertEventResponse insertEvent(InsertEventRequest parameters) throws InsertEventFault_Exception {
-
+		
 		Connection connection = null;
 		InsertEventResponse response = new InsertEventResponse();
 		String result = "Event not inserted";
@@ -46,7 +44,8 @@ public class JDBCEventManagerServiceImpl implements EventManagerService {
 		Event event = new Event();
 		Category category = new Category();
 		User creator = new User();
-
+		
+		// construct event object using request parameters
 		event.setTitle(parameters.getTitle());
 		event.setLocality(parameters.getLocality());
 		event.setStartDate(utility.convertDate(parameters.getStartDate()));
@@ -66,7 +65,8 @@ public class JDBCEventManagerServiceImpl implements EventManagerService {
 
 			connection = dataSource.getConnection();
 			connection.setAutoCommit(false);
-
+			
+			// store event on db
 			if (insert(connection, 
 					   event.getTitle(), 
 					   event.getLocality(), 
@@ -102,54 +102,7 @@ public class JDBCEventManagerServiceImpl implements EventManagerService {
 		return response;
 	}
 
-	@Override
-	public CheckSessionResponse checkSession(CheckSessionRequest parameters) throws CheckSessionFault_Exception {
-
-		Connection connection = null;
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		CheckSessionResponse response = new CheckSessionResponse();
-		String sql = "SELECT * FROM sessions WHERE token = ?";
-		
-
-		try {
-			connection = dataSource.getConnection();
-			ps = connection.prepareStatement(sql);
-
-			ps.setString(1, parameters.getToken());
-			rs = ps.executeQuery();
-
-			rs.last();
-			int num_rows = rs.getRow();
-
-			if (num_rows != 0) {
-				
-				response.setResponse(true);
-			} else {
-				
-				response.setResponse(false);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new CheckSessionFault_Exception("Something went wrong with Checking Session..");
-		} finally {
-			if (ps != null) {
-				try {
-					ps.close();
-				} catch (SQLException e) {
-				}
-			}
-			if (connection != null) {
-				try {
-					
-					connection.close();
-				} catch (SQLException e) {
-				}
-			}
-		}
-		return response;
-	}
-
+	// delete event from db 
 	@Override
 	public DeleteEventResponse deleteEvent(DeleteEventRequest parameters) throws DeleteEventFault_Exception {
 
@@ -169,10 +122,13 @@ public class JDBCEventManagerServiceImpl implements EventManagerService {
 
 			connection = dataSource.getConnection();
 			connection.setAutoCommit(false);
-
+			
+			// first of all check that user requiring event delete is the same that created the event 
+			// if it is not, the deletion in not allowed
 			if (check_creator(connection, 
 							  event.getId(), 
 						   	  event.getCreator().getId())) {
+				// if user is the creator, require deletion from db
 				if (delete(connection, 
 						   event.getId())) {
 					
@@ -201,6 +157,7 @@ public class JDBCEventManagerServiceImpl implements EventManagerService {
 		return response;
 	}
 
+	// update event on db
 	@Override
 	public UpdateEventResponse updateEvent(UpdateEventRequest parameters) throws UpdateEventFault_Exception {
 
@@ -211,7 +168,8 @@ public class JDBCEventManagerServiceImpl implements EventManagerService {
 		Utility utility = new Utility();
 		Category category = new Category();
 		User creator = new User();
-
+		
+		// construct event using request parameters
 		event.setId(parameters.getId());
 		event.setTitle(parameters.getTitle());
 		event.setLocality(parameters.getLocality());
@@ -232,11 +190,12 @@ public class JDBCEventManagerServiceImpl implements EventManagerService {
 
 			connection = dataSource.getConnection();
 			connection.setAutoCommit(false);
-
+			
+			// user requiring the update has to be the event creator
 			if (check_creator(connection, 
 							  event.getId(), 
 							  event.getCreator().getId())) {
-
+				// if it is, then require the update
 				if (update(connection, 
 						   event.getId(), 
 						   event.getTitle(), 

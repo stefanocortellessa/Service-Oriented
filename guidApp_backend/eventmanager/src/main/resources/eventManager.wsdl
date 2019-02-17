@@ -34,13 +34,6 @@
 			<xsd:element name="updateEventFault"
 				type="tns:updateEventFault" />
 
-			<xsd:element name="checkSessionRequest"
-				type="tns:checkSessionRequest" />
-			<xsd:element name="checkSessionResponse"
-				type="tns:checkSessionResponse" />
-			<xsd:element name="checkSessionFault"
-				type="tns:checkSessionFault" />
-
 			<!-- Insert Event -->
 			<!-- Request -->
 			<xsd:complexType name="insertEventRequest">
@@ -136,29 +129,6 @@
 					<xsd:element name="message" type="xsd:string" />
 				</xsd:sequence>
 			</xsd:complexType>
-
-			<!-- Check Session -->
-			<!-- Request -->
-			<xsd:complexType name="checkSessionRequest">
-				<xsd:sequence>
-					<xsd:element name="token" type="xsd:string" />
-				</xsd:sequence>
-			</xsd:complexType>
-
-			<!-- Response -->
-			<xsd:complexType name="checkSessionResponse">
-				<xsd:sequence>
-					<xsd:element name="response" type="xsd:boolean" />
-				</xsd:sequence>
-			</xsd:complexType>
-
-			<!-- Fault -->
-			<xsd:complexType name="checkSessionFault">
-				<xsd:sequence>
-					<xsd:element name="faultInfo" type="xsd:string" />
-					<xsd:element name="message" type="xsd:string" />
-				</xsd:sequence>
-			</xsd:complexType>
 		</xsd:schema>
 	</types>
 
@@ -207,20 +177,6 @@
 		</part>
 	</message>
 
-	<!-- Check Session -->
-	<message name="checkSessionRequest">
-		<part name="parameters" element="tns:checkSessionRequest">
-		</part>
-	</message>
-	<message name="checkSessionResponse">
-		<part name="parameters" element="tns:checkSessionResponse">
-		</part>
-	</message>
-	<message name="checkSessionFault">
-		<part name="parameters" element="tns:checkSessionFault">
-		</part>
-	</message>
-
 	<!-- Port -->
 	<portType name="eventManagerPT">
 		<operation name="insertEvent">
@@ -243,13 +199,6 @@
 			<output name="updateEventResponse"
 				message="tns:updateEventResponse" />
 			<fault name="updateEventFault" message="tns:updateEventFault" />
-		</operation>
-		<operation name="checkSession">
-			<input name="checkSessionRequest"
-				message="tns:checkSessionRequest" />
-			<output name="checkSessionResponse"
-				message="tns:checkSessionResponse" />
-			<fault name="checkSessionFault" message="tns:checkSessionFault" />
 		</operation>
 	</portType>
 

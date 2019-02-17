@@ -20,7 +20,9 @@ import it.univaq.disim.sose.touristicguide.balanceagent.business.BalanceAgentSer
 
 @Service
 public class BalanceAgentServiceImpl implements BalanceAgentService {
-
+	
+	// calculates a score for the server on which the BalanceAgent is deployed
+	// the score is used by the loadBalancer in order to choose the best current server 
 	@Override
 	public GetServerScoreResponse getServerScore(GetServerScoreRequest parameters)
 			throws GetServerScoreFault_Exception, MalformedObjectNameException {
@@ -33,7 +35,12 @@ public class BalanceAgentServiceImpl implements BalanceAgentService {
 		return response;
 	}
 	
-	//Method that return infos about Servers
+	//Method that return Server score
+	// the score is calculated as a weighted sum of the following values:
+	// - memory usage
+	// - number of active threads
+	// - server load
+	// in order to collect this info, the method make use of JMX calls to the server
 	private double getServersInfo() throws MalformedObjectNameException {
 		
 		MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();

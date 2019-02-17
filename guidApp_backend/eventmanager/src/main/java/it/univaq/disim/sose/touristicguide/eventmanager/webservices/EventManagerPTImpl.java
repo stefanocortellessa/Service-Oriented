@@ -5,9 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import it.univaq.disim.sose.touristicguide.eventmanager.CheckSessionFault_Exception;
-import it.univaq.disim.sose.touristicguide.eventmanager.CheckSessionRequest;
-import it.univaq.disim.sose.touristicguide.eventmanager.CheckSessionResponse;
 import it.univaq.disim.sose.touristicguide.eventmanager.DeleteEventFault_Exception;
 import it.univaq.disim.sose.touristicguide.eventmanager.DeleteEventRequest;
 import it.univaq.disim.sose.touristicguide.eventmanager.DeleteEventResponse;
@@ -64,14 +61,4 @@ public class EventManagerPTImpl implements EventManagerPT {
 		return response;
 	}
 
-	@Override
-	public CheckSessionResponse checkSession(CheckSessionRequest parameters) throws CheckSessionFault_Exception {
-		
-		LOGGER.info("called Check Session in Event Manager");
-		
-		CheckSessionResponse response = new CheckSessionResponse();
-		response = service.checkSession(parameters);
-		
-		return response;
-	}
 }

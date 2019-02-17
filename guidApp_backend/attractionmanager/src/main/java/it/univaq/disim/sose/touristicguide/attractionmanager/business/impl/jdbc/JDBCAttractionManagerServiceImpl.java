@@ -11,10 +11,6 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
-import it.univaq.disim.sose.touristicguide.attractionmanager.CheckSessionFault_Exception;
-import it.univaq.disim.sose.touristicguide.attractionmanager.CheckSessionRequest;
-import it.univaq.disim.sose.touristicguide.attractionmanager.CheckSessionResponse;
 import it.univaq.disim.sose.touristicguide.attractionmanager.DeleteAttractionFault_Exception;
 import it.univaq.disim.sose.touristicguide.attractionmanager.DeleteAttractionRequest;
 import it.univaq.disim.sose.touristicguide.attractionmanager.DeleteAttractionResponse;
@@ -34,7 +30,8 @@ public class JDBCAttractionManagerServiceImpl implements AttractionManagerServic
 
 	@Autowired
 	private DataSource dataSource;
-
+	
+	// store attraction on db
 	@Override
 	public InsertAttractionResponse insertAttraction(InsertAttractionRequest parameters) throws InsertAttractionFault_Exception {
 
@@ -44,7 +41,8 @@ public class JDBCAttractionManagerServiceImpl implements AttractionManagerServic
 		Attraction attraction = new Attraction();
 		Category category = new Category();
 		User creator = new User();
-
+		
+		// construct the attraction using request parameters
 		attraction.setName(parameters.getName());
 		attraction.setLocality(parameters.getLocality());
 
@@ -53,7 +51,8 @@ public class JDBCAttractionManagerServiceImpl implements AttractionManagerServic
 		creator.setId(parameters.getCreatorId());
 		attraction.setCategory(category);
 		attraction.setCreator(creator);
-
+		
+		// latitude and logitude are obtained by the prosumer by using google Geocoding APIs 
 		attraction.setLat(parameters.getLat());
 		attraction.setLng(parameters.getLng());
 		InsertAttractionResponse responseAttraction = new InsertAttractionResponse();
@@ -61,7 +60,8 @@ public class JDBCAttractionManagerServiceImpl implements AttractionManagerServic
 
 			connection = dataSource.getConnection();
 			connection.setAutoCommit(false);
-
+			
+			// store attraction on db
 			if(insert(connection, attraction.getName(), attraction.getLocality(), attraction.getCategory().getId(), attraction.getCreator().getId(), 
 					attraction.getLat(), attraction.getLng())) {
 				result = "Attraction inserted";
@@ -87,51 +87,6 @@ public class JDBCAttractionManagerServiceImpl implements AttractionManagerServic
 		responseAttraction.setMessage(result);
 
 		return responseAttraction;
-	}
-
-	@Override
-	public CheckSessionResponse checkSession(CheckSessionRequest parameters) throws CheckSessionFault_Exception {
-
-		CheckSessionResponse responseSession = new CheckSessionResponse();
-
-		String sql = "SELECT * FROM sessions WHERE token = ?";
-
-		Connection connection = null;
-		PreparedStatement par = null;
-		ResultSet rs = null;
-
-		try {			
-			connection = dataSource.getConnection();
-			par = connection.prepareStatement(sql);
-
-			par.setString(1, parameters.getToken());
-			rs = par.executeQuery();
-
-			rs.last();
-			int num_rows = rs.getRow();
-
-			if(num_rows != 0) {
-				responseSession.setResponse(true);
-			} else {
-				responseSession.setResponse(false);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new CheckSessionFault_Exception("Something was wrong with Checking Session..");
-		} finally {
-			if (par != null) {
-				try {
-					par.close();
-				} catch (SQLException e) {
-				}
-			}
-			if (connection != null) {
-				try {
-					connection.close();
-				} catch (SQLException e) {}
-			}
-		}
-		return responseSession;
 	}
 
 	@Override
@@ -183,7 +138,8 @@ public class JDBCAttractionManagerServiceImpl implements AttractionManagerServic
 
 		return responseAttraction;
 	}
-
+	
+	// update attraction on db
 	@Override
 	public UpdateAttractionResponse updateAttraction(UpdateAttractionRequest parameters) throws UpdateAttractionFault_Exception {
 
@@ -193,12 +149,12 @@ public class JDBCAttractionManagerServiceImpl implements AttractionManagerServic
 		Attraction attraction = new Attraction();
 		Category category = new Category();
 		User creator = new User();
-
+		
+		// build attraction object using request parameters
 		attraction.setId(parameters.getId());
 		attraction.setName(parameters.getName());
 		attraction.setLocality(parameters.getLocality());
 
-		/*----SI DEVE CONTROLLARE CHE ID E NAME CORRISPONDONO PRIMA DI INSERIRE----*/
 		category.setId(parameters.getCategoryId());
 		category.setName(parameters.getCategoryName());
 		creator.setId(parameters.getCreatorId());
@@ -209,14 +165,16 @@ public class JDBCAttractionManagerServiceImpl implements AttractionManagerServic
 		attraction.setLat(parameters.getLat());
 		attraction.setLng(parameters.getLng());
 
-		/*-------------------------------------------------------------------------*/
 		UpdateAttractionResponse responseAttraction = new UpdateAttractionResponse();
 		try {
 
 			connection = dataSource.getConnection();
 			connection.setAutoCommit(false);
-
+			
+			// user requiring the update has to be its creator
 			if(check_creator(connection, attraction.getId(), attraction.getCreator().getId())) {	
+				
+				// if the user is its creator, then require the update on db
 				if(update(connection, attraction.getId(), attraction.getName(), attraction.getLocality(), attraction.getCategory().getId(), 
 						attraction.getCreator().getId(), attraction.getLat(), attraction.getLng())) {
 					result = "Attraction updated";
@@ -248,7 +206,7 @@ public class JDBCAttractionManagerServiceImpl implements AttractionManagerServic
 	}
 
 
-
+	// insert event on db
 	public boolean insert(Connection con, String name, String locality, Long idCategory, Long idCreator, String lat, String lng) {
 
 		String query = "INSERT INTO attractions (name, locality, id_category, id_creator, lat, lng) VALUES (?,?,?,?,?,?)";
@@ -281,7 +239,8 @@ public class JDBCAttractionManagerServiceImpl implements AttractionManagerServic
 			}
 		}
 	}
-
+	
+	// update event on db
 	public boolean update(Connection con, Long id, String name, String locality, Long idCategory, Long idCreator, String lat, String lng) {
 
 		String query = "UPDATE attractions SET name=?, locality=?, id_category=?, id_creator=?, lat=?, lng=? WHERE id=?";
@@ -316,7 +275,8 @@ public class JDBCAttractionManagerServiceImpl implements AttractionManagerServic
 			}
 		}
 	}
-
+	
+	// delete event from db
 	public boolean delete(Connection con, Long id) {
 
 		String query = "DELETE FROM attractions WHERE id = ?";
