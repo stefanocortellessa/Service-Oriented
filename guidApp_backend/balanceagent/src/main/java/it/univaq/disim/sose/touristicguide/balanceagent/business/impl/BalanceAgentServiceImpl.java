@@ -25,11 +25,16 @@ public class BalanceAgentServiceImpl implements BalanceAgentService {
 	// the score is used by the loadBalancer in order to choose the best current server 
 	@Override
 	public GetServerScoreResponse getServerScore(GetServerScoreRequest parameters)
-			throws GetServerScoreFault_Exception, MalformedObjectNameException {
+			throws GetServerScoreFault_Exception {
 		
 		GetServerScoreResponse response = new GetServerScoreResponse();
 		
-		response.setScore(getServersInfo());
+		try {
+			response.setScore(getServersInfo());
+		} catch (MalformedObjectNameException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		response.setMessage("Server score returned correctly");
 		
 		return response;

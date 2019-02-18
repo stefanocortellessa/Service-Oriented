@@ -163,7 +163,7 @@ public class ResearchController {
 		EventDetailResearchRequest request = new EventDetailResearchRequest();
 		
 		request.setId(id);
-				
+		
 		response = prosumer.eventDetailResearch(request);
 		return response;
 	}

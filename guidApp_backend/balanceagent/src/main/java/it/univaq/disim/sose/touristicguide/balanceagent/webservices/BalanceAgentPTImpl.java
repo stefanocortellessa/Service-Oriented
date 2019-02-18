@@ -1,7 +1,5 @@
 package it.univaq.disim.sose.touristicguide.balanceagent.webservices;
 
-import javax.management.MalformedObjectNameException;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +21,7 @@ public class BalanceAgentPTImpl implements BalanceAgentPT {
 
 	@Override
 	public GetServerScoreResponse getServerScore(GetServerScoreRequest parameters)
-			throws GetServerScoreFault_Exception, MalformedObjectNameException {
+			throws GetServerScoreFault_Exception {
 		
 		LOGGER.info("called Check Session in Insert Service");
 		

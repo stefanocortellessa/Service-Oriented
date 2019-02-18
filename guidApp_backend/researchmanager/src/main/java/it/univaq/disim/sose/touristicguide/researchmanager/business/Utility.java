@@ -4,6 +4,7 @@ import java.security.SecureRandom;
 
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.TimeZone;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
@@ -41,6 +42,7 @@ public class Utility {
 		XMLGregorianCalendar xmlCalendar = null;
 		try {
 			xmlCalendar = DatatypeFactory.newInstance().newXMLGregorianCalendar(gCalendar);
+			xmlCalendar.setTimezone(1);
 		} catch (DatatypeConfigurationException ex) {
 		}
 		return xmlCalendar;

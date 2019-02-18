@@ -147,7 +147,7 @@ import it.univaq.disim.sose.touristicguide.prosumer.business.ProsumerService;
 @Service
 public class WebServiceProsumerServiceImpl implements ProsumerService {
 	
-	//Method that returns the Server's port with higher score
+	//Method that returns the Server's url with higher score
 	public String getBestPort (String serviceName) {
 		
 		GetBestServerRequest loadRequest = new GetBestServerRequest();
@@ -164,30 +164,35 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 		return loadResponse.getServerPort();
 	}
 	
+	// requires user signup to the best AccountManager instance
 	@Override
 	public AccountSignupResponse userSignup(AccountSignupRequest request) throws AccountSignupFault_Exception {
 		
+		//first of all requires the best server instance for the accountManager
 		String bestPort = this.getBestPort("accountManager");
 		System.out.println("BEST PORT: " + bestPort);
+		// uses the best url returned by the LoadBalancer in order to request the service
 		String url = bestPort+"/accountmanager/services/accountmanager";
 		AccountSignupResponse response = new AccountSignupResponse();
 		AccountManagerService accountManagerService = new AccountManagerService();
 		AccountManagerPT accountManager = accountManagerService.getAccountManagerPort();
 		UserSignupRequest userSignupRequest = new UserSignupRequest();
 		
+		// dinamycally change the provider port to the one returned by the LoadBalancer
 		BindingProvider bp = (BindingProvider)accountManager;
 
 		bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
 		
+		// construct the request
 		userSignupRequest.setEmail(request.getEmail());
 		userSignupRequest.setName(request.getName());
 		userSignupRequest.setPassword(request.getPassword());
 		userSignupRequest.setSurname(request.getSurname());
 		
 		try {
-			
+			//requires the service to the correct provider
 			UserSignupResponse userSignupResponse = accountManager.userSignup(userSignupRequest);
-			
+			// construct the response for the routingRequest 
 			response.setId(userSignupResponse.getId());
 			response.setToken(userSignupResponse.getToken());
 			response.setMessage(userSignupResponse.getMessage());			
@@ -198,6 +203,7 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 		return response;
 	}
 	
+	// requires user login to the best AccountManager instance
 	@Override
 	public AccountLoginResponse userLogin(AccountLoginRequest request) throws AccountLoginFault_Exception {
 		
@@ -229,6 +235,7 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 		return response;
 	}
 
+	// requires user logout to the best AccountManager instance
 	@Override
 	public AccountLogoutResponse userLogout(AccountLogoutRequest request) throws AccountLogoutFault_Exception {
 		
@@ -257,7 +264,8 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 		}
 		return response;
 	}
-
+	
+	// requires check session to the best AccountManager instance
 	@Override
 	public AccountSessionResponse accountSession(AccountSessionRequest request) throws AccountSessionFault_Exception {
 		
@@ -286,7 +294,8 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 		}
 		return response;
 	}
-
+	
+	// requires insert event to the best EventManager instance
 	@Override
 	public EventInsertResponse eventInsert(EventInsertRequest request) throws EventInsertFault_Exception {
 		
@@ -824,7 +833,9 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 		}
 		return response;
 	}
- 
+	
+	// this method uses the external provider (google)
+	// given a location (string) it returns lat e long coordinates
 	@Override
 	public GoogleGeocodingResponse googleGeocoding(GoogleGeocodingRequest parameters)
 			throws GoogleGeocodingFault_Exception{
@@ -883,7 +894,9 @@ public class WebServiceProsumerServiceImpl implements ProsumerService {
 		
 		return response;
 	}
-
+	
+	//requires to the LoadBalancer the best server for the service in request
+	//the LoadBalancer returns the url of the best tomcat server
 	@Override
 	public GetBestServerResponse getBestServer(GetBestServerRequest request) throws GetBestServerFault_Exception {
 		
