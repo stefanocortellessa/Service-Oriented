@@ -1,0 +1,44 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Event Detail</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-card>
+        <ion-card-header>
+            <ion-card-title>{{eventDetail.title}}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+            <ion-img src="/assets/event.png"></ion-img>
+            <ion-list>
+                <ion-item>
+                    <ion-label>Locality</ion-label>
+                    {{eventDetail.locality}}
+                    <ion-icon name="pin" slot="end" (click)="loadMap()"></ion-icon>
+                </ion-item>
+                <ion-item>
+                    <ion-label>Start Date</ion-label>
+                    {{eventDetail.startDate}}
+                </ion-item>
+                <ion-item>
+                    <ion-label>End Date</ion-label>
+                    {{eventDetail.endDate}}
+                </ion-item>
+            </ion-list>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </ion-card-content>
+        <div class="map-wrapper">
+            <div id="map_center">
+            </div>
+            <div #map id="map"></div>
+        </div>
+    </ion-card>
+</ion-content>

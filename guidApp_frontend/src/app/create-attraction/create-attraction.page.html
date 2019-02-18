@@ -1,0 +1,36 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>Add Attraction</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-card>
+        <ion-img src="/assets/colosseum.jpg"></ion-img>
+        <ion-card-content>
+            <form [formGroup]="formAttraction" (ngSubmit)="saveAttractionRequest()">
+                <ion-item>
+                    <ion-label position="floating">Name</ion-label>
+                    <ion-input type="text" formControlName="name"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label position="floating">Locality</ion-label>
+                    <ion-input type="text" formControlName="locality"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label>Category</ion-label>
+                    <ion-select formControlName="category" okText="Okay" cancelText="Dismiss">
+                        <ion-select-option *ngFor="let category of categoriesList" value={{category.id}}>{{category.name}}</ion-select-option>
+                    </ion-select>
+                </ion-item>
+                <div padding>
+                    <ion-button type="submit" size="large" expand="block" [disabled]="!formAttraction.valid">Create</ion-button>
+                </div>
+                <notifier-container></notifier-container>
+            </form>
+        </ion-card-content>
+    </ion-card>
+</ion-content>

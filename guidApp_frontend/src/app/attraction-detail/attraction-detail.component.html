@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Event Detail</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>{{attractionDetail.name}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-img src="/assets/colosseum.jpg"></ion-img>
+      <ion-list>
+        <ion-item>
+          <ion-label>Locality</ion-label>
+          {{attractionDetail.locality}}
+          <ion-icon name="pin" slot="end" (click)="maps()"></ion-icon>
+        </ion-item>
+        <ion-item>
+          <ion-label>Category</ion-label>
+          {{eventDetail.categoryName}}
+        </ion-item>
+      </ion-list>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+      Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+      Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+
+
