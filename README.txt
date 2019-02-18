@@ -37,3 +37,9 @@ right click on project root -> properties -> deployment assembly -> add -> java 
 9) Run 'routingrequest' as Java Application (on port 8090).
 
 10) Use the mobile application (or use Postman to execute REST calls, or SoapUI to execute Soap calls).
+
+
+ARCHETYPE USAGE:
+
+1) run "mvn clean install" under /archetype/prosumerArchetype
+2) run in a empy folder the following command: "mvn archetype:generate -DgroupId=it.univaq.disim.sose.newprovider -DartifactId=archetypetest -DarchetypeArtifactId=guidApp_archetype -DarchetypeVersion=1.0.0-SNAPSHOT  -DarchetypeGroupId=it.univaq.disim.sose.touristicguide -DinteractiveMode=false -DarchetypeCatalog=local -DdbName=projectName -DartifactIdClass=ArchetypeTest -X"
